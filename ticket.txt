@@ -1,0 +1,11 @@
+DETALLE DE PEDIDO
+-----------------------------
+RAZON SOCIAL: COOP. URDINARRAIN
+PEDIDO: 231
+-----------------------------
+RNCyFS: 2161
+Fecha: 2023-11-06
+Rango: 15988001 - 15992000
+Serie: A
+Cantidad: 4000
+-----------------------------
