@@ -1012,19 +1012,18 @@ class VentanaPrincipal(QMainWindow):
 		
 		
 			if registro =="":
-				registro="%"
+				registro='%'
 			
 			if especie =="":
-				especie="%"
+				especie='%'
 				
 			if cultivar =="":
-				cultivar="%"
+				cultivar='%'
 		
 			if categoria =="":
-				categoria="%"
+				categoria='%'
 			
-			if camp =="":
-				camp="%"
+			
 			
 			
 				

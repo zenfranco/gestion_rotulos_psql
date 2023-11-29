@@ -39,7 +39,7 @@ class bdquery():
 		def incrementanpedido(self,numpedido):
 			
 			cur=self.conexion.cursor()
-			cur.execute("UPDATE Datos SET numpedido= (%s) WHERE indice = 1",[numpedido])
+			cur.execute('''UPDATE "Datos" SET numpedido= (%s) WHERE indice = 1''',[numpedido])
 			self.conexion.commit()
 			cur.close()
 		
@@ -52,15 +52,15 @@ class bdquery():
 				
 		def actualizarangoenbd(self,inicio,final,indice):
 			cur=self.conexion.cursor()
-			cur.execute("UPDATE Datos SET inicial = (%s) where indice=%s",[inicio,indice])
-			cur.execute("UPDATE Datos SET final = %s where indice=%s",[final,indice])
+			cur.execute('''UPDATE "Datos" SET inicial = (%s) where indice=%s''',[inicio,indice])
+			cur.execute('''UPDATE "Datos" SET final = %s where indice=%s''',[final,indice])
 			self.conexion.commit()
 			cur.close()
 			
 		def verpedido(self,rncyfs):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_pedido,disponibleinicio || "-" || disponiblefin,(disponiblefin-disponibleinicio+1)Stock, serie from pedidos
-			where rncyfs =%s and Stock !=0 order by disponibleinicio''',[rncyfs])
+			cur.execute('''select num_pedido,disponibleinicio || '-' || disponiblefin,disponiblefin-disponibleinicio+1, serie from pedidos
+			where rncyfs =%s and disponiblefin-disponibleinicio+1 !=0 order by disponibleinicio''',[rncyfs])
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
@@ -124,9 +124,9 @@ class bdquery():
 			
 		def listaxregistro(self,campo,radiobutton):
 			cur=self.conexion.cursor()
-			cur.execute('''select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||"-"|| p.fin,estado,IFNULL(s.cantidad,0),IFNULL(s.inicio|| "-" || s.fin,"SIN USAR"),
-			IFNULL((p.fin-s.fin),p.cantidad),IFNULL(kg,"N/D"),IFNULL(variedad,"N/D"),IFNULL(especie,"N/D"),IFNULL(categoria,"N/D"),IFNULL(camp,"N/D"),IFNULL(fecha_subpedido,"N/D")
-			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido
+			cur.execute('''select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||'-'|| p.fin,estado,coalesce(s.cantidad,0),coalesce(s.inicio|| '-' || s.fin,'SIN USAR'),
+			coalesce((p.fin-s.fin),p.cantidad),coalesce(kg,0),coalesce(variedad,''),coalesce(especie,''),coalesce(categoria,''),coalesce(camp,0),coalesce(fecha_subpedido,'')
+   			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido
 			WHERE rncyfs=%s and estado LIKE %s order by s.inicio''',[campo,radiobutton])
 			listado=cur.fetchall()
 			self.conexion.commit
@@ -135,9 +135,9 @@ class bdquery():
 		
 		def listaxregistrofecha(self,campo,radiobutton,fecha_desde,fecha_hasta):
 			cur=self.conexion.cursor()
-			cur.execute('''select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||"-"|| p.fin,estado,IFNULL(s.cantidad,0),IFNULL(s.inicio|| "-" || s.fin,"SIN USAR"),
-			IFNULL((p.fin-s.fin),p.cantidad),IFNULL(kg,"N/D"),IFNULL(variedad,"N/D"),IFNULL(especie,"N/D"),IFNULL(categoria,"N/D"),IFNULL(camp,"N/D"),IFNULL(fecha_subpedido,"N/D")
-			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido
+			cur.execute('''select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||'-'|| p.fin,estado,coalesce(s.cantidad,0),coalesce(s.inicio|| '-' || s.fin,'SIN USAR'),
+			coalesce((p.fin-s.fin),p.cantidad),coalesce(kg,0),coalesce(variedad,''),coalesce(especie,''),coalesce(categoria,''),coalesce(camp,0),coalesce(fecha_subpedido,'')
+   			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido
 			WHERE rncyfs=%s and estado LIKE %s and fecha_subpedido >= %s and fecha_subpedido <= %s order by s.inicio''',[campo,radiobutton,fecha_desde,fecha_hasta])
 			listado=cur.fetchall()
 			self.conexion.commit
@@ -146,9 +146,9 @@ class bdquery():
 		
 		def listaxpedido(self,campo,radiobutton):
 			cur=self.conexion.cursor()
-			cur.execute('''select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||"-"|| p.fin,estado,IFNULL(s.cantidad,0),IFNULL(s.inicio|| "-" || s.fin,"SIN USAR"),
-			IFNULL((p.fin-s.fin),p.cantidad),IFNULL(kg,"N/D"),IFNULL(variedad,"N/D"),IFNULL(especie,"N/D"),IFNULL(categoria,"N/D"),IFNULL(camp,"N/D"),IFNULL(fecha_subpedido,"N/D")
-			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido
+			cur.execute('''select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||'-'|| p.fin,estado,coalesce(s.cantidad,0),coalesce(s.inicio|| '-' || s.fin,'SIN USAR'),
+			coalesce((p.fin-s.fin),p.cantidad),coalesce(kg,0),coalesce(variedad,''),coalesce(especie,''),coalesce(categoria,''),coalesce(camp,0),coalesce(fecha_subpedido,'')
+   			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido
 			WHERE p.num_pedido=%s and estado LIKE %s order by s.inicio''',[campo,radiobutton])
 			listado=cur.fetchall()
 			self.conexion.commit
@@ -157,9 +157,9 @@ class bdquery():
 			
 		def listaxpedidofecha(self,campo,radiobutton,fecha_desde,fecha_hasta):
 			cur=self.conexion.cursor()
-			cur.execute('''select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||"-"|| p.fin,estado,IFNULL(s.cantidad,0),IFNULL(s.inicio|| "-" || s.fin,"SIN USAR"),
-			IFNULL((p.fin-s.fin),p.cantidad),IFNULL(kg,"N/D"),IFNULL(variedad,"N/D"),IFNULL(especie,"N/D"),IFNULL(categoria,"N/D"),IFNULL(camp,"N/D"),IFNULL(fecha_subpedido,"N/D")
-			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido
+			cur.execute('''select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||'-'|| p.fin,estado,coalesce(s.cantidad,0),coalesce(s.inicio|| '-' || s.fin,'SIN USAR'),
+			coalesce((p.fin-s.fin),p.cantidad),coalesce(kg,0),coalesce(variedad,''),coalesce(especie,''),coalesce(categoria,''),coalesce(camp,0),coalesce(fecha_subpedido,'')
+   			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido
 			WHERE p.num_pedido=%s and estado LIKE %s and fecha_subpedido >= %s and fecha_subpedido <= %s order by s.inicio''',[campo,radiobutton,fecha_desde,fecha_hasta])
 			listado=cur.fetchall()
 			self.conexion.commit
@@ -198,12 +198,13 @@ class bdquery():
 			
 		def listarrendicion(self,desde,hasta,registro,especie,cultivar,categoria,camp):
 			cur=self.conexion.cursor()
-			cur.execute(''' select s.inicio||" - "||s.fin,s.cantidad,s.num_reg,a.razon_social,kg,especie,variedad,categoria,camp,fecha_subpedido,s.num_pedido
+			cur.execute(''' select s.inicio||'-'||s.fin,s.cantidad,s.num_reg,a.razon_social,kg,especie,variedad,categoria,camp,fecha_subpedido,s.num_pedido
 			from subpedidos s
 			inner join asociados a
 			on a.num_reg = s.num_reg
 			where fecha_subpedido >= %s and fecha_subpedido <= %s and s.num_reg LIKE %s 
-			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp LIKE %s order by s.inicio''',([desde,hasta,registro,especie,cultivar,categoria,camp]))
+			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp =%s
+   			order by s.inicio''',([desde,hasta,registro,especie,cultivar,categoria,camp]))
 			listado = cur.fetchall()
 			self.conexion.commit()
 			cur.close()
@@ -250,7 +251,7 @@ class bdquery():
 			
 		def liberalocker(self,locker):
 			cur=self.conexion.cursor()
-			cur.execute('''UPDATE lockers SET estado = "Disponible",num_pedido="",fecha_ingreso="" WHERE num_locker =%s''',[locker])
+			cur.execute('''UPDATE lockers SET estado = 'Disponible',num_pedido=0,fecha_ingreso='' WHERE num_locker =%s''',[locker])
 				
 			self.conexion.commit()
 			cur.close()
@@ -272,8 +273,11 @@ class bdquery():
 			
 		def verlockers_filtrado(self,asociado):
 			cur=self.conexion.cursor()
-			cur.execute('''SELECT num_locker,l.num_pedido,disponibleinicio||" - "||disponiblefin,disponiblefin-disponibleinicio+1 cantidad,p.rncyfs,razon_social
-			from lockers l inner join pedidos p inner join asociados a on p.num_pedido=l.num_pedido and a.num_reg =p.rncyfs where razon_social LIKE %s order by num_locker''',([asociado]))
+			cur.execute('''SELECT num_locker,l.num_pedido,disponibleinicio||'-'||disponiblefin,disponiblefin-disponibleinicio+1 cantidad,p.rncyfs,razon_social
+			from lockers l inner join pedidos p ON p.num_pedido=l.num_pedido
+			inner join asociados a ON a.num_reg =p.rncyfs
+			where razon_social LIKE %s
+   			order by num_locker''',([asociado]))
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -355,7 +359,7 @@ class bdquery():
 			
 		def traenotas(self,indice):
 			cur=self.conexion.cursor()
-			cur.execute('''select IFNULL(observaciones,"") from gestiones where indice=%s''',([indice]))
+			cur.execute('''select coalesce(observaciones,"") from gestiones where indice=%s''',([indice]))
 			self.conexion.commit()
 			obs=cur.fetchone()
 			return obs
@@ -409,14 +413,14 @@ class bdquery():
 		
 		def cancelarrango(self,inicio):
 			cur=self.conexion.cursor()
-			cur.execute('''UPDATE rangos_disponibles SET (estado) = "TERMINADO" WHERE inicio = (%s)''',([inicio]))
+			cur.execute('''UPDATE rangos_disponibles SET estado = 'TERMINADO' WHERE inicio = (%s)''',([inicio]))
 			self.conexion.commit()
 			cur.close()
 			
 		def busquedaxrotulo(self,rotulo):
 			cur=self.conexion.cursor()
-			cur.execute(''' select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||"-"|| p.fin,estado,IFNULL(s.cantidad,0),IFNULL(s.inicio|| "-" || s.fin,"SIN USAR"),
-			IFNULL((p.fin-s.fin),p.cantidad),IFNULL(kg,"N/D"),IFNULL(variedad,"N/D"),IFNULL(especie,"N/D"),IFNULL(categoria,"N/D"),IFNULL(camp,"N/D"),IFNULL(fecha_subpedido,"N/D")
+			cur.execute(''' select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||"-"|| p.fin,estado,coalesce(s.cantidad,0),coalesce(s.inicio|| "-" || s.fin,"SIN USAR"),
+			coalesce((p.fin-s.fin),p.cantidad),coalesce(kg,"N/D"),coalesce(variedad,"N/D"),coalesce(especie,"N/D"),coalesce(categoria,"N/D"),coalesce(camp,"N/D"),coalesce(fecha_subpedido,"N/D")
 			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido 
 			WHERE %s BETWEEN p.inicio AND p.fin''',([rotulo]))
 			self.conexion.commit()

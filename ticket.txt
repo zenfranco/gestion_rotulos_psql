@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: COOP. URDINARRAIN
-PEDIDO: 231
+RAZON SOCIAL: CASEM
+PEDIDO: 239
 -----------------------------
-RNCyFS: 2161
-Fecha: 2023-11-06
-Rango: 15988001 - 15992000
+RNCyFS: 1111
+Fecha: 2023-11-29
+Rango: 15997001 - 16002000
 Serie: A
-Cantidad: 4000
+Cantidad: 5000
 -----------------------------
