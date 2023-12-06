@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: CASEM
-PEDIDO: 239
+RAZON SOCIAL: AFA MARCOS JUAREZ
+PEDIDO: 242
 -----------------------------
-RNCyFS: 1111
-Fecha: 2023-11-29
-Rango: 15997001 - 16002000
+RNCyFS: 314
+Fecha: 2023-12-06
+Rango: 16003001 - 16004000
 Serie: A
-Cantidad: 5000
+Cantidad: 1000
 -----------------------------

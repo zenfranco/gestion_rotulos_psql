@@ -766,7 +766,7 @@ class VentanaPrincipal(QMainWindow):
 			self.tb_gestiones.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
 			self.tb_gestiones.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
 			self.tb_gestiones.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
-			self.tb_gestiones.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+			
 									
 			fila=fila+1
 		self.signal_gestiones.setText(str(totalfilas))
@@ -1154,7 +1154,7 @@ class VentanaPrincipal(QMainWindow):
 			
 			book.save('rendicion_subpedidos.xls')
 			
-			
+			c.cartel("RENDICION","RENDICION GENERADA",1)
 			
 			
 		else:

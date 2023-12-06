@@ -212,7 +212,7 @@ class bdquery():
 			
 		def listarrendicionsolopedidos(self,desde,hasta,registro):
 			cur=self.conexion.cursor()
-			cur.execute(''' select inicio||" - "||fin,cantidad,p.rncyfs,a.razon_social,fecha_pedido,num_pedido from pedidos p
+			cur.execute(''' select inicio|| '-'||fin,cantidad,p.rncyfs,a.razon_social,fecha_pedido,num_pedido from pedidos p
 			inner join asociados a on a.num_reg = p.rncyfs where fecha_pedido >= %s and fecha_pedido <= %s and p.rncyfs LIKE %s 
 			order by inicio''',([desde,hasta,registro]))
 			listado = cur.fetchall()
@@ -340,8 +340,8 @@ class bdquery():
 			
 		def traergestiones(self,estado,nombre):
 			cur=self.conexion.cursor()
-			cur.execute('''select razon_social,estado,cantidad,(JulianDay(date()) - JulianDay(fecha_inicio)) demora,tipo,fecha_inicio, indice from gestiones g
-			inner join asociados a on a.num_reg = g.num_reg where estado LIKE %s and razon_social LIKE %s order by demora ASC ''',([estado, nombre]))
+			cur.execute('''select razon_social,estado,cantidad,'',tipo,fecha_inicio, indice from gestiones g
+			inner join asociados a on a.num_reg = g.num_reg where estado LIKE %s and razon_social LIKE %s order by fecha_inicio ''',([estado, nombre]))
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -349,7 +349,7 @@ class bdquery():
 		
 		def traergestionesActivas(self,estado,nombre):
 			cur=self.conexion.cursor()
-			cur.execute('''select razon_social,estado,cantidad,'demora',tipo,fecha_inicio, indice from gestiones g
+			cur.execute('''select razon_social,estado,cantidad,'',tipo,fecha_inicio, indice from gestiones g
 			inner join asociados a on a.num_reg = g.num_reg
    			where estado LIKE %s and estado != 'FINALIZADO'  and razon_social LIKE %s order by fecha_inicio ASC ''',([estado, nombre]))
 			self.conexion.commit()
@@ -359,7 +359,7 @@ class bdquery():
 			
 		def traenotas(self,indice):
 			cur=self.conexion.cursor()
-			cur.execute('''select coalesce(observaciones,"") from gestiones where indice=%s''',([indice]))
+			cur.execute('''select coalesce(observaciones,'') from gestiones where indice=%s''',([indice]))
 			self.conexion.commit()
 			obs=cur.fetchone()
 			return obs
@@ -419,8 +419,8 @@ class bdquery():
 			
 		def busquedaxrotulo(self,rotulo):
 			cur=self.conexion.cursor()
-			cur.execute(''' select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||"-"|| p.fin,estado,coalesce(s.cantidad,0),coalesce(s.inicio|| "-" || s.fin,"SIN USAR"),
-			coalesce((p.fin-s.fin),p.cantidad),coalesce(kg,"N/D"),coalesce(variedad,"N/D"),coalesce(especie,"N/D"),coalesce(categoria,"N/D"),coalesce(camp,"N/D"),coalesce(fecha_subpedido,"N/D")
+			cur.execute(''' select p.num_pedido,(p.cantidad)Cantidad_Original,p.inicio ||'-'|| p.fin,estado,coalesce(s.cantidad,0),coalesce(s.inicio|| '-' || s.fin,'SIN USAR'),
+			coalesce((p.fin-s.fin),p.cantidad),coalesce(kg,0),coalesce(variedad,''),coalesce(especie,''),coalesce(categoria,''),coalesce(camp,0),coalesce(fecha_subpedido,'')
 			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido 
 			WHERE %s BETWEEN p.inicio AND p.fin''',([rotulo]))
 			self.conexion.commit()
@@ -485,7 +485,7 @@ class bdquery():
 			
 		def actualizar_stock(self,cantidad,indice):
 			cur=self.conexion.cursor()
-			cur.execute('''UPDATE stock_rotulos SET (cantidad)= (%s) WHERE (indice) =(%s)''',([cantidad,indice]))
+			cur.execute('''UPDATE stock_rotulos SET cantidad= %s WHERE indice =%s''',([cantidad,indice]))
 			self.conexion.commit()
 			cur.close()
 			
