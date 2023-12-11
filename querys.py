@@ -168,7 +168,7 @@ class bdquery():
 			
 		def listaraexcell(self,campo):
 			cur=self.conexion.cursor()
-			cur.execute('''select p.num_pedido,(s.cantidad)Cantidad_Solicitada,s.inicio|| "-" || s.fin,variedad,especie,categoria,kg
+			cur.execute('''select p.num_pedido,(s.cantidad)Cantidad_Solicitada,s.inicio|| '-' || s.fin,variedad,especie,categoria,kg
 			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido WHERE p.num_pedido=%s order by s.inicio''',[campo])
 			listado=cur.fetchall()
 			self.conexion.commit
@@ -177,7 +177,7 @@ class bdquery():
 		
 		def listaraexcellall(self,campo):
 			cur=self.conexion.cursor()
-			cur.execute('''select p.num_pedido,(s.cantidad)Cantidad_Solicitada,s.inicio|| "-" || s.fin,variedad,especie,categoria,kg
+			cur.execute('''select p.num_pedido,(s.cantidad)Cantidad_Solicitada,s.inicio|| '-' || s.fin,variedad,especie,categoria,kg
 			from pedidos p left join subpedidos s on p.num_pedido = s.num_pedido WHERE p.rncyfs=%s order by s.inicio''',[campo])
 			listado=cur.fetchall()
 			self.conexion.commit
