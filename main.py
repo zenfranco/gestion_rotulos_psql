@@ -50,6 +50,7 @@ class VentanaPrincipal(QMainWindow):
 		
 		self.rb_seriea.clicked.connect(self.iniciarpedido)
 		self.rb_serieb.clicked.connect(self.iniciarpedido)
+		self.rb_estampillas.clicked.connect(self.gestion_estampillas)
 		
 		
 			
@@ -174,7 +175,9 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_refresh_envios.clicked.connect(self.traerenvios)
 		
 		
-	
+		#PAGINA ESTAMPILLAS
+		self.combo_asociados_estampillas.activated.connect(self.traeregistroestampillas)
+		self.btn_ingresar_estampillas.clicked.connect(self.asigna_estampillas)
 	
 		
 	def llenarcombo(self):
@@ -189,6 +192,7 @@ class VentanaPrincipal(QMainWindow):
 			self.cb_razonsocial_rotulos.addItem("".join(asociados[k]))
 			self.cb_razonsocial.addItem("".join(asociados[k]))
 			self.combo_asociados_gestiones.addItem("".join(asociados[k]))
+			self.combo_asociados_estampillas.addItem("".join(asociados[k]))
 			k=k+1
 		
 		
@@ -220,7 +224,23 @@ class VentanaPrincipal(QMainWindow):
 		self.signal_inicial.setText(str(INICIAL))
 		self.signal_final.setText(str(FINAL))
 		
-				
+	def gestion_estampillas(self):
+		global ESTAMPILLA_INICIAL
+		global ESTAMPILLA_FINAL
+
+		if self.rb_estampillas.isChecked():
+			indice =4
+		else:
+			indice =5
+
+		rango_recuperado =q.recuperarango(indice)
+		self.signal_estampillas.setText(str(rango_recuperado[0]))
+		self.signal_estampillas_final.setText(str(rango_recuperado[1]))
+		ESTAMPILLA_INICIAL=int(rango_recuperado[0])
+		ESTAMPILLA_FINAL=int(rango_recuperado[1])
+
+
+			
 		
 	def traeregistro(self):
 		nombre = str(self.combo_asociados.currentText())
@@ -257,6 +277,15 @@ class VentanaPrincipal(QMainWindow):
 		
 			
 		self.txt_rncyfs_rotulos.setText("".join(recuperado))
+
+	def traeregistroestampillas(self):
+		nombre = str(self.combo_asociados_estampillas.currentText())
+		
+		
+		recuperado=q.getrncyfs(nombre)
+		
+			
+		self.signal_rncyfs_estampillas.setText("".join(recuperado))
 	
 	def traeregistrogestiones(self):
 		nombre = str(self.combo_asociados_gestiones.currentText())
@@ -404,6 +433,38 @@ class VentanaPrincipal(QMainWindow):
 		else:
 			
 			c.cartel("ERROR","INGRESE CANTIDAD",3)
+
+
+	def asigna_estampillas(self):
+		global ESTAMPILLA_INICIAL
+		global ESTAMPILLA_FINAL
+		rncyfs=str(self.signal_rncyfs_estampillas.text())
+		dav= int(self.txt_dav.text())
+		especie=str(self.txt_estampillas_especie.text())
+		categoria =str(self.txt_categoria_estampillas.text())
+		campana = int(self.txt_campana_estampillas.text())
+		cantidad =int(self.txt_cantidad_estampillas.text())
+		variedad =str(self.txt_variedad_estampillas.text())
+		
+		inicial =ESTAMPILLA_INICIAL
+		final =(ESTAMPILLA_INICIAL+cantidad)-1
+		if self.rb_estampillas.isChecked():
+			indice=4
+		else:
+			indice=5
+
+		estampilla_siguiente=final+1
+		ultima_estampilla=int(ESTAMPILLA_FINAL)
+		
+		
+		
+		
+		q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final)
+
+		q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
+
+		q.gestion_estampillas()
+
 			
 	def imprimirticket(self):
 			os.startfile("ticket.txt", "print")
@@ -1935,6 +1996,7 @@ if __name__ == '__main__':
 	MyWindow.listarasociados()
 	MyWindow.traepedidos()
 	MyWindow.listarlockers()
+	MyWindow.gestion_estampillas()
 	MyWindow.show()
 	app.exec_()
 	

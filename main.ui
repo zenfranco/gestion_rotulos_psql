@@ -462,7 +462,7 @@ border-radius:15px;
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>10</number>
        </property>
        <widget class="QWidget" name="p_inicio">
         <widget class="QFrame" name="frame_7">
@@ -9951,6 +9951,19 @@ border-radius:15px;
              <string>Nº RNCyFS</string>
             </property>
            </widget>
+           <widget class="QLabel" name="signal_rncyfs_estampillas">
+            <property name="geometry">
+             <rect>
+              <x>70</x>
+              <y>50</y>
+              <width>61</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Nº RNCyFS</string>
+            </property>
+           </widget>
           </widget>
          </widget>
          <widget class="QFrame" name="frame_89">
@@ -10046,10 +10059,23 @@ border-radius:15px;
             </property>
            </widget>
           </widget>
-          <widget class="QLabel" name="label_63">
+          <widget class="QLabel" name="signal_estampillas">
            <property name="geometry">
             <rect>
              <x>100</x>
+             <y>30</y>
+             <width>81</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="signal_estampillas_final">
+           <property name="geometry">
+            <rect>
+             <x>180</x>
              <y>30</y>
              <width>81</width>
              <height>16</height>
