@@ -178,6 +178,8 @@ class VentanaPrincipal(QMainWindow):
 		#PAGINA ESTAMPILLAS
 		self.combo_asociados_estampillas.activated.connect(self.traeregistroestampillas)
 		self.btn_ingresar_estampillas.clicked.connect(self.asigna_estampillas)
+		self.rb_estampillas.clicked.connect(self.refresh_estampillas)
+		self.rb_anexo.clicked.connect(self.refresh_estampillas)
 	
 		
 	def llenarcombo(self):
@@ -486,27 +488,54 @@ class VentanaPrincipal(QMainWindow):
 		
 	def ver_estampillas(self):
 
-		listarecuperada=q.recuperaEstampillas()
-		totalfilas=len(listarecuperada)
-		self.tb_estampillas.setRowCount(totalfilas)
-			
-			
-		fila =0
-		
-		for i in listarecuperada:
-			self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
-			self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
-			self.tb_estampillas.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
-			self.tb_estampillas.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
-			self.tb_estampillas.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
-			self.tb_estampillas.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
-			self.tb_estampillas.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
-			self.tb_estampillas.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
-			self.tb_estampillas.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
-			self.tb_estampillas.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
-			
+		if self.rb_estampillas.isChecked():
+
+			listarecuperada=q.recuperaEstampillas()
+			totalfilas=len(listarecuperada)
+			self.tb_estampillas.setRowCount(totalfilas)
 				
-			fila=fila+1
+				
+			fila =0
+			
+			for i in listarecuperada:
+				self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+				self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+				self.tb_estampillas.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
+				self.tb_estampillas.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
+				self.tb_estampillas.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
+				self.tb_estampillas.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
+				self.tb_estampillas.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+				self.tb_estampillas.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
+				self.tb_estampillas.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
+				self.tb_estampillas.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
+				
+					
+				fila=fila+1
+		else:
+
+			listarecuperada=q.recuperaAnexos()
+			totalfilas=len(listarecuperada)
+			self.tb_estampillas.setRowCount(totalfilas)
+				
+				
+			fila =0
+			
+			for i in listarecuperada:
+				self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+				self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+				self.tb_estampillas.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
+				self.tb_estampillas.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
+				self.tb_estampillas.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
+				self.tb_estampillas.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
+				self.tb_estampillas.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+				self.tb_estampillas.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
+				self.tb_estampillas.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
+				self.tb_estampillas.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
+				
+					
+				fila=fila+1
+
+
 
 	
 	def verpedidos(self):
