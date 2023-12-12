@@ -50,7 +50,7 @@ class VentanaPrincipal(QMainWindow):
 		
 		self.rb_seriea.clicked.connect(self.iniciarpedido)
 		self.rb_serieb.clicked.connect(self.iniciarpedido)
-		self.rb_estampillas.clicked.connect(self.gestion_estampillas)
+		self.rb_estampillas.clicked.connect(self.refresh_estampillas)
 		
 		
 			
@@ -224,7 +224,7 @@ class VentanaPrincipal(QMainWindow):
 		self.signal_inicial.setText(str(INICIAL))
 		self.signal_final.setText(str(FINAL))
 		
-	def gestion_estampillas(self):
+	def refresh_estampillas(self):
 		global ESTAMPILLA_INICIAL
 		global ESTAMPILLA_FINAL
 
@@ -440,12 +440,15 @@ class VentanaPrincipal(QMainWindow):
 		global ESTAMPILLA_FINAL
 		rncyfs=str(self.signal_rncyfs_estampillas.text())
 		dav= int(self.txt_dav.text())
-		especie=str(self.txt_estampillas_especie.text())
+		especie=str(self.txt_estampillas_especie.currentText())
 		categoria =str(self.txt_categoria_estampillas.text())
-		campana = int(self.txt_campana_estampillas.text())
+		campana = int(self.txt_campana_estampillas.currentText())
 		cantidad =int(self.txt_cantidad_estampillas.text())
 		variedad =str(self.txt_variedad_estampillas.text())
+		envase=int(self.txt_envase_estampillas.text())
 		
+		#inicial y final corresponden a la gestion:
+		#falta validar cantidad con un if: si ESTAMPILLA_FINAL-ESTAMPILLA_INICIAL > CANTIDAD
 		inicial =ESTAMPILLA_INICIAL
 		final =(ESTAMPILLA_INICIAL+cantidad)-1
 		if self.rb_estampillas.isChecked():
@@ -453,18 +456,20 @@ class VentanaPrincipal(QMainWindow):
 		else:
 			indice=5
 
+		#DATOS PARA ACTUALIZAR RANGO GENERAL DE ESTAMPILLAS
 		estampilla_siguiente=final+1
 		ultima_estampilla=int(ESTAMPILLA_FINAL)
 		
 		
 		
 		
-		q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final)
+		q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,date.today())
 
 		q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
 
-		q.gestion_estampillas()
-
+		self.refresh_estampillas()
+		self.ver_estampillas()
+	
 			
 	def imprimirticket(self):
 			os.startfile("ticket.txt", "print")
@@ -479,7 +484,30 @@ class VentanaPrincipal(QMainWindow):
 		self.txt_subvariedad.setText("")
 		
 		
+	def ver_estampillas(self):
+
+		listarecuperada=q.recuperaEstampillas()
+		totalfilas=len(listarecuperada)
+		self.tb_estampillas.setRowCount(totalfilas)
+			
+			
+		fila =0
 		
+		for i in listarecuperada:
+			self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+			self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+			self.tb_estampillas.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
+			self.tb_estampillas.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
+			self.tb_estampillas.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
+			self.tb_estampillas.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
+			self.tb_estampillas.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+			self.tb_estampillas.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
+			self.tb_estampillas.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
+			self.tb_estampillas.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
+			
+				
+			fila=fila+1
+
 	
 	def verpedidos(self):
 		
@@ -1996,7 +2024,8 @@ if __name__ == '__main__':
 	MyWindow.listarasociados()
 	MyWindow.traepedidos()
 	MyWindow.listarlockers()
-	MyWindow.gestion_estampillas()
+	MyWindow.refresh_estampillas()
+	MyWindow.ver_estampillas()
 	MyWindow.show()
 	app.exec_()
 	

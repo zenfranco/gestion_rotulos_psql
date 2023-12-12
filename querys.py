@@ -19,6 +19,12 @@ class bdquery():
 			cur.execute("INSERT INTO subpedidos (num_pedido,num_reg,cantidad,inicio,fin,kg,variedad,especie,categoria,camp,fecha_subpedido) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[numpedido,registro,cantidad,inicio,fin,kg,variedad,especie,categoria,camp,fechasubpedido])
 			self.conexion.commit()
 			cur.close()
+
+		def carga_estampillas (self,rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,fecha):
+			cur=self.conexion.cursor()
+			cur.execute("insert into estampillas (rncyfs,dav,especie,categoria,camp,cantidad,variedad,inicio,fin,envase,fecha) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,fecha] )
+			self.conexion.commit()
+			cur.close()
 			
 		def recuperabd(): #recuperar numero de pedido y rango general
 			#self.conexion.execute("select numpedido,inicio,final from Datos")
@@ -65,6 +71,15 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 			return listapedidos
+		
+		def recuperaEstampillas(self):
+			cur=self.conexion.cursor()
+			cur.execute('''select * from estampillas order by inicio''')
+			listapedidos=cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listapedidos
+
 			
 			
 		def getpedido(self,numpedido):
