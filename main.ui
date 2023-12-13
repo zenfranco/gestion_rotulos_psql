@@ -74,7 +74,23 @@ border-radius:15px;
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-radius:15px;</string>
+     <string notr="true">QFrame{
+border-radius:15px;
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(208, 208, 208, 255));
+
+}
+
+QPushButton{
+
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 156, 156, 255));
+
+}
+QPushButton:hover{
+color: rgb(255, 255, 255);
+
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.147727 rgba(0, 0, 0, 255), stop:1 rgba(255, 216, 216, 255));
+
+}</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -85,8 +101,8 @@ border-radius:15px;
     <widget class="QPushButton" name="btn_nuevagestion">
      <property name="geometry">
       <rect>
-       <x>14</x>
-       <y>29</y>
+       <x>15</x>
+       <y>38</y>
        <width>160</width>
        <height>40</height>
       </rect>
@@ -115,10 +131,6 @@ border-radius:15px;
      <property name="text">
       <string> Gestiones</string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>icons/gestion.png</normaloff>icons/gestion.png</iconset>
-     </property>
      <property name="iconSize">
       <size>
        <width>32</width>
@@ -129,8 +141,8 @@ border-radius:15px;
     <widget class="QPushButton" name="btn_nuevopedido">
      <property name="geometry">
       <rect>
-       <x>14</x>
-       <y>103</y>
+       <x>15</x>
+       <y>102</y>
        <width>160</width>
        <height>40</height>
       </rect>
@@ -159,10 +171,6 @@ border-radius:15px;
      <property name="text">
       <string>Pedidos</string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>icons/roll.png</normaloff>icons/roll.png</iconset>
-     </property>
      <property name="iconSize">
       <size>
        <width>40</width>
@@ -173,8 +181,8 @@ border-radius:15px;
     <widget class="QPushButton" name="btn_nuevosubpedido">
      <property name="geometry">
       <rect>
-       <x>14</x>
-       <y>177</y>
+       <x>15</x>
+       <y>166</y>
        <width>160</width>
        <height>40</height>
       </rect>
@@ -197,10 +205,6 @@ border-radius:15px;
      <property name="text">
       <string>Subpedidos</string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>icons/subpedidos.png</normaloff>icons/subpedidos.png</iconset>
-     </property>
      <property name="iconSize">
       <size>
        <width>32</width>
@@ -211,8 +215,8 @@ border-radius:15px;
     <widget class="QPushButton" name="btn_listar">
      <property name="geometry">
       <rect>
-       <x>14</x>
-       <y>251</y>
+       <x>15</x>
+       <y>294</y>
        <width>160</width>
        <height>40</height>
       </rect>
@@ -235,10 +239,6 @@ border-radius:15px;
      <property name="text">
       <string>Listar </string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>icons/listar.png</normaloff>icons/listar.png</iconset>
-     </property>
      <property name="iconSize">
       <size>
        <width>32</width>
@@ -249,8 +249,8 @@ border-radius:15px;
     <widget class="QPushButton" name="btn_deposito">
      <property name="geometry">
       <rect>
-       <x>14</x>
-       <y>325</y>
+       <x>15</x>
+       <y>358</y>
        <width>160</width>
        <height>40</height>
       </rect>
@@ -273,10 +273,6 @@ border-radius:15px;
      <property name="text">
       <string>Lockers</string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>icons/lockers2.png</normaloff>icons/lockers2.png</iconset>
-     </property>
      <property name="iconSize">
       <size>
        <width>32</width>
@@ -287,8 +283,8 @@ border-radius:15px;
     <widget class="QPushButton" name="btn_rotulos">
      <property name="geometry">
       <rect>
-       <x>14</x>
-       <y>399</y>
+       <x>15</x>
+       <y>422</y>
        <width>160</width>
        <height>40</height>
       </rect>
@@ -311,10 +307,6 @@ border-radius:15px;
      <property name="text">
       <string>Rótulos</string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>icons/rotulo.png</normaloff>icons/rotulo.png</iconset>
-     </property>
      <property name="iconSize">
       <size>
        <width>32</width>
@@ -325,8 +317,8 @@ border-radius:15px;
     <widget class="QPushButton" name="btn_rendicion">
      <property name="geometry">
       <rect>
-       <x>14</x>
-       <y>473</y>
+       <x>15</x>
+       <y>486</y>
        <width>160</width>
        <height>40</height>
       </rect>
@@ -349,10 +341,6 @@ border-radius:15px;
      <property name="text">
       <string>Rendición</string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>icons/rendicion.png</normaloff>icons/rendicion.png</iconset>
-     </property>
      <property name="iconSize">
       <size>
        <width>32</width>
@@ -363,8 +351,8 @@ border-radius:15px;
     <widget class="QPushButton" name="btn_configuracion">
      <property name="geometry">
       <rect>
-       <x>14</x>
-       <y>621</y>
+       <x>15</x>
+       <y>614</y>
        <width>160</width>
        <height>40</height>
       </rect>
@@ -387,10 +375,6 @@ border-radius:15px;
      <property name="text">
       <string>Configuracion</string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>icons/settings.png</normaloff>icons/settings.png</iconset>
-     </property>
      <property name="iconSize">
       <size>
        <width>32</width>
@@ -401,8 +385,8 @@ border-radius:15px;
     <widget class="QPushButton" name="btn_envios">
      <property name="geometry">
       <rect>
-       <x>14</x>
-       <y>547</y>
+       <x>15</x>
+       <y>550</y>
        <width>160</width>
        <height>40</height>
       </rect>
@@ -425,9 +409,39 @@ border-radius:15px;
      <property name="text">
       <string>Envios</string>
      </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>icons/envios.png</normaloff>icons/envios.png</iconset>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_estampillas">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>230</y>
+       <width>160</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>160</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>160</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Estampillas</string>
      </property>
      <property name="iconSize">
       <size>
@@ -462,7 +476,7 @@ border-radius:15px;
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>10</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="p_inicio">
         <widget class="QFrame" name="frame_7">
@@ -5107,7 +5121,7 @@ border-radius:15px;
            <rect>
             <x>20</x>
             <y>60</y>
-            <width>321</width>
+            <width>431</width>
             <height>231</height>
            </rect>
           </property>
@@ -5161,7 +5175,7 @@ border-radius:15px;
          <widget class="QFrame" name="frame_20">
           <property name="geometry">
            <rect>
-            <x>350</x>
+            <x>460</x>
             <y>80</y>
             <width>111</width>
             <height>71</height>
@@ -5214,7 +5228,7 @@ font-size:14px;
          <widget class="QPushButton" name="btn_ver_rangos">
           <property name="geometry">
            <rect>
-            <x>350</x>
+            <x>460</x>
             <y>43</y>
             <width>111</width>
             <height>21</height>
@@ -5241,7 +5255,7 @@ background-color: rgb(212, 141, 105);
          <widget class="QFrame" name="frame_23">
           <property name="geometry">
            <rect>
-            <x>350</x>
+            <x>460</x>
             <y>160</y>
             <width>111</width>
             <height>131</height>
@@ -5362,7 +5376,7 @@ font-size:14px;
          <widget class="QFrame" name="frame_29">
           <property name="geometry">
            <rect>
-            <x>480</x>
+            <x>590</x>
             <y>50</y>
             <width>261</width>
             <height>101</height>
@@ -5480,7 +5494,7 @@ background-color: rgb(212, 141, 105);
            <rect>
             <x>10</x>
             <y>0</y>
-            <width>751</width>
+            <width>851</width>
             <height>21</height>
            </rect>
           </property>
@@ -5524,7 +5538,7 @@ border-radius:15px;
          <widget class="QFrame" name="frame_51">
           <property name="geometry">
            <rect>
-            <x>480</x>
+            <x>590</x>
             <y>45</y>
             <width>261</width>
             <height>16</height>
@@ -5561,7 +5575,7 @@ border-radius:15px;
          <widget class="QFrame" name="frame_52">
           <property name="geometry">
            <rect>
-            <x>350</x>
+            <x>460</x>
             <y>71</y>
             <width>111</width>
             <height>16</height>
@@ -5598,7 +5612,7 @@ border-radius:15px;
          <widget class="QFrame" name="frame_53">
           <property name="geometry">
            <rect>
-            <x>350</x>
+            <x>460</x>
             <y>160</y>
             <width>111</width>
             <height>16</height>
@@ -5769,7 +5783,7 @@ border-radius:15px;
          <widget class="QFrame" name="frame_56">
           <property name="geometry">
            <rect>
-            <x>480</x>
+            <x>590</x>
             <y>160</y>
             <width>261</width>
             <height>131</height>
@@ -5931,7 +5945,7 @@ border-radius:15px;
            <rect>
             <x>20</x>
             <y>44</y>
-            <width>321</width>
+            <width>431</width>
             <height>16</height>
            </rect>
           </property>
@@ -5949,7 +5963,7 @@ border-radius:15px;
           <widget class="QLabel" name="label_140">
            <property name="geometry">
             <rect>
-             <x>80</x>
+             <x>170</x>
              <y>-1</y>
              <width>111</width>
              <height>16</height>
@@ -6230,6 +6244,205 @@ border-radius:15px;
            </property>
            <property name="text">
             <string>Agregar variedades</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QFrame" name="frame_96">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>570</y>
+            <width>411</width>
+            <height>161</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QFrame
+{
+background-color: rgb(207, 207, 207);
+}
+QPushButton{
+border-radius:15px;
+background:#DBC9D4;
+font-family: Calibri;
+font-size:14px;
+}</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QPushButton" name="btn_componer_rango">
+           <property name="geometry">
+            <rect>
+             <x>230</x>
+             <y>120</y>
+             <width>121</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+background-color: rgb(255, 170, 127);
+
+}
+QPushButton:hover{
+background-color: rgb(212, 141, 105);
+
+}</string>
+           </property>
+           <property name="text">
+            <string>Componer</string>
+           </property>
+          </widget>
+          <widget class="QFrame" name="frame_97">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>411</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background:grey;
+border-radius:15px;
+</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLabel" name="label_159">
+            <property name="geometry">
+             <rect>
+              <x>130</x>
+              <y>-1</y>
+              <width>131</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:rgb(255, 255, 255);</string>
+            </property>
+            <property name="text">
+             <string>Componer Rangos Vigentes</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QRadioButton" name="rb_serieA_componer">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>30</y>
+             <width>82</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Serie A</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="rb_serieB_componer">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>60</y>
+             <width>82</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Serie B</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="rb_estampillas_componer">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>86</y>
+             <width>131</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Estampillas Oficiales</string>
+           </property>
+          </widget>
+          <widget class="QRadioButton" name="rb_anexo_componer">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>115</y>
+             <width>131</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Anexo I</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="txt_inicio_componer">
+           <property name="geometry">
+            <rect>
+             <x>235</x>
+             <y>45</y>
+             <width>113</width>
+             <height>21</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_101">
+           <property name="geometry">
+            <rect>
+             <x>236</x>
+             <y>27</y>
+             <width>81</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Rótulo Inicial</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="txt_final_componer">
+           <property name="geometry">
+            <rect>
+             <x>235</x>
+             <y>85</y>
+             <width>113</width>
+             <height>21</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_103">
+           <property name="geometry">
+            <rect>
+             <x>236</x>
+             <y>67</y>
+             <width>81</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Rótulo Final</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_traer_rangos">
+           <property name="geometry">
+            <rect>
+             <x>170</x>
+             <y>60</y>
+             <width>31</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>-&gt;</string>
            </property>
           </widget>
          </widget>

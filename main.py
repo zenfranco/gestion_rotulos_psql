@@ -39,6 +39,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_rotulos.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_rotulos)) #cambia de pagina
 		self.btn_nuevagestion.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_gestion)) #cambia de pagina
 		self.btn_envios.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_envios))
+		self.btn_estampillas.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_estampillas))
 		self.btn_nuevopedido.clicked.connect(self.iniciarpedido)
 		
 		#FUNCION DE LOS BOTONES
@@ -87,6 +88,8 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_definir_rango.clicked.connect(self.setearrango)
 		self.tb_rangos.itemDoubleClicked.connect(self.rangoselected)
 		self.btn_terminar_rango.clicked.connect(self.bajaderango)
+		self.btn_componer_rango.clicked.connect(self.componer_rango)
+		self.btn_traer_rangos.clicked.connect(self.traeRango)
 		
 		#PROPIEDADES
 		self.txt_indice_rotulos.hide()
@@ -240,6 +243,8 @@ class VentanaPrincipal(QMainWindow):
 		self.signal_estampillas_final.setText(str(rango_recuperado[1]))
 		ESTAMPILLA_INICIAL=int(rango_recuperado[0])
 		ESTAMPILLA_FINAL=int(rango_recuperado[1])
+
+		self.ver_estampillas()
 
 
 			
@@ -440,37 +445,101 @@ class VentanaPrincipal(QMainWindow):
 	def asigna_estampillas(self):
 		global ESTAMPILLA_INICIAL
 		global ESTAMPILLA_FINAL
-		rncyfs=str(self.signal_rncyfs_estampillas.text())
-		dav= int(self.txt_dav.text())
-		especie=str(self.txt_estampillas_especie.currentText())
-		categoria =str(self.txt_categoria_estampillas.text())
-		campana = int(self.txt_campana_estampillas.currentText())
-		cantidad =int(self.txt_cantidad_estampillas.text())
-		variedad =str(self.txt_variedad_estampillas.text())
-		envase=int(self.txt_envase_estampillas.text())
-		
-		#inicial y final corresponden a la gestion:
-		#falta validar cantidad con un if: si ESTAMPILLA_FINAL-ESTAMPILLA_INICIAL > CANTIDAD
-		inicial =ESTAMPILLA_INICIAL
-		final =(ESTAMPILLA_INICIAL+cantidad)-1
-		if self.rb_estampillas.isChecked():
-			indice=4
+
+		if self.signal_rncyfs_estampillas.text():
+
+			rncyfs=str(self.signal_rncyfs_estampillas.text())
+			
+			especie=str(self.txt_estampillas_especie.currentText())
+			
+			campana = int(self.txt_campana_estampillas.currentText())
+			cantidad =int(self.txt_cantidad_estampillas.text())
+			
+			
+			#inicial y final corresponden a la gestion:
+			#falta validar cantidad con un if: si ESTAMPILLA_FINAL-ESTAMPILLA_INICIAL > CANTIDAD
+			inicial =ESTAMPILLA_INICIAL
+			final =(ESTAMPILLA_INICIAL+cantidad)-1
+			if self.rb_estampillas.isChecked():
+
+				
+				indice=4
+				dav= int(self.txt_dav.text())
+				categoria =str(self.txt_categoria_estampillas.text())
+				variedad =str(self.txt_variedad_estampillas.text())
+				envase=int(self.txt_envase_estampillas.text())
+				q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,date.today())
+			
+			else:
+
+				indice=5
+				q.carga_estampillas_anexo(rncyfs,especie,campana,cantidad,inicial,final,date.today())
+
+			#DATOS PARA ACTUALIZAR RANGO GENERAL DE ESTAMPILLAS
+			estampilla_siguiente=final+1
+			ultima_estampilla=int(ESTAMPILLA_FINAL)
+				
+
+			q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
+
+			self.refresh_estampillas()
+			self.ver_estampillas()
+
 		else:
-			indice=5
 
-		#DATOS PARA ACTUALIZAR RANGO GENERAL DE ESTAMPILLAS
-		estampilla_siguiente=final+1
-		ultima_estampilla=int(ESTAMPILLA_FINAL)
-		
-		
-		
-		
-		q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,date.today())
+			c.cartel("ERROR","SELECCIONAR ASOCIADO",3)
 
-		q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
 
-		self.refresh_estampillas()
-		self.ver_estampillas()
+	def traeRango(self):
+
+		if self.rb_serieA_componer.isChecked():
+				indice=1
+		elif self.rb_serieB_componer.isChecked():
+				indice=2
+		elif self.rb_estampillas_componer.isChecked():
+				indice = 4
+
+		elif self.rb_anexo_componer.isChecked():
+				indice=5
+		
+		rango_general=q.recuperarango(indice)
+		self.txt_inicio_componer.setText(str(rango_general[0]))
+		self.txt_final_componer.setText(str(rango_general[1]))
+								   
+
+
+	
+	def componer_rango(self):
+		if self.txt_inicio_componer.text() and self.txt_final_componer.text():
+			inicio=int(self.txt_inicio_componer.text())
+			fin = int (self.txt_final_componer.text())
+
+
+
+			if self.rb_serieA_componer.isChecked():
+				indice=1
+			elif self.rb_serieB_componer.isChecked():
+				indice=2
+			elif self.rb_estampillas_componer.isChecked():
+				indice = 4
+
+			elif self.rb_anexo_componer.isChecked():
+				indice=5
+			
+			
+			r=c.cartel_opcion("ATENCION","DESEA CORREGIR LA NUMERACION",2)
+			
+			if r==16384:
+				q.corregir_rango(indice,inicio,fin)
+				c.cartel("ATENCION","RANGO MODIFICADO",1)
+				
+				self.txt_inicio_componer.setText("")
+				self.txt_final_componer.setText("")
+		else:
+			c.cartel("ERROR","INGRESE RANGO INICIAL Y FINAL",3)
+
+		
+
 	
 			
 	def imprimirticket(self):
@@ -487,6 +556,9 @@ class VentanaPrincipal(QMainWindow):
 		
 		
 	def ver_estampillas(self):
+
+		
+
 
 		if self.rb_estampillas.isChecked():
 

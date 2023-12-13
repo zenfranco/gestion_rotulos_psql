@@ -25,7 +25,20 @@ class bdquery():
 			cur.execute("insert into estampillas (rncyfs,dav,especie,categoria,camp,cantidad,variedad,inicio,fin,envase,fecha) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,fecha] )
 			self.conexion.commit()
 			cur.close()
-			
+
+		def carga_estampillas_anexo (self,rncyfs,especie,campana,cantidad,inicial,final,fecha):
+			cur=self.conexion.cursor()
+			cur.execute("insert into anexos (rncyfs,especie,camp,cantidad,inicio,fin,fecha) values (%s,%s,%s,%s,%s,%s,%s)",[rncyfs,especie,campana,cantidad,inicial,final,fecha] )
+			self.conexion.commit()
+			cur.close()
+
+		def corregir_rango(self,indice,inicio,fin):
+			cur=self.conexion.cursor()
+			cur.execute('''UPDATE "Datos" SET inicial= %s,final=%s WHERE indice =%s ''',[inicio,fin,indice])
+			self.conexion.commit()
+			cur.close()
+
+
 		def recuperabd(): #recuperar numero de pedido y rango general
 			#self.conexion.execute("select numpedido,inicio,final from Datos")
 			pass
@@ -75,6 +88,14 @@ class bdquery():
 		def recuperaEstampillas(self):
 			cur=self.conexion.cursor()
 			cur.execute('''select * from estampillas order by inicio''')
+			listapedidos=cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listapedidos
+		
+		def recuperaAnexos(self):
+			cur=self.conexion.cursor()
+			cur.execute('''select rncyfs,inicio,fin,cantidad,'-',especie,'-','-','-',camp from anexos order by inicio''')
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
