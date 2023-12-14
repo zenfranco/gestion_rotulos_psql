@@ -123,19 +123,15 @@ class VentanaPrincipal(QMainWindow):
 		
 		headertb_asociados_envios = self.tb_asociados_envios.horizontalHeader()
 		headertb_asociados_envios.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-		
-				
+						
 		headertb_asociados_pedidos2 = self.tb_asociados_pedidos2.horizontalHeader()
 		headertb_asociados_pedidos2.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 		
 		headertb_pedidos_nuevopedido = self.tb_pedidos_nuevopedido.horizontalHeader()
 		headertb_pedidos_nuevopedido.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-		
-	
-		
-		
-		
-		
+
+		headertb_estampillas = self.tb_estampillas.horizontalHeader()
+		headertb_estampillas.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 		
 		
 		#PAGINA DEPOSITO
@@ -235,8 +231,31 @@ class VentanaPrincipal(QMainWindow):
 
 		if self.rb_estampillas.isChecked():
 			indice =4
+			self.txt_dav.setText("")
+			self.txt_variedad_estampillas.setText("")
+			self.txt_categoria_estampillas.setText("")
+			self.txt_envase_estampillas.setText("")
+			self.signal_tipodetramite.setText("Solicitud Estampillas Oficiales")
+
+
+
+			self.txt_dav.setEnabled(True)
+			self.txt_variedad_estampillas.setEnabled(True)			
+			self.txt_categoria_estampillas.setEnabled(True)
+			self.txt_envase_estampillas.setEnabled(True)
+
 		else:
 			indice =5
+			self.txt_dav.setText("No se informa")
+			self.txt_variedad_estampillas.setText("No se informa")
+			self.txt_categoria_estampillas.setText("No se informa")
+			self.txt_envase_estampillas.setText("No se informa")
+			self.signal_tipodetramite.setText("Solicitud Estampillas Anexo I")
+							
+			self.txt_dav.setEnabled(False)
+			self.txt_variedad_estampillas.setEnabled(False)			
+			self.txt_categoria_estampillas.setEnabled(False)
+			self.txt_envase_estampillas.setEnabled(False)
 
 		rango_recuperado =q.recuperarango(indice)
 		self.signal_estampillas.setText(str(rango_recuperado[0]))
@@ -293,6 +312,7 @@ class VentanaPrincipal(QMainWindow):
 		
 			
 		self.signal_rncyfs_estampillas.setText("".join(recuperado))
+		self.signal_razonsocial_estampillas.setText(nombre)
 	
 	def traeregistrogestiones(self):
 		nombre = str(self.combo_asociados_gestiones.currentText())
@@ -580,6 +600,8 @@ class VentanaPrincipal(QMainWindow):
 				self.tb_estampillas.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
 				self.tb_estampillas.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
 				self.tb_estampillas.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
+				self.tb_estampillas.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
+				self.tb_estampillas.setItem(fila,11,QtWidgets.QTableWidgetItem(str(i[11])))
 				
 					
 				fila=fila+1
@@ -603,6 +625,8 @@ class VentanaPrincipal(QMainWindow):
 				self.tb_estampillas.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
 				self.tb_estampillas.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
 				self.tb_estampillas.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
+				self.tb_estampillas.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
+				self.tb_estampillas.setItem(fila,11,QtWidgets.QTableWidgetItem(str(i[11])))
 				
 					
 				fila=fila+1

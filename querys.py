@@ -87,7 +87,8 @@ class bdquery():
 		
 		def recuperaEstampillas(self):
 			cur=self.conexion.cursor()
-			cur.execute('''select * from estampillas order by inicio''')
+			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,variedad,especie,categoria,envase,dav,camp,fecha from estampillas e
+			inner join asociados a on a.num_reg = e.rncyfs order by inicio''')
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
@@ -95,7 +96,8 @@ class bdquery():
 		
 		def recuperaAnexos(self):
 			cur=self.conexion.cursor()
-			cur.execute('''select rncyfs,inicio,fin,cantidad,'-',especie,'-','-','-',camp from anexos order by inicio''')
+			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,'-',especie,'-','-','-',camp,fecha from anexos anx
+			inner join asociados a on a.num_reg = anx.rncyfs order by inicio''')
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
