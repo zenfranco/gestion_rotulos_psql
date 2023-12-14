@@ -81,8 +81,8 @@ border-radius:15px;
 }
 
 QPushButton{
-
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 156, 156, 255));
+color: rgb(221, 221, 221);
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(208, 208, 208, 255));
 
 }
 QPushButton:hover{
@@ -476,7 +476,7 @@ color: rgb(255, 255, 255);
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>10</number>
        </property>
        <widget class="QWidget" name="p_inicio">
         <widget class="QFrame" name="frame_7">
@@ -765,7 +765,7 @@ background-color: rgb(212, 141, 105);
 }</string>
            </property>
            <property name="text">
-            <string>Anotar</string>
+            <string>Adjuntar nota</string>
            </property>
            <property name="icon">
             <iconset>
@@ -2910,9 +2910,9 @@ border-radius:15px;
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>190</y>
+            <y>180</y>
             <width>851</width>
-            <height>491</height>
+            <height>501</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -2998,9 +2998,9 @@ background:white;</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>51</y>
+            <y>60</y>
             <width>71</width>
-            <height>21</height>
+            <height>22</height>
            </rect>
           </property>
          </widget>
@@ -3008,8 +3008,8 @@ background:white;</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>150</y>
-            <width>141</width>
+            <y>120</y>
+            <width>311</width>
             <height>31</height>
            </rect>
           </property>
@@ -3185,7 +3185,7 @@ background-color: rgb(212, 141, 105);
            <rect>
             <x>0</x>
             <y>18</y>
-            <width>301</width>
+            <width>311</width>
             <height>22</height>
            </rect>
           </property>
@@ -3360,8 +3360,8 @@ background-color: rgb(212, 141, 105);
          <widget class="QLabel" name="label_19">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>75</y>
+            <x>80</x>
+            <y>45</y>
             <width>71</width>
             <height>16</height>
            </rect>
@@ -3376,8 +3376,8 @@ background-color: rgb(212, 141, 105);
           </property>
           <property name="geometry">
            <rect>
-            <x>110</x>
-            <y>95</y>
+            <x>199</x>
+            <y>60</y>
             <width>110</width>
             <height>22</height>
            </rect>
@@ -3392,8 +3392,8 @@ background-color: rgb(212, 141, 105);
          <widget class="QLabel" name="label_38">
           <property name="geometry">
            <rect>
-            <x>110</x>
-            <y>75</y>
+            <x>199</x>
+            <y>45</y>
             <width>71</width>
             <height>16</height>
            </rect>
@@ -3408,8 +3408,8 @@ background-color: rgb(212, 141, 105);
           </property>
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>95</y>
+            <x>80</x>
+            <y>60</y>
             <width>110</width>
             <height>22</height>
            </rect>
@@ -3424,8 +3424,8 @@ background-color: rgb(212, 141, 105);
          <widget class="QCheckBox" name="cbx_porfecha">
           <property name="geometry">
            <rect>
-            <x>2</x>
-            <y>125</y>
+            <x>10</x>
+            <y>90</y>
             <width>70</width>
             <height>17</height>
            </rect>
@@ -3440,7 +3440,7 @@ background-color: rgb(212, 141, 105);
             <x>320</x>
             <y>0</y>
             <width>211</width>
-            <height>121</height>
+            <height>151</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -3485,7 +3485,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>64</y>
+             <y>73</y>
              <width>47</width>
              <height>13</height>
             </rect>
@@ -3498,7 +3498,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>81</y>
+             <y>90</y>
              <width>71</width>
              <height>16</height>
             </rect>
@@ -3511,7 +3511,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>63</x>
-             <y>64</y>
+             <y>73</y>
              <width>131</width>
              <height>16</height>
             </rect>
@@ -3534,7 +3534,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>80</x>
-             <y>81</y>
+             <y>90</y>
              <width>131</width>
              <height>16</height>
             </rect>
@@ -3557,8 +3557,8 @@ border-radius:15px;
          <widget class="QCheckBox" name="cbx_agrupar_porfecha">
           <property name="geometry">
            <rect>
-            <x>72</x>
-            <y>125</y>
+            <x>80</x>
+            <y>90</y>
             <width>70</width>
             <height>17</height>
            </rect>
@@ -3572,7 +3572,7 @@ border-radius:15px;
            <rect>
             <x>0</x>
             <y>2</y>
-            <width>301</width>
+            <width>311</width>
             <height>16</height>
            </rect>
           </property>
@@ -3644,8 +3644,8 @@ border-radius:15px;
          <widget class="QCheckBox" name="cbx_porrotulo">
           <property name="geometry">
            <rect>
-            <x>140</x>
-            <y>125</y>
+            <x>148</x>
+            <y>90</y>
             <width>70</width>
             <height>17</height>
            </rect>
@@ -3653,6 +3653,56 @@ border-radius:15px;
           <property name="text">
            <string>Por Rótulo</string>
           </property>
+         </widget>
+         <widget class="QLabel" name="label_104">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>45</y>
+            <width>71</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>NºRNC</string>
+          </property>
+         </widget>
+         <widget class="QFrame" name="frame_98">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>164</y>
+            <width>851</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:grey;
+border-radius:15px;
+</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QLabel" name="label_161">
+           <property name="geometry">
+            <rect>
+             <x>290</x>
+             <y>-1</y>
+             <width>291</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(255, 255, 255);</string>
+           </property>
+           <property name="text">
+            <string>Información de pedidos y subpedidos de rótulos IQR</string>
+           </property>
+          </widget>
          </widget>
         </widget>
        </widget>
@@ -3825,7 +3875,7 @@ font-size:14px;
          <widget class="QComboBox" name="cbx_rncyfs_rendicion">
           <property name="geometry">
            <rect>
-            <x>313</x>
+            <x>280</x>
             <y>35</y>
             <width>121</width>
             <height>22</height>
@@ -3865,7 +3915,7 @@ font-size:14px;
          <widget class="QComboBox" name="cbx_cultivar_rendicion">
           <property name="geometry">
            <rect>
-            <x>460</x>
+            <x>420</x>
             <y>35</y>
             <width>121</width>
             <height>22</height>
@@ -3895,7 +3945,7 @@ font-size:14px;
          <widget class="QLabel" name="label_24">
           <property name="geometry">
            <rect>
-            <x>313</x>
+            <x>280</x>
             <y>19</y>
             <width>71</width>
             <height>16</height>
@@ -3921,7 +3971,7 @@ font-size:14px;
          <widget class="QLabel" name="label_32">
           <property name="geometry">
            <rect>
-            <x>460</x>
+            <x>420</x>
             <y>19</y>
             <width>71</width>
             <height>16</height>
@@ -3934,7 +3984,7 @@ font-size:14px;
          <widget class="QComboBox" name="cbx_categoria_rendicion">
           <property name="geometry">
            <rect>
-            <x>160</x>
+            <x>147</x>
             <y>35</y>
             <width>121</width>
             <height>22</height>
@@ -3969,7 +4019,7 @@ font-size:14px;
          <widget class="QLabel" name="label_33">
           <property name="geometry">
            <rect>
-            <x>160</x>
+            <x>147</x>
             <y>19</y>
             <width>71</width>
             <height>16</height>
@@ -3982,7 +4032,7 @@ font-size:14px;
          <widget class="QLabel" name="label_34">
           <property name="geometry">
            <rect>
-            <x>610</x>
+            <x>560</x>
             <y>19</y>
             <width>71</width>
             <height>16</height>
@@ -3995,7 +4045,7 @@ font-size:14px;
          <widget class="QComboBox" name="cbx_camp_rendicion">
           <property name="geometry">
            <rect>
-            <x>610</x>
+            <x>560</x>
             <y>35</y>
             <width>121</width>
             <height>22</height>
@@ -4004,6 +4054,11 @@ font-size:14px;
           <item>
            <property name="text">
             <string/>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>2023</string>
            </property>
           </item>
           <item>
@@ -4215,6 +4270,44 @@ border-radius:15px;
             <string>Rendición</string>
            </property>
           </widget>
+         </widget>
+         <widget class="QLabel" name="label_105">
+          <property name="geometry">
+           <rect>
+            <x>690</x>
+            <y>20</y>
+            <width>71</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ENVASE</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="cbx_camp_rendicion_2">
+          <property name="geometry">
+           <rect>
+            <x>690</x>
+            <y>36</y>
+            <width>121</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <item>
+           <property name="text">
+            <string>Todos</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>40 KG.</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Big Bag</string>
+           </property>
+          </item>
          </widget>
         </widget>
        </widget>
@@ -7859,7 +7952,7 @@ border-radius:15px;
           <widget class="QFrame" name="frame_25">
            <property name="geometry">
             <rect>
-             <x>450</x>
+             <x>430</x>
              <y>20</y>
              <width>111</width>
              <height>111</height>
@@ -7947,7 +8040,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>57</y>
+             <y>104</y>
              <width>121</width>
              <height>16</height>
             </rect>
@@ -7960,7 +8053,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>140</x>
-             <y>17</y>
+             <y>62</y>
              <width>121</width>
              <height>16</height>
             </rect>
@@ -7973,7 +8066,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>140</x>
-             <y>55</y>
+             <y>102</y>
              <width>121</width>
              <height>16</height>
             </rect>
@@ -7986,7 +8079,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>140</x>
-             <y>33</y>
+             <y>78</y>
              <width>111</width>
              <height>22</height>
             </rect>
@@ -8026,7 +8119,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>140</x>
-             <y>72</y>
+             <y>119</y>
              <width>111</width>
              <height>22</height>
             </rect>
@@ -8065,7 +8158,7 @@ border-radius:15px;
           <widget class="QCheckBox" name="cb_alldate">
            <property name="geometry">
             <rect>
-             <x>460</x>
+             <x>440</x>
              <y>130</y>
              <width>61</width>
              <height>17</height>
@@ -8082,7 +8175,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>17</y>
+             <y>62</y>
              <width>121</width>
              <height>16</height>
             </rect>
@@ -8095,7 +8188,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>260</x>
-             <y>16</y>
+             <y>61</y>
              <width>121</width>
              <height>16</height>
             </rect>
@@ -8108,7 +8201,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>260</x>
-             <y>33</y>
+             <y>78</y>
              <width>111</width>
              <height>22</height>
             </rect>
@@ -8148,7 +8241,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>33</y>
+             <y>78</y>
              <width>110</width>
              <height>22</height>
             </rect>
@@ -8164,7 +8257,7 @@ border-radius:15px;
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>72</y>
+             <y>119</y>
              <width>110</width>
              <height>22</height>
             </rect>
@@ -8176,37 +8269,13 @@ border-radius:15px;
             <bool>true</bool>
            </property>
           </widget>
-          <widget class="QComboBox" name="cb_razonsocial">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>114</y>
-             <width>281</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <family>Calibri</family>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:black;</string>
-           </property>
-           <item>
-            <property name="text">
-             <string>-</string>
-            </property>
-           </item>
-          </widget>
           <widget class="QPushButton" name="btn_listarimpresiones">
            <property name="geometry">
             <rect>
-             <x>310</x>
-             <y>114</y>
+             <x>260</x>
+             <y>120</y>
              <width>111</width>
-             <height>31</height>
+             <height>21</height>
             </rect>
            </property>
            <property name="styleSheet">
@@ -8227,7 +8296,7 @@ background-color: rgb(212, 141, 105);
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>97</y>
+             <y>21</y>
              <width>121</width>
              <height>16</height>
             </rect>
@@ -8235,6 +8304,30 @@ background-color: rgb(212, 141, 105);
            <property name="text">
             <string>Razon Social</string>
            </property>
+          </widget>
+          <widget class="QComboBox" name="cb_razonsocial">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>39</y>
+             <width>351</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Calibri</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:black;</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </item>
           </widget>
          </widget>
          <widget class="QFrame" name="frame_82">
@@ -8655,7 +8748,7 @@ border-radius:15px;
             <x>10</x>
             <y>63</y>
             <width>221</width>
-            <height>491</height>
+            <height>661</height>
            </rect>
           </property>
           <property name="editTriggers">
@@ -10169,7 +10262,20 @@ border-radius:15px;
              </rect>
             </property>
             <property name="text">
-             <string>Nº RNCyFS</string>
+             <string/>
+            </property>
+           </widget>
+           <widget class="QLabel" name="signal_razonsocial_estampillas">
+            <property name="geometry">
+             <rect>
+              <x>74</x>
+              <y>30</y>
+              <width>61</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </widget>
@@ -10498,11 +10604,14 @@ border-radius:15px;
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-background-color: rgb(207, 69, 103);
 
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.147727 rgba(124, 0, 0, 255), stop:1 rgba(212, 137, 137, 255));
 }
+
+
+
 QPushButton:hover{
-background-color: rgb(198, 0, 0);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.147727 rgba(195, 0, 0, 255), stop:1 rgba(212, 145, 145, 255));
 
 }</string>
     </property>
