@@ -179,6 +179,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_ingresar_estampillas.clicked.connect(self.asigna_estampillas)
 		self.rb_estampillas.clicked.connect(self.refresh_estampillas)
 		self.rb_anexo.clicked.connect(self.refresh_estampillas)
+		self.btn_eliminarLinea.clicked.connect(self.eliminar_linea)
 	
 		
 	def llenarcombo(self):
@@ -1956,7 +1957,29 @@ class VentanaPrincipal(QMainWindow):
 		self.txt_cantidad_envios.setText(str(cantidad))
 		self.txt_especie_envios.setText(str(especie))
 		self.signal_emision.setText(str(fecha_emision))
+
+	def eliminar_linea(self):
+		if self.rb_estampillas.isChecked():
+			fila = self.tb_estampillas.currentRow()
+			inicio =int(self.tb_estampillas.item(fila, 2).text())
+			r=c.cartel_opcion("ATENCION","DESEA ELIMINAR LA LINEA SELECCIONADA",2)
+			
+			if r==16384:
+				q.eliminarLinea(inicio)
+				c.cartel("ATENCION","LINEA ELIMINADA",1)
+
+				q.corregirInicio(inicio,4)
+
+
+
+			self.refresh_estampillas()
+
+			
+		else:
+			pass
+
 		
+
 		
 			
 	def filtrar_asociados(self):

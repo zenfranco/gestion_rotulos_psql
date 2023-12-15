@@ -38,6 +38,14 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 
+		def corregirInicio(self,inicio,indice):
+			cur=self.conexion.cursor()
+			cur.execute('''UPDATE "Datos" SET inicial= %s WHERE indice =%s ''',[inicio,indice])
+			self.conexion.commit()
+			cur.close()
+
+		
+
 
 		def recuperabd(): #recuperar numero de pedido y rango general
 			#self.conexion.execute("select numpedido,inicio,final from Datos")
@@ -485,7 +493,13 @@ class bdquery():
 			cur.execute(''' delete from rotulos where indice =%s''',([indice]))
 			self.conexion.commit()
 			cur.close()
-			
+		
+		def eliminarLinea(self,inicio):
+			cur=self.conexion.cursor()
+			cur.execute(''' delete from estampillas where inicio =%s''',([inicio]))
+			self.conexion.commit()
+			cur.close()
+
 		def traerazonsocial(self,numpedido):
 			cur=self.conexion.cursor()
 			cur.execute('''select razon_social from asociados a

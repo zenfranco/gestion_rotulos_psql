@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: AFA MARCOS JUAREZ
-PEDIDO: 242
+RAZON SOCIAL: SANTIAGO DUGAN TROCELLO S.R.L
+PEDIDO: 239
 -----------------------------
-RNCyFS: 314
-Fecha: 2023-12-06
-Rango: 16003001 - 16004000
+RNCyFS: 5497
+Fecha: 2023-12-15
+Rango: 15998001 - 16001000
 Serie: A
-Cantidad: 1000
+Cantidad: 3000
 -----------------------------
