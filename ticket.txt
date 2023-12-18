@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: SANTIAGO DUGAN TROCELLO S.R.L
-PEDIDO: 239
+RAZON SOCIAL: CASEM
+PEDIDO: 241
 -----------------------------
-RNCyFS: 5497
-Fecha: 2023-12-15
-Rango: 15998001 - 16001000
+RNCyFS: 1111
+Fecha: 2023-12-18
+Rango: 16002001 - 16004000
 Serie: A
-Cantidad: 3000
+Cantidad: 2000
 -----------------------------

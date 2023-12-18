@@ -69,6 +69,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_copy_inicio.clicked.connect(self.clipinicio)
 		self.btn_refresh.clicked.connect(self.refresh_pedidos)
 		self.btn_deshacer.clicked.connect(self.deshacerSubpedido)
+		self.btn_eliminarSubpedido.clicked.connect(self.eliminar_subpedido)
 		
 		
 		#pagina listar
@@ -110,7 +111,7 @@ class VentanaPrincipal(QMainWindow):
 		headertb_gestiones.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 		
 		headertb_verpedidos = self.tb_verpedidos.horizontalHeader()
-		headertb_gestiones.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+		headertb_verpedidos.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 		
 		headertb_lockers = self.tb_lockers.horizontalHeader()
 		headertb_lockers.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
@@ -132,6 +133,8 @@ class VentanaPrincipal(QMainWindow):
 
 		headertb_estampillas = self.tb_estampillas.horizontalHeader()
 		headertb_estampillas.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+
+		
 		
 		
 		#PAGINA DEPOSITO
@@ -310,10 +313,16 @@ class VentanaPrincipal(QMainWindow):
 		
 		
 		recuperado=q.getrncyfs(nombre)
-		
+
+		if recuperado:
 			
-		self.signal_rncyfs_estampillas.setText("".join(recuperado))
-		self.signal_razonsocial_estampillas.setText(nombre)
+			self.signal_rncyfs_estampillas.setText("".join(recuperado))
+			self.signal_razonsocial_estampillas.setText(nombre)
+
+		else:
+			self.signal_razonsocial_estampillas.setText("Seleccione Asociado...")
+			self.signal_rncyfs_estampillas.setText("")
+
 	
 	def traeregistrogestiones(self):
 		nombre = str(self.combo_asociados_gestiones.currentText())
@@ -660,13 +669,72 @@ class VentanaPrincipal(QMainWindow):
 				fila=fila+1
 		else:
 			c.cartel("ERROR","EL ASOCIADO NO POSEE PEDIDOS VIGENTES",3)
+
+
+	def ver_historialPedido(self,num_pedido):
 		
+
+		tablasubpedidos=q.recuperaSubpedidos(num_pedido)
+		totalfilas=len(tablasubpedidos)
+		self.tb_historial_subpedidos.setRowCount(totalfilas)
+		if totalfilas >0:
+		
+			fila=0
+			
+			
+			for i in tablasubpedidos:
+				
+							
+				self.tb_historial_subpedidos.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+				self.tb_historial_subpedidos.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+				self.tb_historial_subpedidos.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
+				self.tb_historial_subpedidos.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
+				self.tb_historial_subpedidos.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
+				self.tb_historial_subpedidos.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))  
+				self.tb_historial_subpedidos.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+				self.tb_historial_subpedidos.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
+				
+				
+				fila=fila+1
+
+		self.signal_historial_subpedidos.setText(str(num_pedido))
+
+	
+	def eliminar_subpedido(self):
+		num_pedido =self.txt_numpedido.text()
+
+		fila = self.tb_historial_subpedidos.currentRow()
+		inicio =int(self.tb_historial_subpedidos.item(fila, 1).text())
+
+		r=c.cartel_opcion("ATENCION","DESEA ELIMINAR EL SUBPEDIDO SELECCIONADO",2)
+			
+		if r==16384:
+			q.eliminarLineaSubpedido(inicio,num_pedido)
+			c.cartel("ATENCION","SUBPEDIDO ELIMINADO",1)
+
+			q.corregirPedido(inicio,num_pedido)
+		
+		self.ver_historialPedido(num_pedido)
+		self.verpedidos()
+		self.refresh_pedidos()
+
+
+
+		
+
+			
+	
+
 	def completanumpedido(self):
 		
 		fila = self.tb_verpedidos.currentRow()
 		pedido=self.tb_verpedidos.item(fila, 0).text() #SELECCIONO EL CONTENIDO DE LA FILA 5 DE LA COLUMNA SELECCIONADA
 		self.txt_numpedido.setText(pedido)
 		self.validarpedido()
+		
+		self.ver_historialPedido(int(pedido))
+
+
 		
 		
 	def refresh_pedidos(self):
@@ -800,6 +868,7 @@ class VentanaPrincipal(QMainWindow):
 					q.actualizaremanente(numpedido,inicioremanente)				 #se actualiza el stock remanente del pedido en tabla pedidos
 					q.actualizaestado(numpedido,estado)
 					self.refresh_pedidos()
+					self.ver_historialPedido(numpedido)
 				else:
 				
 					c.cartel("ERROR DE STOCK","NO HAY STOCK SUFICIENTE PARA ESTA SOLICITUD",3)
@@ -1978,8 +2047,8 @@ class VentanaPrincipal(QMainWindow):
 		else:
 			pass
 
-		
-
+	
+	
 		
 			
 	def filtrar_asociados(self):

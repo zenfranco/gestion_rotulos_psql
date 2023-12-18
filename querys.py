@@ -44,6 +44,12 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 
+		def corregirPedido(self,inicio,num_pedido):
+			cur=self.conexion.cursor()
+			cur.execute('''UPDATE Pedidos SET disponibleinicio= %s WHERE num_pedido =%s ''',[inicio,num_pedido])
+			self.conexion.commit()
+			cur.close()
+
 		
 
 
@@ -92,11 +98,19 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 			return listapedidos
+		def recuperaSubpedidos(self,num_pedido):
+			cur=self.conexion.cursor()
+			cur.execute(''' select cantidad,inicio,fin,variedad,especie,categoria,camp,fecha_subpedido from subpedidos where num_pedido = %s order by inicio ''',[num_pedido])
+			listaSpedidos=cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listaSpedidos
+
 		
 		def recuperaEstampillas(self):
 			cur=self.conexion.cursor()
 			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,variedad,especie,categoria,envase,dav,camp,fecha from estampillas e
-			inner join asociados a on a.num_reg = e.rncyfs order by inicio''')
+			inner join asociados a on a.num_reg = e.rncyfs order by inicio desc''')
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
@@ -105,7 +119,7 @@ class bdquery():
 		def recuperaAnexos(self):
 			cur=self.conexion.cursor()
 			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,'-',especie,'-','-','-',camp,fecha from anexos anx
-			inner join asociados a on a.num_reg = anx.rncyfs order by inicio''')
+			inner join asociados a on a.num_reg = anx.rncyfs order by inicio desc''')
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
@@ -497,6 +511,12 @@ class bdquery():
 		def eliminarLinea(self,inicio):
 			cur=self.conexion.cursor()
 			cur.execute(''' delete from estampillas where inicio =%s''',([inicio]))
+			self.conexion.commit()
+			cur.close()
+
+		def eliminarLineaSubpedido(self,inicio,num_pedido):
+			cur=self.conexion.cursor()
+			cur.execute(''' delete from subpedidos where inicio =%s and num_pedido=%s''',([inicio,num_pedido]))
 			self.conexion.commit()
 			cur.close()
 
