@@ -19,7 +19,40 @@ class bdquery():
 			cur.execute("INSERT INTO subpedidos (num_pedido,num_reg,cantidad,inicio,fin,kg,variedad,especie,categoria,camp,fecha_subpedido) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[numpedido,registro,cantidad,inicio,fin,kg,variedad,especie,categoria,camp,fechasubpedido])
 			self.conexion.commit()
 			cur.close()
-			
+
+		def carga_estampillas (self,rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,fecha):
+			cur=self.conexion.cursor()
+			cur.execute("insert into estampillas (rncyfs,dav,especie,categoria,camp,cantidad,variedad,inicio,fin,envase,fecha) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",[rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,fecha] )
+			self.conexion.commit()
+			cur.close()
+
+		def carga_estampillas_anexo (self,rncyfs,especie,campana,cantidad,inicial,final,fecha):
+			cur=self.conexion.cursor()
+			cur.execute("insert into anexos (rncyfs,especie,camp,cantidad,inicio,fin,fecha) values (%s,%s,%s,%s,%s,%s,%s)",[rncyfs,especie,campana,cantidad,inicial,final,fecha] )
+			self.conexion.commit()
+			cur.close()
+
+		def corregir_rango(self,indice,inicio,fin):
+			cur=self.conexion.cursor()
+			cur.execute('''UPDATE "Datos" SET inicial= %s,final=%s WHERE indice =%s ''',[inicio,fin,indice])
+			self.conexion.commit()
+			cur.close()
+
+		def corregirInicio(self,inicio,indice):
+			cur=self.conexion.cursor()
+			cur.execute('''UPDATE "Datos" SET inicial= %s WHERE indice =%s ''',[inicio,indice])
+			self.conexion.commit()
+			cur.close()
+
+		def corregirPedido(self,inicio,num_pedido):
+			cur=self.conexion.cursor()
+			cur.execute('''UPDATE Pedidos SET disponibleinicio= %s WHERE num_pedido =%s ''',[inicio,num_pedido])
+			self.conexion.commit()
+			cur.close()
+
+		
+
+
 		def recuperabd(): #recuperar numero de pedido y rango general
 			#self.conexion.execute("select numpedido,inicio,final from Datos")
 			pass
@@ -65,6 +98,33 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 			return listapedidos
+		def recuperaSubpedidos(self,num_pedido):
+			cur=self.conexion.cursor()
+			cur.execute(''' select cantidad,inicio,fin,variedad,especie,categoria,camp,fecha_subpedido from subpedidos where num_pedido = %s order by inicio ''',[num_pedido])
+			listaSpedidos=cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listaSpedidos
+
+		
+		def recuperaEstampillas(self):
+			cur=self.conexion.cursor()
+			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,variedad,especie,categoria,envase,dav,camp,fecha from estampillas e
+			inner join asociados a on a.num_reg = e.rncyfs order by inicio desc''')
+			listapedidos=cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listapedidos
+		
+		def recuperaAnexos(self):
+			cur=self.conexion.cursor()
+			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,'-',especie,'-','-','-',camp,fecha from anexos anx
+			inner join asociados a on a.num_reg = anx.rncyfs order by inicio desc''')
+			listapedidos=cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listapedidos
+
 			
 			
 		def getpedido(self,numpedido):
@@ -447,7 +507,19 @@ class bdquery():
 			cur.execute(''' delete from rotulos where indice =%s''',([indice]))
 			self.conexion.commit()
 			cur.close()
-			
+		
+		def eliminarLinea(self,inicio):
+			cur=self.conexion.cursor()
+			cur.execute(''' delete from estampillas where inicio =%s''',([inicio]))
+			self.conexion.commit()
+			cur.close()
+
+		def eliminarLineaSubpedido(self,inicio,num_pedido):
+			cur=self.conexion.cursor()
+			cur.execute(''' delete from subpedidos where inicio =%s and num_pedido=%s''',([inicio,num_pedido]))
+			self.conexion.commit()
+			cur.close()
+
 		def traerazonsocial(self,numpedido):
 			cur=self.conexion.cursor()
 			cur.execute('''select razon_social from asociados a

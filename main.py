@@ -39,6 +39,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_rotulos.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_rotulos)) #cambia de pagina
 		self.btn_nuevagestion.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_gestion)) #cambia de pagina
 		self.btn_envios.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_envios))
+		self.btn_estampillas.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_estampillas))
 		self.btn_nuevopedido.clicked.connect(self.iniciarpedido)
 		
 		#FUNCION DE LOS BOTONES
@@ -50,6 +51,7 @@ class VentanaPrincipal(QMainWindow):
 		
 		self.rb_seriea.clicked.connect(self.iniciarpedido)
 		self.rb_serieb.clicked.connect(self.iniciarpedido)
+		self.rb_estampillas.clicked.connect(self.refresh_estampillas)
 		
 		
 			
@@ -67,6 +69,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_copy_inicio.clicked.connect(self.clipinicio)
 		self.btn_refresh.clicked.connect(self.refresh_pedidos)
 		self.btn_deshacer.clicked.connect(self.deshacerSubpedido)
+		self.btn_eliminarSubpedido.clicked.connect(self.eliminar_subpedido)
 		
 		
 		#pagina listar
@@ -86,6 +89,8 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_definir_rango.clicked.connect(self.setearrango)
 		self.tb_rangos.itemDoubleClicked.connect(self.rangoselected)
 		self.btn_terminar_rango.clicked.connect(self.bajaderango)
+		self.btn_componer_rango.clicked.connect(self.componer_rango)
+		self.btn_traer_rangos.clicked.connect(self.traeRango)
 		
 		#PROPIEDADES
 		self.txt_indice_rotulos.hide()
@@ -106,7 +111,7 @@ class VentanaPrincipal(QMainWindow):
 		headertb_gestiones.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 		
 		headertb_verpedidos = self.tb_verpedidos.horizontalHeader()
-		headertb_gestiones.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+		headertb_verpedidos.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 		
 		headertb_lockers = self.tb_lockers.horizontalHeader()
 		headertb_lockers.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
@@ -119,18 +124,16 @@ class VentanaPrincipal(QMainWindow):
 		
 		headertb_asociados_envios = self.tb_asociados_envios.horizontalHeader()
 		headertb_asociados_envios.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-		
-				
+						
 		headertb_asociados_pedidos2 = self.tb_asociados_pedidos2.horizontalHeader()
 		headertb_asociados_pedidos2.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 		
 		headertb_pedidos_nuevopedido = self.tb_pedidos_nuevopedido.horizontalHeader()
 		headertb_pedidos_nuevopedido.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-		
-	
-		
-		
-		
+
+		headertb_estampillas = self.tb_estampillas.horizontalHeader()
+		headertb_estampillas.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+
 		
 		
 		
@@ -174,7 +177,12 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_refresh_envios.clicked.connect(self.traerenvios)
 		
 		
-	
+		#PAGINA ESTAMPILLAS
+		self.combo_asociados_estampillas.activated.connect(self.traeregistroestampillas)
+		self.btn_ingresar_estampillas.clicked.connect(self.asigna_estampillas)
+		self.rb_estampillas.clicked.connect(self.refresh_estampillas)
+		self.rb_anexo.clicked.connect(self.refresh_estampillas)
+		self.btn_eliminarLinea.clicked.connect(self.eliminar_linea)
 	
 		
 	def llenarcombo(self):
@@ -189,6 +197,7 @@ class VentanaPrincipal(QMainWindow):
 			self.cb_razonsocial_rotulos.addItem("".join(asociados[k]))
 			self.cb_razonsocial.addItem("".join(asociados[k]))
 			self.combo_asociados_gestiones.addItem("".join(asociados[k]))
+			self.combo_asociados_estampillas.addItem("".join(asociados[k]))
 			k=k+1
 		
 		
@@ -220,7 +229,48 @@ class VentanaPrincipal(QMainWindow):
 		self.signal_inicial.setText(str(INICIAL))
 		self.signal_final.setText(str(FINAL))
 		
-				
+	def refresh_estampillas(self):
+		global ESTAMPILLA_INICIAL
+		global ESTAMPILLA_FINAL
+
+		if self.rb_estampillas.isChecked():
+			indice =4
+			self.txt_dav.setText("")
+			self.txt_variedad_estampillas.setText("")
+			self.txt_categoria_estampillas.setText("")
+			self.txt_envase_estampillas.setText("")
+			self.signal_tipodetramite.setText("Solicitud Estampillas Oficiales")
+
+
+
+			self.txt_dav.setEnabled(True)
+			self.txt_variedad_estampillas.setEnabled(True)			
+			self.txt_categoria_estampillas.setEnabled(True)
+			self.txt_envase_estampillas.setEnabled(True)
+
+		else:
+			indice =5
+			self.txt_dav.setText("No se informa")
+			self.txt_variedad_estampillas.setText("No se informa")
+			self.txt_categoria_estampillas.setText("No se informa")
+			self.txt_envase_estampillas.setText("No se informa")
+			self.signal_tipodetramite.setText("Solicitud Estampillas Anexo I")
+							
+			self.txt_dav.setEnabled(False)
+			self.txt_variedad_estampillas.setEnabled(False)			
+			self.txt_categoria_estampillas.setEnabled(False)
+			self.txt_envase_estampillas.setEnabled(False)
+
+		rango_recuperado =q.recuperarango(indice)
+		self.signal_estampillas.setText(str(rango_recuperado[0]))
+		self.signal_estampillas_final.setText(str(rango_recuperado[1]))
+		ESTAMPILLA_INICIAL=int(rango_recuperado[0])
+		ESTAMPILLA_FINAL=int(rango_recuperado[1])
+
+		self.ver_estampillas()
+
+
+			
 		
 	def traeregistro(self):
 		nombre = str(self.combo_asociados.currentText())
@@ -257,6 +307,22 @@ class VentanaPrincipal(QMainWindow):
 		
 			
 		self.txt_rncyfs_rotulos.setText("".join(recuperado))
+
+	def traeregistroestampillas(self):
+		nombre = str(self.combo_asociados_estampillas.currentText())
+		
+		
+		recuperado=q.getrncyfs(nombre)
+
+		if recuperado:
+			
+			self.signal_rncyfs_estampillas.setText("".join(recuperado))
+			self.signal_razonsocial_estampillas.setText(nombre)
+
+		else:
+			self.signal_razonsocial_estampillas.setText("Seleccione Asociado...")
+			self.signal_rncyfs_estampillas.setText("")
+
 	
 	def traeregistrogestiones(self):
 		nombre = str(self.combo_asociados_gestiones.currentText())
@@ -404,6 +470,107 @@ class VentanaPrincipal(QMainWindow):
 		else:
 			
 			c.cartel("ERROR","INGRESE CANTIDAD",3)
+
+
+	def asigna_estampillas(self):
+		global ESTAMPILLA_INICIAL
+		global ESTAMPILLA_FINAL
+
+		if self.signal_rncyfs_estampillas.text():
+
+			rncyfs=str(self.signal_rncyfs_estampillas.text())
+			
+			especie=str(self.txt_estampillas_especie.currentText())
+			
+			campana = int(self.txt_campana_estampillas.currentText())
+			cantidad =int(self.txt_cantidad_estampillas.text())
+			
+			
+			#inicial y final corresponden a la gestion:
+			#falta validar cantidad con un if: si ESTAMPILLA_FINAL-ESTAMPILLA_INICIAL > CANTIDAD
+			inicial =ESTAMPILLA_INICIAL
+			final =(ESTAMPILLA_INICIAL+cantidad)-1
+			if self.rb_estampillas.isChecked():
+
+				
+				indice=4
+				dav= int(self.txt_dav.text())
+				categoria =str(self.txt_categoria_estampillas.text())
+				variedad =str(self.txt_variedad_estampillas.text())
+				envase=int(self.txt_envase_estampillas.text())
+				q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,date.today())
+			
+			else:
+
+				indice=5
+				q.carga_estampillas_anexo(rncyfs,especie,campana,cantidad,inicial,final,date.today())
+
+			#DATOS PARA ACTUALIZAR RANGO GENERAL DE ESTAMPILLAS
+			estampilla_siguiente=final+1
+			ultima_estampilla=int(ESTAMPILLA_FINAL)
+				
+
+			q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
+
+			self.refresh_estampillas()
+			self.ver_estampillas()
+
+		else:
+
+			c.cartel("ERROR","SELECCIONAR ASOCIADO",3)
+
+
+	def traeRango(self):
+
+		if self.rb_serieA_componer.isChecked():
+				indice=1
+		elif self.rb_serieB_componer.isChecked():
+				indice=2
+		elif self.rb_estampillas_componer.isChecked():
+				indice = 4
+
+		elif self.rb_anexo_componer.isChecked():
+				indice=5
+		
+		rango_general=q.recuperarango(indice)
+		self.txt_inicio_componer.setText(str(rango_general[0]))
+		self.txt_final_componer.setText(str(rango_general[1]))
+								   
+
+
+	
+	def componer_rango(self):
+		if self.txt_inicio_componer.text() and self.txt_final_componer.text():
+			inicio=int(self.txt_inicio_componer.text())
+			fin = int (self.txt_final_componer.text())
+
+
+
+			if self.rb_serieA_componer.isChecked():
+				indice=1
+			elif self.rb_serieB_componer.isChecked():
+				indice=2
+			elif self.rb_estampillas_componer.isChecked():
+				indice = 4
+
+			elif self.rb_anexo_componer.isChecked():
+				indice=5
+			
+			
+			r=c.cartel_opcion("ATENCION","DESEA CORREGIR LA NUMERACION",2)
+			
+			if r==16384:
+				q.corregir_rango(indice,inicio,fin)
+				c.cartel("ATENCION","RANGO MODIFICADO",1)
+				
+				self.txt_inicio_componer.setText("")
+				self.txt_final_componer.setText("")
+		else:
+			c.cartel("ERROR","INGRESE RANGO INICIAL Y FINAL",3)
+
+		
+
+	
 			
 	def imprimirticket(self):
 			os.startfile("ticket.txt", "print")
@@ -418,7 +585,64 @@ class VentanaPrincipal(QMainWindow):
 		self.txt_subvariedad.setText("")
 		
 		
+	def ver_estampillas(self):
+
 		
+
+
+		if self.rb_estampillas.isChecked():
+
+			listarecuperada=q.recuperaEstampillas()
+			totalfilas=len(listarecuperada)
+			self.tb_estampillas.setRowCount(totalfilas)
+				
+				
+			fila =0
+			
+			for i in listarecuperada:
+				self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+				self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+				self.tb_estampillas.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
+				self.tb_estampillas.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
+				self.tb_estampillas.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
+				self.tb_estampillas.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
+				self.tb_estampillas.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+				self.tb_estampillas.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
+				self.tb_estampillas.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
+				self.tb_estampillas.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
+				self.tb_estampillas.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
+				self.tb_estampillas.setItem(fila,11,QtWidgets.QTableWidgetItem(str(i[11])))
+				
+					
+				fila=fila+1
+		else:
+
+			listarecuperada=q.recuperaAnexos()
+			totalfilas=len(listarecuperada)
+			self.tb_estampillas.setRowCount(totalfilas)
+				
+				
+			fila =0
+			
+			for i in listarecuperada:
+				self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+				self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+				self.tb_estampillas.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
+				self.tb_estampillas.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
+				self.tb_estampillas.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
+				self.tb_estampillas.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
+				self.tb_estampillas.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+				self.tb_estampillas.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
+				self.tb_estampillas.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
+				self.tb_estampillas.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
+				self.tb_estampillas.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
+				self.tb_estampillas.setItem(fila,11,QtWidgets.QTableWidgetItem(str(i[11])))
+				
+					
+				fila=fila+1
+
+
+
 	
 	def verpedidos(self):
 		
@@ -445,13 +669,72 @@ class VentanaPrincipal(QMainWindow):
 				fila=fila+1
 		else:
 			c.cartel("ERROR","EL ASOCIADO NO POSEE PEDIDOS VIGENTES",3)
+
+
+	def ver_historialPedido(self,num_pedido):
 		
+
+		tablasubpedidos=q.recuperaSubpedidos(num_pedido)
+		totalfilas=len(tablasubpedidos)
+		self.tb_historial_subpedidos.setRowCount(totalfilas)
+		if totalfilas >0:
+		
+			fila=0
+			
+			
+			for i in tablasubpedidos:
+				
+							
+				self.tb_historial_subpedidos.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+				self.tb_historial_subpedidos.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+				self.tb_historial_subpedidos.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
+				self.tb_historial_subpedidos.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
+				self.tb_historial_subpedidos.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
+				self.tb_historial_subpedidos.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))  
+				self.tb_historial_subpedidos.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+				self.tb_historial_subpedidos.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
+				
+				
+				fila=fila+1
+
+		self.signal_historial_subpedidos.setText(str(num_pedido))
+
+	
+	def eliminar_subpedido(self):
+		num_pedido =self.txt_numpedido.text()
+
+		fila = self.tb_historial_subpedidos.currentRow()
+		inicio =int(self.tb_historial_subpedidos.item(fila, 1).text())
+
+		r=c.cartel_opcion("ATENCION","DESEA ELIMINAR EL SUBPEDIDO SELECCIONADO",2)
+			
+		if r==16384:
+			q.eliminarLineaSubpedido(inicio,num_pedido)
+			c.cartel("ATENCION","SUBPEDIDO ELIMINADO",1)
+
+			q.corregirPedido(inicio,num_pedido)
+		
+		self.ver_historialPedido(num_pedido)
+		self.verpedidos()
+		self.refresh_pedidos()
+
+
+
+		
+
+			
+	
+
 	def completanumpedido(self):
 		
 		fila = self.tb_verpedidos.currentRow()
 		pedido=self.tb_verpedidos.item(fila, 0).text() #SELECCIONO EL CONTENIDO DE LA FILA 5 DE LA COLUMNA SELECCIONADA
 		self.txt_numpedido.setText(pedido)
 		self.validarpedido()
+		
+		self.ver_historialPedido(int(pedido))
+
+
 		
 		
 	def refresh_pedidos(self):
@@ -585,6 +868,7 @@ class VentanaPrincipal(QMainWindow):
 					q.actualizaremanente(numpedido,inicioremanente)				 #se actualiza el stock remanente del pedido en tabla pedidos
 					q.actualizaestado(numpedido,estado)
 					self.refresh_pedidos()
+					self.ver_historialPedido(numpedido)
 				else:
 				
 					c.cartel("ERROR DE STOCK","NO HAY STOCK SUFICIENTE PARA ESTA SOLICITUD",3)
@@ -1742,7 +2026,29 @@ class VentanaPrincipal(QMainWindow):
 		self.txt_cantidad_envios.setText(str(cantidad))
 		self.txt_especie_envios.setText(str(especie))
 		self.signal_emision.setText(str(fecha_emision))
-		
+
+	def eliminar_linea(self):
+		if self.rb_estampillas.isChecked():
+			fila = self.tb_estampillas.currentRow()
+			inicio =int(self.tb_estampillas.item(fila, 2).text())
+			r=c.cartel_opcion("ATENCION","DESEA ELIMINAR LA LINEA SELECCIONADA",2)
+			
+			if r==16384:
+				q.eliminarLinea(inicio)
+				c.cartel("ATENCION","LINEA ELIMINADA",1)
+
+				q.corregirInicio(inicio,4)
+
+
+
+			self.refresh_estampillas()
+
+			
+		else:
+			pass
+
+	
+	
 		
 			
 	def filtrar_asociados(self):
@@ -1935,6 +2241,8 @@ if __name__ == '__main__':
 	MyWindow.listarasociados()
 	MyWindow.traepedidos()
 	MyWindow.listarlockers()
+	MyWindow.refresh_estampillas()
+	MyWindow.ver_estampillas()
 	MyWindow.show()
 	app.exec_()
 	
