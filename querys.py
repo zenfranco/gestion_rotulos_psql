@@ -3,7 +3,7 @@ import psycopg2
 class bdquery():
 
 		def __init__(self):
-			self.conexion = psycopg2.connect(host="localhost",database="casem", user="postgres",password="casem1234")
+			self.conexion = psycopg2.connect(host="192.168.0.50",database="casem", user="postgres",password="casem1234")
 			
 			
 			

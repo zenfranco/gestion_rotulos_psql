@@ -1,4 +1,4 @@
-import sqlite3,sys
+import sys
 import psycopg2
 import clipboard as clip
 from openpyxl import Workbook
