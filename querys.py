@@ -541,7 +541,23 @@ class bdquery():
 			
 		def subpedidosporfecha(self,reg):
 			cur=self.conexion.cursor()
-			cur.execute('''select sum(cantidad),especie,fecha_subpedido from subpedidos where num_reg = %s group by fecha_subpedido ORDER BY fecha_subpedido DESC''',reg)
+			cur.execute('''select sum(cantidad),especie,fecha_subpedido from subpedidos where num_reg = %s group by fecha_subpedido,especie ORDER BY fecha_subpedido DESC''',reg)
+			self.conexion.commit()
+			listado=cur.fetchall()
+			cur.close()
+			return listado
+		
+		def estampillasPorFecha(self,reg):
+			cur=self.conexion.cursor()
+			cur.execute('''select sum(cantidad),especie,fecha from estampillas where rncyfs = %s group by fecha,especie ORDER BY fecha DESC''',reg)
+			self.conexion.commit()
+			listado=cur.fetchall()
+			cur.close()
+			return listado
+		
+		def anexosPorFecha(self,reg):
+			cur=self.conexion.cursor()
+			cur.execute('''select sum(cantidad),especie,fecha from anexos where rncyfs = %s group by fecha,especie ORDER BY fecha DESC''',reg)
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -577,7 +593,7 @@ class bdquery():
 			
 		def getEnvios(self,registro):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id,tipo,detalle,obs from envios where num_reg = %s order by fecha_envio DESC''',registro)
+			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs from envios where num_reg = %s order by fecha_envio DESC''',registro)
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()

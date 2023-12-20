@@ -698,6 +698,7 @@ class VentanaPrincipal(QMainWindow):
 				fila=fila+1
 
 		self.signal_historial_subpedidos.setText(str(num_pedido))
+		#self.tb_historial_subpedidos.verticalScrollBar().setSliderPosition(self.tb_historial_subpedidos.verticalScrollBar().maximum())
 
 	
 	def eliminar_subpedido(self):
@@ -2095,12 +2096,21 @@ class VentanaPrincipal(QMainWindow):
 				
 		
 	def traerpedidos_agrupados(self,asociado):
-		
+
 		registro=q.traerregistro(str(asociado))
-		
-		
-		tablarecuperada=q.subpedidosporfecha(registro)
-	
+
+		if self.rb_envios_iqr.isChecked():			
+			
+			tablarecuperada=q.subpedidosporfecha(registro)			
+
+		elif self.rb_envios_estampillas.isChecked():
+
+			tablarecuperada=q.estampillasPorFecha(registro)
+		elif self.rb_envios_anexo.isChecked():
+			tablarecuperada=q.anexosPorFecha(registro)
+
+
+
 		totalfilas=len(tablarecuperada)
 		self.tb_subpedidos_envios.setRowCount(totalfilas)
 		fila=0
@@ -2108,8 +2118,9 @@ class VentanaPrincipal(QMainWindow):
 			self.tb_subpedidos_envios.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
 			self.tb_subpedidos_envios.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
 			self.tb_subpedidos_envios.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
-			
+				
 			fila = fila+1
+
 		
 	def traerenvios(self):
 		fila = self.tb_asociados_envios.currentRow()		
