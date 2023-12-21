@@ -18,10 +18,6 @@ pedidos=[]
 subpedidos=[]
 
 
-
-
-
-
 class VentanaPrincipal(QMainWindow):
 	def __init__(self):
 		super(VentanaPrincipal, self).__init__()
@@ -102,6 +98,8 @@ class VentanaPrincipal(QMainWindow):
 		self.fecha_hasta_rotulos.setDate(date.today())
 		self.fecha_desde_listar.setDate(date.today())
 		self.fecha_hasta_listar.setDate(date.today())
+		self.fecha_desde_envios.setDate(date.today())
+		self.fecha_hasta_envios.setDate(date.today())
 		self.signal_gestion_indice.hide()
 		self.cbx_porfecha.stateChanged.connect(lambda:self.fecha_desde_listar.setEnabled(True))
 		self.cbx_porfecha.stateChanged.connect(lambda:self.fecha_hasta_listar.setEnabled(True))
@@ -923,6 +921,7 @@ class VentanaPrincipal(QMainWindow):
 		else:
 					
 			q.altaasociado(registro,nombre)
+			
 			self.txt_altaasociado_reg.setText("")
 			self.txt_altaasociado_nombre.setText("")
 		
@@ -2122,36 +2121,60 @@ class VentanaPrincipal(QMainWindow):
 			fila = fila+1
 
 		
-	def traerenvios(self):
-		fila = self.tb_asociados_envios.currentRow()		
-		asociado=str(self.tb_asociados_envios.item(fila, 0).text())
-		if self.rb_xasociado_envios.isChecked():
-			registro=q.traerregistro(str(asociado))
-			tablarecuperada=q.getEnvios(registro)
-		else:
+	def traerenvios(self):     
+            
+		try:
+				
+			desde=str(self.fecha_desde_envios.text())
+			hasta=str(self.fecha_hasta_envios.text())
+			if self.rb_xasociado_envios.isChecked():
+       
+				fila = self.tb_asociados_envios.currentRow()	
+				asociado=str(self.tb_asociados_envios.item(fila, 0).text())
+				registro=q.traerregistro(str(asociado))
+				
+    
+				if self.cbx_enviosxfecha.isChecked():
+        
+					     
+					tablarecuperada=q.getEnviosPorFecha(registro,desde,hasta)
+				
+				else:
+					tablarecuperada=q.getEnvios(registro)
+			else:
+       
+				if self.cbx_enviosxfecha.isChecked():
+        
+					tablarecuperada=q.getEnvios_ALLporFecha(desde,hasta)
+				
+				else:
+					tablarecuperada=q.getEnvios_ALL()
+				
+				
+			totalfilas=len(tablarecuperada)
+			self.tb_envioscreados.setRowCount(totalfilas)
+			fila=0
+			for i in tablarecuperada:
+				self.tb_envioscreados.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+				self.tb_envioscreados.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+				self.tb_envioscreados.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
+				self.tb_envioscreados.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
+				self.tb_envioscreados.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
+				self.tb_envioscreados.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
+				self.tb_envioscreados.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+				self.tb_envioscreados.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
+				self.tb_envioscreados.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
+				self.tb_envioscreados.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
+				self.tb_envioscreados.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
+				
+				
+				fila = fila+1
+    
+		except Exception as e:
+			pass
+      		
 			
-			tablarecuperada=q.getEnvios_ALL()
-			
-			
-		totalfilas=len(tablarecuperada)
-		self.tb_envioscreados.setRowCount(totalfilas)
-		fila=0
-		for i in tablarecuperada:
-			self.tb_envioscreados.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
-			self.tb_envioscreados.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
-			self.tb_envioscreados.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
-			self.tb_envioscreados.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
-			self.tb_envioscreados.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
-			self.tb_envioscreados.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
-			self.tb_envioscreados.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
-			self.tb_envioscreados.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
-			self.tb_envioscreados.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
-			self.tb_envioscreados.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
-			self.tb_envioscreados.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
-			
-			
-			fila = fila+1
-			
+      	
 	
 		
 		
