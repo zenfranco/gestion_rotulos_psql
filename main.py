@@ -173,6 +173,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_buscarasociado_pedidos.clicked.connect(self.filtrar_asociados_pedidos)
 		self.btn_crearenvio.clicked.connect(self.nuevoEnvio)
 		self.btn_refresh_envios.clicked.connect(self.traerenvios)
+		self.tb_envioscreados.itemDoubleClicked.connect(self.envio_selected)
 		
 		
 		#PAGINA ESTAMPILLAS
@@ -2005,7 +2006,23 @@ class VentanaPrincipal(QMainWindow):
 			
 			self.traerenvios()
 			
-
+	def envio_selected(self):
+					
+			#ENVIOS
+			
+			fila = self.tb_envioscreados.currentRow()
+			id=str(self.tb_envioscreados.item(fila, 7).text()) #SELECCIONO EL CONTENIDO DE LA FILA DE LA COLUMNA 0 SELECCIONADA
+			fecha_envio=str(self.tb_envioscreados.item(fila, 1).text())
+			estado=str(self.tb_envioscreados.item(fila, 2).text())
+			guia=str(self.tb_envioscreados.item(fila, 11).text())
+   
+			self.signal_envio_fecha.setText(str(fecha_envio))
+			self.signal_envio_estado.setText(str(estado))
+			self.signal_envio_guia.setText(str(guia))
+			self.signal_id_envio.setText(str(id))
+			
+			
+			
 			
 	def asociado_selected_pedidos(self):
 			#ESTAMPILLAS
@@ -2166,6 +2183,7 @@ class VentanaPrincipal(QMainWindow):
 				self.tb_envioscreados.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
 				self.tb_envioscreados.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
 				self.tb_envioscreados.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
+				self.tb_envioscreados.setItem(fila,11,QtWidgets.QTableWidgetItem(str(i[11])))
 				
 				
 				fila = fila+1

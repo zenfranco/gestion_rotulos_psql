@@ -455,7 +455,7 @@ background-color: rgb(255, 255, 255);
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>9</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="p_inicio">
       <widget class="QFrame" name="frame_7">
@@ -486,7 +486,7 @@ background-color: rgb(255, 255, 255);
          </rect>
         </property>
         <property name="text">
-         <string>SCasem V181223</string>
+         <string>SCasem V211223</string>
         </property>
        </widget>
       </widget>
@@ -9266,6 +9266,134 @@ border-radius:15px;
           <string>Estado:</string>
          </property>
         </widget>
+        <widget class="QLabel" name="signal_envio_fecha">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>16</y>
+           <width>58</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="signal_envio_asociado">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>35</y>
+           <width>46</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="signal_envio_guia">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>54</y>
+           <width>131</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="signal_envio_estado">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>73</y>
+           <width>81</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_118">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>16</y>
+           <width>16</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Id:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="signal_id_envio">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>16</y>
+           <width>61</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </widget>
        <widget class="QTableWidget" name="tb_envioscreados">
         <property name="geometry">
@@ -9328,7 +9456,7 @@ border-radius:15px;
         </column>
         <column>
          <property name="text">
-          <string>Guia</string>
+          <string>ID</string>
          </property>
         </column>
         <column>
@@ -9348,7 +9476,7 @@ border-radius:15px;
         </column>
         <column>
          <property name="text">
-          <string>ID</string>
+          <string>Guia</string>
          </property>
         </column>
        </widget>
@@ -9549,7 +9677,7 @@ border-radius:15px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(170, 0, 0);</string>
+          <string notr="true">color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string>...</string>
@@ -9586,7 +9714,7 @@ background-color: rgb(255, 152, 162);
        </widget>
        <widget class="QDateEdit" name="fecha_hasta_envios">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="geometry">
          <rect>
@@ -9618,7 +9746,7 @@ background-color: rgb(255, 152, 162);
        </widget>
        <widget class="QDateEdit" name="fecha_desde_envios">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="geometry">
          <rect>
