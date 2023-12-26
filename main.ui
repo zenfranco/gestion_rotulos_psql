@@ -470,13 +470,8 @@ background-color: rgb(255, 255, 255);
        <property name="styleSheet">
         <string notr="true"/>
        </property>
-<<<<<<< HEAD
-       <property name="currentIndex">
-        <number>0</number>
-=======
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
->>>>>>> pruebas
        </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
