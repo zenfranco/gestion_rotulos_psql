@@ -486,7 +486,7 @@ background-color: rgb(255, 255, 255);
          </rect>
         </property>
         <property name="text">
-         <string>SCasem V181223</string>
+         <string>SCasem V211223</string>
         </property>
        </widget>
       </widget>
@@ -9108,9 +9108,9 @@ background-color: rgb(255, 152, 162);
        <widget class="QFrame" name="frame_4">
         <property name="geometry">
          <rect>
-          <x>670</x>
+          <x>590</x>
           <y>180</y>
-          <width>171</width>
+          <width>251</width>
           <height>161</height>
          </rect>
         </property>
@@ -9138,9 +9138,9 @@ background-color: rgb(255, 152, 162);
         <widget class="QLabel" name="label_99">
          <property name="geometry">
           <rect>
-           <x>4</x>
-           <y>30</y>
-           <width>31</width>
+           <x>11</x>
+           <y>54</y>
+           <width>25</width>
            <height>16</height>
           </rect>
          </property>
@@ -9151,9 +9151,9 @@ background-color: rgb(255, 152, 162);
         <widget class="QLabel" name="label_100">
          <property name="geometry">
           <rect>
-           <x>4</x>
-           <y>47</y>
-           <width>81</width>
+           <x>11</x>
+           <y>16</y>
+           <width>58</width>
            <height>16</height>
           </rect>
          </property>
@@ -9164,22 +9164,22 @@ background-color: rgb(255, 152, 162);
         <widget class="QLabel" name="label_102">
          <property name="geometry">
           <rect>
-           <x>4</x>
-           <y>63</y>
-           <width>51</width>
+           <x>11</x>
+           <y>35</y>
+           <width>46</width>
            <height>16</height>
           </rect>
          </property>
          <property name="text">
-          <string>Firma:</string>
+          <string>Asociado:</string>
          </property>
         </widget>
         <widget class="QPushButton" name="btn_facturar_envio">
          <property name="geometry">
           <rect>
-           <x>20</x>
+           <x>10</x>
            <y>120</y>
-           <width>121</width>
+           <width>231</width>
            <height>21</height>
           </rect>
          </property>
@@ -9195,7 +9195,7 @@ background-color: rgb(255, 152, 162);
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>171</width>
+           <width>251</width>
            <height>16</height>
           </rect>
          </property>
@@ -9213,7 +9213,7 @@ border-radius:15px;
          <widget class="QLabel" name="label_129">
           <property name="geometry">
            <rect>
-            <x>24</x>
+            <x>70</x>
             <y>-1</y>
             <width>101</width>
             <height>16</height>
@@ -9226,6 +9226,173 @@ border-radius:15px;
            <string>Envio Seleccionado</string>
           </property>
          </widget>
+        </widget>
+        <widget class="QLineEdit" name="txt_guia_envio">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>90</y>
+           <width>161</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btn_facturar_envio_2">
+         <property name="geometry">
+          <rect>
+           <x>170</x>
+           <y>90</y>
+           <width>71</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Ingresar guia</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_117">
+         <property name="geometry">
+          <rect>
+           <x>11</x>
+           <y>73</y>
+           <width>35</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Estado:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="signal_envio_fecha">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>16</y>
+           <width>58</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="signal_envio_asociado">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>35</y>
+           <width>46</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="signal_envio_guia">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>54</y>
+           <width>131</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="signal_envio_estado">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>73</y>
+           <width>81</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_118">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>16</y>
+           <width>16</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Id:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="signal_id_envio">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>16</y>
+           <width>61</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 170, 0);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
         </widget>
        </widget>
        <widget class="QTableWidget" name="tb_envioscreados">
@@ -9289,7 +9456,7 @@ border-radius:15px;
         </column>
         <column>
          <property name="text">
-          <string>Guia</string>
+          <string>ID</string>
          </property>
         </column>
         <column>
@@ -9305,6 +9472,11 @@ border-radius:15px;
         <column>
          <property name="text">
           <string>Observaciones</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Guia</string>
          </property>
         </column>
        </widget>
@@ -9476,7 +9648,7 @@ border-radius:15px;
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>-1</y>
+           <y>0</y>
            <width>151</width>
            <height>16</height>
           </rect>
@@ -9540,9 +9712,9 @@ background-color: rgb(255, 152, 162);
           <normaloff>icons/trash.png</normaloff>icons/trash.png</iconset>
         </property>
        </widget>
-       <widget class="QDateEdit" name="fecha_hasta_listar_2">
+       <widget class="QDateEdit" name="fecha_hasta_envios">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="geometry">
          <rect>
@@ -9572,9 +9744,9 @@ background-color: rgb(255, 152, 162);
          <string>Fecha Desde:</string>
         </property>
        </widget>
-       <widget class="QDateEdit" name="fecha_desde_listar_2">
+       <widget class="QDateEdit" name="fecha_desde_envios">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="geometry">
          <rect>
@@ -9604,7 +9776,7 @@ background-color: rgb(255, 152, 162);
          <string>Fecha Hasta:</string>
         </property>
        </widget>
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="cbx_enviosxfecha">
         <property name="geometry">
          <rect>
           <x>486</x>
@@ -9622,7 +9794,7 @@ background-color: rgb(255, 152, 162);
          <rect>
           <x>250</x>
           <y>180</y>
-          <width>411</width>
+          <width>331</width>
           <height>161</height>
          </rect>
         </property>
@@ -9670,7 +9842,7 @@ border-radius:15px;
          <widget class="QLabel" name="label_157">
           <property name="geometry">
            <rect>
-            <x>24</x>
+            <x>130</x>
             <y>-1</y>
             <width>101</width>
             <height>16</height>
@@ -9814,6 +9986,11 @@ border-radius:15px;
            <string>Credifin</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>Otro</string>
+          </property>
+         </item>
         </widget>
         <widget class="QLineEdit" name="txt_obs_envios">
          <property name="geometry">
@@ -9829,13 +10006,13 @@ border-radius:15px;
          <property name="geometry">
           <rect>
            <x>190</x>
-           <y>66</y>
-           <width>47</width>
-           <height>13</height>
+           <y>64</y>
+           <width>81</width>
+           <height>16</height>
           </rect>
          </property>
          <property name="text">
-          <string>Obs</string>
+          <string>Observaciones</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_51">
@@ -9873,6 +10050,11 @@ border-radius:15px;
          <item>
           <property name="text">
            <string>Semilla en Transito</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Otro</string>
           </property>
          </item>
         </widget>
@@ -11202,9 +11384,9 @@ border-radius:15px;
   <tabstop>t</tabstop>
   <tabstop>btn_refresh_envios</tabstop>
   <tabstop>btn_eliminar_envio</tabstop>
-  <tabstop>fecha_hasta_listar_2</tabstop>
-  <tabstop>fecha_desde_listar_2</tabstop>
-  <tabstop>checkBox</tabstop>
+  <tabstop>fecha_hasta_envios</tabstop>
+  <tabstop>fecha_desde_envios</tabstop>
+  <tabstop>cbx_enviosxfecha</tabstop>
   <tabstop>btn_crearenvio</tabstop>
   <tabstop>txt_bultos_envios</tabstop>
   <tabstop>cbx_incluye</tabstop>
