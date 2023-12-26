@@ -455,7 +455,7 @@ background-color: rgb(255, 255, 255);
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>10</number>
      </property>
      <widget class="QWidget" name="p_inicio">
       <widget class="QFrame" name="frame_7">
@@ -10491,7 +10491,7 @@ border-top-right-radius:15px;
          <rect>
           <x>10</x>
           <y>560</y>
-          <width>581</width>
+          <width>501</width>
           <height>161</height>
          </rect>
         </property>
@@ -10691,9 +10691,9 @@ border-radius:15px;
          <property name="geometry">
           <rect>
            <x>410</x>
-           <y>80</y>
-           <width>151</width>
-           <height>71</height>
+           <y>126</y>
+           <width>81</width>
+           <height>21</height>
           </rect>
          </property>
          <property name="text">
@@ -11044,9 +11044,9 @@ border-radius:15px;
        <widget class="QFrame" name="frame_93">
         <property name="geometry">
          <rect>
-          <x>600</x>
+          <x>520</x>
           <y>560</y>
-          <width>241</width>
+          <width>321</width>
           <height>161</height>
          </rect>
         </property>
@@ -11086,7 +11086,7 @@ background-color: rgb(255, 152, 162);
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>241</width>
+           <width>321</width>
            <height>16</height>
           </rect>
          </property>
@@ -11104,7 +11104,7 @@ border-radius:15px;
          <widget class="QLabel" name="label_166">
           <property name="geometry">
            <rect>
-            <x>80</x>
+            <x>120</x>
             <y>0</y>
             <width>91</width>
             <height>16</height>
@@ -11121,7 +11121,7 @@ border-radius:15px;
         <widget class="QPushButton" name="btn_eliminarLinea">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>10</x>
            <y>120</y>
            <width>101</width>
            <height>23</height>
@@ -11129,6 +11129,83 @@ border-radius:15px;
          </property>
          <property name="text">
           <string>Eliminar Linea</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="cbx_filtra_asociado">
+         <property name="geometry">
+          <rect>
+           <x>12</x>
+           <y>28</y>
+           <width>111</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Filtrar por Asociado</string>
+         </property>
+        </widget>
+        <widget class="QDateEdit" name="fecha_desde_estampillas">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>60</y>
+           <width>81</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="currentSection">
+          <enum>QDateTimeEdit::DaySection</enum>
+         </property>
+         <property name="displayFormat">
+          <string>yyyy-MM-dd</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QDateEdit" name="fecha_hasta_estampillas">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>60</y>
+           <width>81</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="currentSection">
+          <enum>QDateTimeEdit::DaySection</enum>
+         </property>
+         <property name="displayFormat">
+          <string>yyyy-MM-dd</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="cbx_filtra_porfecha_estampillas">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>28</y>
+           <width>111</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Filtrar por Fecha</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btn_buscar_estampillas">
+         <property name="geometry">
+          <rect>
+           <x>190</x>
+           <y>60</y>
+           <width>101</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Buscar</string>
          </property>
         </widget>
        </widget>

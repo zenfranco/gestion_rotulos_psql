@@ -100,6 +100,8 @@ class VentanaPrincipal(QMainWindow):
 		self.fecha_hasta_listar.setDate(date.today())
 		self.fecha_desde_envios.setDate(date.today())
 		self.fecha_hasta_envios.setDate(date.today())
+		self.fecha_desde_estampillas.setDate(date.today())
+		self.fecha_hasta_estampillas.setDate(date.today())
 		self.signal_gestion_indice.hide()
 		self.cbx_porfecha.stateChanged.connect(lambda:self.fecha_desde_listar.setEnabled(True))
 		self.cbx_porfecha.stateChanged.connect(lambda:self.fecha_hasta_listar.setEnabled(True))
@@ -182,6 +184,7 @@ class VentanaPrincipal(QMainWindow):
 		self.rb_estampillas.clicked.connect(self.refresh_estampillas)
 		self.rb_anexo.clicked.connect(self.refresh_estampillas)
 		self.btn_eliminarLinea.clicked.connect(self.eliminar_linea)
+		self.btn_buscar_estampillas.clicked.connect(self.refresh_estampillas)
 	
 		
 	def llenarcombo(self):
@@ -586,12 +589,26 @@ class VentanaPrincipal(QMainWindow):
 		
 	def ver_estampillas(self):
 
+		if self.cbx_filtra_asociado.isChecked():
+			asociado=str(self.combo_asociados_estampillas.currentText())
+		else:
+			asociado='%'
 		
+				
 
 
 		if self.rb_estampillas.isChecked():
 
-			listarecuperada=q.recuperaEstampillas()
+			if self.cbx_filtra_porfecha_estampillas.isChecked():
+				desde=self.fecha_desde_estampillas.text()
+				hasta=self.fecha_hasta_estampillas.text()
+				listarecuperada=q.recuperaEstampillasFecha(asociado,desde,hasta)
+			else:
+				listarecuperada=q.recuperaEstampillas(asociado)
+				
+
+
+			
 			totalfilas=len(listarecuperada)
 			self.tb_estampillas.setRowCount(totalfilas)
 				

@@ -100,17 +100,26 @@ class bdquery():
 			return listapedidos
 		def recuperaSubpedidos(self,num_pedido):
 			cur=self.conexion.cursor()
-			cur.execute(''' select cantidad,inicio,fin,variedad,especie,categoria,camp,fecha_subpedido from subpedidos where num_pedido = %s order by inicio ''',[num_pedido])
+			cur.execute(''' select cantidad,inicio,fin,variedad,especie,categoria,camp,fecha_subpedido from subpedidos where num_pedido = %s order by inicio desc ''',[num_pedido])
 			listaSpedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
 			return listaSpedidos
 
 		
-		def recuperaEstampillas(self):
+		def recuperaEstampillas(self,asociado):
 			cur=self.conexion.cursor()
 			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,variedad,especie,categoria,envase,dav,camp,fecha from estampillas e
-			inner join asociados a on a.num_reg = e.rncyfs order by inicio desc''')
+			inner join asociados a on a.num_reg = e.rncyfs where razon_social LIKE %s order by inicio desc''',[asociado])
+			listapedidos=cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listapedidos
+		
+		def recuperaEstampillasFecha(self,asociado,desde,hasta):
+			cur=self.conexion.cursor()
+			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,variedad,especie,categoria,envase,dav,camp,fecha from estampillas e
+			inner join asociados a on a.num_reg = e.rncyfs where razon_social LIKE %s and fecha between %s and %s order by inicio desc''',[asociado,desde,hasta])
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
