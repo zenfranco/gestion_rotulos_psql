@@ -3,7 +3,7 @@ import psycopg2
 class bdquery():
 
 		def __init__(self):
-			self.conexion = psycopg2.connect(host="localhost",database="casem", user="postgres",password="casem1234")
+			self.conexion = psycopg2.connect(host="192.168.0.50",database="casem", user="postgres",password="casem1234")
 			
 			
 			
@@ -593,14 +593,30 @@ class bdquery():
 			
 		def getEnvios(self,registro):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs from envios where num_reg = %s order by fecha_envio DESC''',registro)
+			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios where num_reg = %s order by fecha_envio DESC''',registro)
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
 			return listado
+
+		def getEnviosPorFecha(self,registro,desde,hasta):
+			cur=self.conexion.cursor()
+			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios where num_reg = %s and fecha_envio >= %s and fecha_envio <= %s order by fecha_envio DESC''',[registro,desde,hasta])
+			self.conexion.commit()
+			listado=cur.fetchall()
+			cur.close()
+			return listado
+
 		def getEnvios_ALL(self):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id,tipo,detalle,obs from envios order by fecha_envio DESC''')
+			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios order by fecha_envio DESC''')
+			self.conexion.commit()
+			listado=cur.fetchall()
+			cur.close()
+			return listado
+		def getEnvios_ALLporFecha(self,desde,hasta):
+			cur=self.conexion.cursor()
+			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios where fecha_envio <= %s and fecha_envio >= %s order by fecha_envio DESC''',[hasta,desde])
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
