@@ -346,7 +346,7 @@ class bdquery():
 			from lockers l inner join pedidos p ON p.num_pedido=l.num_pedido
 			inner join asociados a ON a.num_reg =p.rncyfs
 			where razon_social LIKE %s
-   			order by num_locker''',([asociado]))
+   			order by num_locker''',([asociado.upper()]))
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -550,7 +550,7 @@ class bdquery():
 			
 		def subpedidosporfecha(self,reg):
 			cur=self.conexion.cursor()
-			cur.execute('''select sum(cantidad),especie,fecha_subpedido from subpedidos where num_reg = %s group by fecha_subpedido,especie ORDER BY fecha_subpedido DESC''',reg)
+			cur.execute('''select sum(cantidad),especie,fecha_subpedido from subpedidos where num_reg LIKE %s group by fecha_subpedido,especie ORDER BY fecha_subpedido DESC''',reg)
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -558,7 +558,7 @@ class bdquery():
 		
 		def estampillasPorFecha(self,reg):
 			cur=self.conexion.cursor()
-			cur.execute('''select sum(cantidad),especie,fecha from estampillas where rncyfs = %s group by fecha,especie ORDER BY fecha DESC''',reg)
+			cur.execute('''select sum(cantidad),especie,fecha from estampillas where rncyfs LIKE %s group by fecha,especie ORDER BY fecha DESC''',reg)
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -566,7 +566,7 @@ class bdquery():
 		
 		def anexosPorFecha(self,reg):
 			cur=self.conexion.cursor()
-			cur.execute('''select sum(cantidad),especie,fecha from anexos where rncyfs = %s group by fecha,especie ORDER BY fecha DESC''',reg)
+			cur.execute('''select sum(cantidad),especie,fecha from anexos where rncyfs LIKE %s group by fecha,especie ORDER BY fecha DESC''',reg)
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -630,6 +630,20 @@ class bdquery():
 			listado=cur.fetchall()
 			cur.close()
 			return listado
+		
+
+		def agregarGuia(self,guia,indice):
+			cur=self.conexion.cursor()
+			cur.execute("UPDATE envios SET guia = (%s) WHERE id_envio = (%s)",([guia,indice]))
+			self.conexion.commit()
+			cur.close()
+
+		def definirEnvioFacturado(self,indice):
+			cur=self.conexion.cursor()
+			cur.execute("UPDATE envios SET estado = 'FACTURADO' WHERE id_envio = (%s)",([indice]))
+			self.conexion.commit()
+			cur.close()
+
 			
 		def traeIndiceGestion(self):
 			cur=self.conexion.cursor()

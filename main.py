@@ -176,6 +176,13 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_crearenvio.clicked.connect(self.nuevoEnvio)
 		self.btn_refresh_envios.clicked.connect(self.traerenvios)
 		self.tb_envioscreados.itemDoubleClicked.connect(self.envio_selected)
+		self.rb_envios_iqr.clicked.connect(self.asociado_selected)
+		
+		self.rb_envios_estampillas.clicked.connect(self.asociado_selected)
+		self.rb_envios_anexo.clicked.connect(self.asociado_selected)
+		self.btn_agregar_guia.clicked.connect(self.agregar_guia)
+		self.btn_calcular_costo_envio.clicked.connect(self.calcular_costo_sugerido)
+		self.btn_facturar_envio.clicked.connect(self.definir_envio_facturado)
 		
 		
 		#PAGINA ESTAMPILLAS
@@ -302,13 +309,19 @@ class VentanaPrincipal(QMainWindow):
 		self.txt_listar.setText("".join(recuperado))
 	
 	def traeregistrorotulos(self):
-		nombre = str(self.cb_razonsocial_rotulos.currentText())
-		
-		
-		recuperado=q.getrncyfs(nombre)
-		
+
+		try:
+			nombre = str(self.cb_razonsocial_rotulos.currentText())
 			
-		self.txt_rncyfs_rotulos.setText("".join(recuperado))
+			
+			recuperado=q.getrncyfs(nombre)
+			
+				
+			self.txt_rncyfs_rotulos.setText("".join(recuperado))
+		except Exception as e:
+			self.txt_rncyfs_rotulos.setText("")
+			
+			
 
 	def traeregistroestampillas(self):
 		nombre = str(self.combo_asociados_estampillas.currentText())
@@ -843,17 +856,7 @@ class VentanaPrincipal(QMainWindow):
 					if KG=="":
 						dav=0
 						
-					ticket= open("subpedido.txt","a")
-				
-					
-					ticket.write(str(cantidad)+" ")		
-					ticket.write(str(variedad)+" ")
-					ticket.write(str(spini)+" - "+str(spini+cantidad-1)+"\n")
-					
-				
-					
-					ticket.close()
-					
+							
 					
 				
 					'''#EXPORTA A ARCHIVO EXCELL
@@ -1161,12 +1164,29 @@ class VentanaPrincipal(QMainWindow):
 		
 	
 		c.cartel("AVISO","ENVIO CREADO",1)
+		self.traerenvios()
+
+	def agregar_guia(self):
+		guia= str(self.txt_guia_envio.text())
+		indice=int(self.signal_id_envio.text())
+		
+		q.agregarGuia(guia,indice)
+		self.signal_envio_guia.setText(guia)
+		self.txt_guia_envio.setText("")
+
 		
 		
+	def calcular_costo_sugerido(self):
+		costo=float(self.txt_costo_envio.text()	)
+		precio_sugerido=round(costo*1.3)
+		self.txt_precio_sugerido.setText(str(precio_sugerido))
 		
 		
-		
-		
+	def definir_envio_facturado(self):
+		indice=int(self.signal_id_envio.text())
+		q.definirEnvioFacturado(indice)
+		c.cartel("ESTADO ENVIO","ENVIO FACTURADO",1)
+		self.traerenvios()
 		
 			
 	def listar(self):
@@ -2130,15 +2150,21 @@ class VentanaPrincipal(QMainWindow):
 		
 	def traerpedidos_agrupados(self,asociado):
 
-		registro=q.traerregistro(str(asociado))
+		if asociado:
+
+			registro=q.traerregistro(str(asociado))
+		else:
+			registro='%'
 
 		if self.rb_envios_iqr.isChecked():			
 			
 			tablarecuperada=q.subpedidosporfecha(registro)			
 
 		elif self.rb_envios_estampillas.isChecked():
+			
 
 			tablarecuperada=q.estampillasPorFecha(registro)
+			
 		elif self.rb_envios_anexo.isChecked():
 			tablarecuperada=q.anexosPorFecha(registro)
 
