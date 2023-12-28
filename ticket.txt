@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: CASEM
+RAZON SOCIAL: JAKAS KOKIC IVANCICH S.A.
 PEDIDO: 241
 -----------------------------
-RNCyFS: 1111
-Fecha: 2023-12-18
-Rango: 16002001 - 16004000
+RNCyFS: 1158
+Fecha: 2023-12-28
+Rango: 16002001 - 16003000
 Serie: A
-Cantidad: 2000
+Cantidad: 1000
 -----------------------------

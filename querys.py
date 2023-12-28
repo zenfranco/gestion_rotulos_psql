@@ -600,32 +600,40 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 			
-		def getEnvios(self,registro):
+		def getEnvios(self,registro,estado,tipo):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios where num_reg = %s order by fecha_envio DESC''',registro)
+			cur.execute('''select razon_social,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia
+			from envios e inner join asociados a on a.num_reg = e.num_reg
+			where e.num_reg = %s and estado LIKE %s and tipo LIKE %s order by fecha_envio DESC''',[registro,estado,tipo])
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
 			return listado
 
-		def getEnviosPorFecha(self,registro,desde,hasta):
+		def getEnviosPorFecha(self,registro,desde,hasta,estado,tipo):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios where num_reg = %s and fecha_envio >= %s and fecha_envio <= %s order by fecha_envio DESC''',[registro,desde,hasta])
+			cur.execute('''select razon_social,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia
+			from envios e inner join asociados a on a.num_reg = e.num_reg
+			where e.num_reg = %s and fecha_envio >= %s and fecha_envio <= %s and estado LIKE %s and tipo LIKE %s order by fecha_envio DESC''',[registro,desde,hasta,estado,tipo])
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
 			return listado
 
-		def getEnvios_ALL(self):
+		def getEnvios_ALL(self,estado,tipo):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios order by fecha_envio DESC''')
+			cur.execute('''select razon_social,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia
+			from envios e inner join asociados a on a.num_reg = e.num_reg
+			where estado LIKE %s and tipo LIKE %s order by fecha_envio DESC''',[estado,tipo])
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
 			return listado
-		def getEnvios_ALLporFecha(self,desde,hasta):
+		def getEnvios_ALLporFecha(self,desde,hasta,estado,tipo):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios where fecha_envio <= %s and fecha_envio >= %s order by fecha_envio DESC''',[hasta,desde])
+			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia
+			from envios e inner join asociados a on a.num_reg = e.num_reg
+			where fecha_envio <= %s and fecha_envio >= %s and estado LIKE %s and tipo LIKE %s order by fecha_envio DESC''',[hasta,desde,estado,tipo])
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()

@@ -1193,17 +1193,20 @@ class VentanaPrincipal(QMainWindow):
 		
 		
 		if self.cbx_porrotulo.isChecked():
-			rotulo=int(self.txt_porrotulo.text())
-			tablarecuperada = q.busquedaxrotulo(rotulo)
-			
-			i=0
-			for i in tablarecuperada:
-				self.signal_pedido_bxr.setText(str(i[0]))
-				numpedido=int(i[0])
-				break
-			razon_social=q.traerazonsocial(numpedido)
-			
-			self.signal_asociado_bxr.setText("".join(razon_social))
+				try:
+					rotulo=int(self.txt_porrotulo.text())
+					tablarecuperada = q.busquedaxrotulo(rotulo)
+					
+					i=0
+					for i in tablarecuperada:
+						self.signal_pedido_bxr.setText(str(i[0]))
+						numpedido=int(i[0])
+						break
+					razon_social=q.traerazonsocial(numpedido)
+					
+					self.signal_asociado_bxr.setText("".join(razon_social))
+				except Exception as e:
+					c.cartel("PEDIDO NO ENCONTRADO","No se encontro el pedido correspondiente a ese rotulo",3)
 			
 			
 		else:
@@ -2052,11 +2055,13 @@ class VentanaPrincipal(QMainWindow):
 			fecha_envio=str(self.tb_envioscreados.item(fila, 1).text())
 			estado=str(self.tb_envioscreados.item(fila, 2).text())
 			guia=str(self.tb_envioscreados.item(fila, 11).text())
+			asociado=str(self.tb_envioscreados.item(fila, 0).text())
    
 			self.signal_envio_fecha.setText(str(fecha_envio))
 			self.signal_envio_estado.setText(str(estado))
 			self.signal_envio_guia.setText(str(guia))
 			self.signal_id_envio.setText(str(id))
+			self.signal_envio_asociado.setText(str(asociado))
 			
 			
 			
@@ -2187,6 +2192,25 @@ class VentanaPrincipal(QMainWindow):
 				
 			desde=str(self.fecha_desde_envios.text())
 			hasta=str(self.fecha_hasta_envios.text())
+			if self.rb_facturados_envios.isChecked():
+				estado='FACTURADO'
+			elif self.rb_sin_facturar_envios.isChecked():
+				estado='PREPARADO'
+			elif self.rb_todos_envios.isChecked():
+				estado='%'
+			
+			
+			
+			if self.cb_servicio_busqueda.currentText()=='':
+				tipo='%'
+			else:
+				tipo=str(self.cb_servicio_busqueda.currentText())
+				
+
+			
+			
+
+			
 			if self.rb_xasociado_envios.isChecked():
        
 				fila = self.tb_asociados_envios.currentRow()	
@@ -2196,19 +2220,20 @@ class VentanaPrincipal(QMainWindow):
     
 				if self.cbx_enviosxfecha.isChecked():
         
-					     
-					tablarecuperada=q.getEnviosPorFecha(registro,desde,hasta)
+					print(estado)
+					print(tipo)
+					tablarecuperada=q.getEnviosPorFecha(registro,desde,hasta,estado,tipo)
 				
 				else:
-					tablarecuperada=q.getEnvios(registro)
+					tablarecuperada=q.getEnvios(registro,estado,tipo)
 			else:
        
 				if self.cbx_enviosxfecha.isChecked():
         
-					tablarecuperada=q.getEnvios_ALLporFecha(desde,hasta)
+					tablarecuperada=q.getEnvios_ALLporFecha(desde,hasta,estado,tipo)
 				
 				else:
-					tablarecuperada=q.getEnvios_ALL()
+					tablarecuperada=q.getEnvios_ALL(estado,tipo)
 				
 				
 			totalfilas=len(tablarecuperada)
@@ -2232,7 +2257,7 @@ class VentanaPrincipal(QMainWindow):
 				fila = fila+1
     
 		except Exception as e:
-			pass
+			print(e)
       		
 			
       	
