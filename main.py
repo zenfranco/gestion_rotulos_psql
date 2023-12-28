@@ -183,6 +183,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_agregar_guia.clicked.connect(self.agregar_guia)
 		self.btn_calcular_costo_envio.clicked.connect(self.calcular_costo_sugerido)
 		self.btn_facturar_envio.clicked.connect(self.definir_envio_facturado)
+		self.btn_agregar_fct.clicked.connect(self.agregar_factura)
 		
 		
 		#PAGINA ESTAMPILLAS
@@ -627,7 +628,7 @@ class VentanaPrincipal(QMainWindow):
 				
 				
 			fila =0
-			
+			cantidad=0
 			for i in listarecuperada:
 				self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
 				self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
@@ -644,6 +645,7 @@ class VentanaPrincipal(QMainWindow):
 				
 					
 				fila=fila+1
+				cantidad=cantidad+int(i[4])
 		else:
 
 			listarecuperada=q.recuperaAnexos()
@@ -652,7 +654,7 @@ class VentanaPrincipal(QMainWindow):
 				
 				
 			fila =0
-			
+			cantidad=0
 			for i in listarecuperada:
 				self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
 				self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
@@ -669,7 +671,8 @@ class VentanaPrincipal(QMainWindow):
 				
 					
 				fila=fila+1
-
+				cantidad=cantidad+int(i[4])
+		self.signal_total_estampillas.setText(str(cantidad))
 
 
 	
@@ -1173,6 +1176,14 @@ class VentanaPrincipal(QMainWindow):
 		q.agregarGuia(guia,indice)
 		self.signal_envio_guia.setText(guia)
 		self.txt_guia_envio.setText("")
+
+	def agregar_factura(self):
+		factura= str(self.txt_fct_envios.text())
+		indice=int(self.signal_id_envio.text())
+		
+		q.agregarFct(factura,indice)
+		self.signal_envio_fct.setText(factura)
+		self.txt_fct_envios.setText("")
 
 		
 		
@@ -2056,12 +2067,14 @@ class VentanaPrincipal(QMainWindow):
 			estado=str(self.tb_envioscreados.item(fila, 2).text())
 			guia=str(self.tb_envioscreados.item(fila, 11).text())
 			asociado=str(self.tb_envioscreados.item(fila, 0).text())
+			fct=str(self.tb_envioscreados.item(fila, 12).text())
    
 			self.signal_envio_fecha.setText(str(fecha_envio))
 			self.signal_envio_estado.setText(str(estado))
 			self.signal_envio_guia.setText(str(guia))
 			self.signal_id_envio.setText(str(id))
 			self.signal_envio_asociado.setText(str(asociado))
+			self.signal_envio_fct.setText(str(fct))
 			
 			
 			
@@ -2252,6 +2265,7 @@ class VentanaPrincipal(QMainWindow):
 				self.tb_envioscreados.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
 				self.tb_envioscreados.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
 				self.tb_envioscreados.setItem(fila,11,QtWidgets.QTableWidgetItem(str(i[11])))
+				self.tb_envioscreados.setItem(fila,12,QtWidgets.QTableWidgetItem(str(i[12])))
 				
 				
 				fila = fila+1
