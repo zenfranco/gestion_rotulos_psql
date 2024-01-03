@@ -265,6 +265,34 @@ class bdquery():
 			return listado
 			
 			
+		def listarrendicion40(self,desde,hasta,registro,especie,cultivar,categoria,camp,envase):
+			cur=self.conexion.cursor()
+			cur.execute(''' select s.inicio||'-'||s.fin,s.cantidad,s.num_reg,a.razon_social,kg,especie,variedad,categoria,camp,fecha_subpedido,s.num_pedido
+			from subpedidos s
+			inner join asociados a
+			on a.num_reg = s.num_reg
+			where fecha_subpedido >= %s and fecha_subpedido <= %s and s.num_reg LIKE %s 
+			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp = %s and kg = %s
+   			order by s.inicio''',([desde,hasta,registro,especie,cultivar,categoria,camp,envase]))
+			listado = cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listado
+		
+		def listarrendicionBB(self,desde,hasta,registro,especie,cultivar,categoria,camp):
+			cur=self.conexion.cursor()
+			cur.execute(''' select s.inicio||'-'||s.fin,s.cantidad,s.num_reg,a.razon_social,kg,especie,variedad,categoria,camp,fecha_subpedido,s.num_pedido
+			from subpedidos s
+			inner join asociados a
+			on a.num_reg = s.num_reg
+			where fecha_subpedido >= %s and fecha_subpedido <= %s and s.num_reg LIKE %s 
+			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp = %s and kg != 40
+   			order by s.inicio''',([desde,hasta,registro,especie,cultivar,categoria,camp]))
+			listado = cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listado
+		
 		def listarrendicion(self,desde,hasta,registro,especie,cultivar,categoria,camp):
 			cur=self.conexion.cursor()
 			cur.execute(''' select s.inicio||'-'||s.fin,s.cantidad,s.num_reg,a.razon_social,kg,especie,variedad,categoria,camp,fecha_subpedido,s.num_pedido
@@ -272,7 +300,7 @@ class bdquery():
 			inner join asociados a
 			on a.num_reg = s.num_reg
 			where fecha_subpedido >= %s and fecha_subpedido <= %s and s.num_reg LIKE %s 
-			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp =%s
+			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp = %s 
    			order by s.inicio''',([desde,hasta,registro,especie,cultivar,categoria,camp]))
 			listado = cur.fetchall()
 			self.conexion.commit()
@@ -510,6 +538,14 @@ class bdquery():
 			cur.execute(''' delete from gestiones where indice =%s''',([indice]))
 			self.conexion.commit()
 			cur.close()
+
+		def eliminarEnvio(self,indice):
+			cur=self.conexion.cursor()
+			cur.execute(''' delete from envios where id_envio =%s''',([indice]))
+			self.conexion.commit()
+			cur.close()
+		
+		
 			
 		def borrarimpresion(self,indice):
 			cur=self.conexion.cursor()
@@ -631,7 +667,7 @@ class bdquery():
 			return listado
 		def getEnvios_ALLporFecha(self,desde,hasta,estado,tipo):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia,factura
+			cur.execute('''select razon_social,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia,factura
 			from envios e inner join asociados a on a.num_reg = e.num_reg
 			where fecha_envio <= %s and fecha_envio >= %s and estado LIKE %s and tipo LIKE %s order by fecha_envio DESC''',[hasta,desde,estado,tipo])
 			self.conexion.commit()

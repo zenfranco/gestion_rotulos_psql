@@ -134,6 +134,9 @@ class VentanaPrincipal(QMainWindow):
 		headertb_estampillas = self.tb_estampillas.horizontalHeader()
 		headertb_estampillas.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
+		headertb_envios = self.tb_envioscreados.horizontalHeader()
+		headertb_envios.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+
 		
 		
 		
@@ -154,6 +157,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_eliminar_impresion.clicked.connect(self.eliminarimpresion)
 		self.btn_ingresar_stock.clicked.connect(self.cargaStock)
 		self.btn_modificar_rotulos.clicked.connect(self.editarcantidadrotulo)
+		self.btn_limpiar_busqueda_rotulos.clicked.connect(self.limpiar_formulario_busqueda_impresiones)
 		
 		#PAGINA GESTIONES
 		self.btn_agregar_nueva.clicked.connect(self.nuevagestion)
@@ -184,6 +188,9 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_calcular_costo_envio.clicked.connect(self.calcular_costo_sugerido)
 		self.btn_facturar_envio.clicked.connect(self.definir_envio_facturado)
 		self.btn_agregar_fct.clicked.connect(self.agregar_factura)
+		self.btn_eliminar_envio.clicked.connect(self.eliminar_envio)
+		self.rb_xasociado_envios.clicked.connect(self.traerenvios)
+		self.rb_todoslosenvios_envios.clicked.connect(self.traerenvios)
 		
 		
 		#PAGINA ESTAMPILLAS
@@ -1141,7 +1148,24 @@ class VentanaPrincipal(QMainWindow):
 			c.cartel("ATENCION","REGISTRO ELIMINADO",1)
 			self.listarimpresiones()
 						
+	def eliminar_envio(self):
 		
+		indice=int(self.signal_id_envio.text())
+		r=c.cartel_opcion("ATENCION","DESEA ELIMINAR EL ENVIO SELECCIONADO",2)
+		
+		
+		
+		if r==16384:
+			q.eliminarEnvio(indice)
+			
+			c.cartel("ATENCION","ENVIO ELIMINADO",1)
+			self.traerenvios()
+			self.signal_envio_fecha.setText("")
+			self.signal_envio_estado.setText("")
+			self.signal_envio_guia.setText("")
+			self.signal_id_envio.setText("")
+			self.signal_envio_asociado.setText("")
+			self.signal_envio_fct.setText("")
 			
 			
 	def nuevoEnvio(self):
@@ -1164,7 +1188,13 @@ class VentanaPrincipal(QMainWindow):
 		
 		
 		q.insertarEnvio(fecha_envio,registro,cantidad,tipo,rotulos,fecha_emision,bultos,estado,especie,detalle,obs)
-		
+		self.txt_cantidad_envios.setText("")
+		self.txt_especie_envios.setText("")
+		self.txt_bultos_envios.setText("")
+		self.cb_detalle_envios.setCurrentIndex(0)
+		self.txt_obs_envios.setText("")
+		self.signal_emision.setText("")
+		self.cb_servicio_envios.setCurrentIndex(0)
 	
 		c.cartel("AVISO","ENVIO CREADO",1)
 		self.traerenvios()
@@ -1190,6 +1220,25 @@ class VentanaPrincipal(QMainWindow):
 	def calcular_costo_sugerido(self):
 		costo=float(self.txt_costo_envio.text()	)
 		precio_sugerido=round(costo*1.3)
+		
+		digito=int(len(str(precio_sugerido)))
+		multiplica=0
+		
+		if digito == 4:
+			multiplica = (digito-1) *100
+
+		elif digito == 3:
+			multiplica = (digito-1) *100
+		elif digito == 2:
+			multiplica = (digito-1) *10
+		elif digito ==1:
+			multiplica= (digito-1) *1
+
+		
+			
+
+
+
 		self.txt_precio_sugerido.setText(str(precio_sugerido))
 		
 		
@@ -1343,6 +1392,7 @@ class VentanaPrincipal(QMainWindow):
 			cultivar=str(self.cbx_cultivar_rendicion.currentText())
 			categoria=str(self.cbx_categoria_rendicion.currentText())
 			camp= str(self.cbx_camp_rendicion.currentText())
+			envase=str(self.cbx_envase_rendicion.currentText())
 		
 		
 		
@@ -1358,13 +1408,24 @@ class VentanaPrincipal(QMainWindow):
 		
 			if categoria =="":
 				categoria='%'
+
+			if envase=='40 KG.':
+				envase=40
+				listarecuperada =q.listarrendicion40(desde,hasta,registro,especie,cultivar,categoria,camp,envase)
+			elif envase =="Big Bag":
+				
+				listarecuperada =q.listarrendicionBB(desde,hasta,registro,especie,cultivar,categoria,camp)
+			else:
+				listarecuperada =q.listarrendicion(desde,hasta,registro,especie,cultivar,categoria,camp)
+				
+
 			
 			
 			
 			
 				
 			
-			listarecuperada =q.listarrendicion(desde,hasta,registro,especie,cultivar,categoria,camp)
+			
 			totalfilas=len(listarecuperada)
 			self.tb_rendicion.setRowCount(totalfilas)
 		
@@ -1762,7 +1823,16 @@ class VentanaPrincipal(QMainWindow):
 			c.cartel("ERROR","INGRESE CANTIDAD",3)
 			
 		
-		
+	def limpiar_formulario_busqueda_impresiones(self):
+		self.fecha_desde_rotulos.setDate(date.today())
+		self.fecha_hasta_rotulos.setDate(date.today())
+		self.cb_razonsocial.setCurrentIndex(0)
+		self.cb_tipo.setCurrentIndex(0)
+		self.cb_especie.setCurrentIndex(0)
+		self.cb_categoria.setCurrentIndex(0)
+		self.rb_rotulos_pendientes.setChecked(True)
+
+
 		
 	def listarimpresiones(self):
 		
@@ -2233,8 +2303,7 @@ class VentanaPrincipal(QMainWindow):
     
 				if self.cbx_enviosxfecha.isChecked():
         
-					print(estado)
-					print(tipo)
+					
 					tablarecuperada=q.getEnviosPorFecha(registro,desde,hasta,estado,tipo)
 				
 				else:

@@ -41,6 +41,7 @@ font-family: Calibri;
 color:black;
 }
 QLineEdit{
+border: 1px solid #232323;
 border-radius:15px;
 }
 QLineEdit:focus {
@@ -49,6 +50,8 @@ QLineEdit:focus {
 QComboBox:focus {
     border: 2px solid #ec4f4f;
 }
+QComboBox{
+border: 1px solid #232323}
 
 </string>
   </property>
@@ -433,9 +436,7 @@ color: rgb(221, 221, 221);
 	
 	background-color: rgb(226, 226, 226);
 }
-QComboBox{
-background-color: rgb(255, 255, 255);
-}</string>
+</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
@@ -4054,7 +4055,7 @@ background-color: rgb(255, 152, 162);
         </property>
         <item>
          <property name="text">
-          <string/>
+          <string>2024</string>
          </property>
         </item>
         <item>
@@ -4264,7 +4265,7 @@ border-radius:15px;
          <string>ENVASE</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="cbx_camp_rendicion_2">
+       <widget class="QComboBox" name="cbx_envase_rendicion">
         <property name="geometry">
          <rect>
           <x>690</x>
@@ -4732,8 +4733,8 @@ background:#CDC9C9;</string>
        <widget class="QFrame" name="frame_detallepedido">
         <property name="geometry">
          <rect>
-          <x>360</x>
-          <y>290</y>
+          <x>355</x>
+          <y>360</y>
           <width>491</width>
           <height>261</height>
          </rect>
@@ -4760,53 +4761,19 @@ background-color: rgb(255, 152, 162);
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <widget class="QLabel" name="label_25">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>131</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Calibri</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Detalles del pedido:</string>
-         </property>
-        </widget>
-        <widget class="Line" name="line">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>30</y>
-           <width>281</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
         <widget class="QLabel" name="label_26">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>80</y>
-           <width>121</width>
+           <y>60</y>
+           <width>171</width>
            <height>16</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -4819,15 +4786,15 @@ background-color: rgb(255, 152, 162);
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>100</y>
-           <width>51</width>
+           <y>90</y>
+           <width>151</width>
            <height>16</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -4841,14 +4808,14 @@ background-color: rgb(255, 152, 162);
           <rect>
            <x>10</x>
            <y>120</y>
-           <width>41</width>
+           <width>61</width>
            <height>16</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -4861,7 +4828,7 @@ background-color: rgb(255, 152, 162);
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>140</y>
+           <y>150</y>
            <width>41</width>
            <height>16</height>
           </rect>
@@ -4869,7 +4836,7 @@ background-color: rgb(255, 152, 162);
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -4882,28 +4849,28 @@ background-color: rgb(255, 152, 162);
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>160</y>
-           <width>121</width>
+           <y>180</y>
+           <width>171</width>
            <height>16</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Numero de Pedido</string>
+          <string>Nº de Pedido:</string>
          </property>
         </widget>
         <widget class="QLabel" name="signal_cantidad">
          <property name="geometry">
           <rect>
-           <x>130</x>
-           <y>80</y>
+           <x>190</x>
+           <y>60</y>
            <width>121</width>
            <height>16</height>
           </rect>
@@ -4911,7 +4878,7 @@ background-color: rgb(255, 152, 162);
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
           </font>
          </property>
          <property name="text">
@@ -4921,16 +4888,16 @@ background-color: rgb(255, 152, 162);
         <widget class="QLabel" name="signal_rncyfs">
          <property name="geometry">
           <rect>
-           <x>60</x>
-           <y>100</y>
-           <width>51</width>
+           <x>90</x>
+           <y>90</y>
+           <width>161</width>
            <height>16</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
           </font>
          </property>
          <property name="text">
@@ -4940,16 +4907,16 @@ background-color: rgb(255, 152, 162);
         <widget class="QLabel" name="signal_inicio">
          <property name="geometry">
           <rect>
-           <x>50</x>
+           <x>70</x>
            <y>120</y>
-           <width>121</width>
+           <width>201</width>
            <height>16</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
           </font>
          </property>
          <property name="text">
@@ -4960,15 +4927,15 @@ background-color: rgb(255, 152, 162);
          <property name="geometry">
           <rect>
            <x>40</x>
-           <y>140</y>
-           <width>151</width>
+           <y>150</y>
+           <width>221</width>
            <height>16</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
           </font>
          </property>
          <property name="text">
@@ -4978,16 +4945,16 @@ background-color: rgb(255, 152, 162);
         <widget class="QLabel" name="signal_numpedido">
          <property name="geometry">
           <rect>
-           <x>120</x>
-           <y>160</y>
-           <width>121</width>
+           <x>140</x>
+           <y>180</y>
+           <width>271</width>
            <height>16</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>16</pointsize>
           </font>
          </property>
          <property name="text">
@@ -5019,6 +4986,43 @@ background-color: rgb(255, 152, 162);
            <height>24</height>
           </size>
          </property>
+        </widget>
+        <widget class="QFrame" name="frame_41">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>491</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:grey;
+border-radius:15px;
+</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="label_167">
+          <property name="geometry">
+           <rect>
+            <x>200</x>
+            <y>-1</y>
+            <width>101</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Detalles del pedido</string>
+          </property>
+         </widget>
         </widget>
        </widget>
        <widget class="QFrame" name="frame_32">
@@ -7699,7 +7703,7 @@ background-color: rgb(255, 152, 162);
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 0, 0);</string>
+          <string notr="true">color: rgb(0, 0, 255);</string>
          </property>
          <property name="text">
           <string>...</string>
@@ -7709,7 +7713,7 @@ background-color: rgb(255, 152, 162);
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>42</y>
+           <y>38</y>
            <width>121</width>
            <height>16</height>
           </rect>
@@ -7717,7 +7721,7 @@ background-color: rgb(255, 152, 162);
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>9</pointsize>
+           <pointsize>8</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -7730,7 +7734,7 @@ background-color: rgb(255, 152, 162);
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>59</y>
+           <y>55</y>
            <width>91</width>
            <height>22</height>
           </rect>
@@ -7739,8 +7743,8 @@ background-color: rgb(255, 152, 162);
         <widget class="QPushButton" name="btn_modificar_rotulos">
          <property name="geometry">
           <rect>
-           <x>94</x>
-           <y>59</y>
+           <x>101</x>
+           <y>55</y>
            <width>21</width>
            <height>22</height>
           </rect>
@@ -7813,9 +7817,9 @@ border-radius:15px;
          <property name="geometry">
           <rect>
            <x>210</x>
-           <y>100</y>
+           <y>120</y>
            <width>41</width>
-           <height>31</height>
+           <height>20</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -7832,8 +7836,8 @@ border-radius:15px;
         <widget class="QLabel" name="label_69">
          <property name="geometry">
           <rect>
-           <x>126</x>
-           <y>42</y>
+           <x>10</x>
+           <y>79</y>
            <width>121</width>
            <height>16</height>
           </rect>
@@ -7845,11 +7849,14 @@ border-radius:15px;
         <widget class="QComboBox" name="txt_estado_rotulos">
          <property name="geometry">
           <rect>
-           <x>126</x>
-           <y>59</y>
-           <width>131</width>
+           <x>10</x>
+           <y>94</y>
+           <width>241</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <item>
           <property name="text">
@@ -7881,16 +7888,16 @@ border-radius:15px;
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>100</y>
+           <y>119</y>
            <width>191</width>
-           <height>31</height>
+           <height>21</height>
           </rect>
          </property>
          <property name="styleSheet">
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>Definir</string>
+          <string>Definir Estado</string>
          </property>
         </widget>
         <widget class="QLineEdit" name="txt_indice_rotulos">
@@ -8038,6 +8045,9 @@ border-radius:15px;
            <height>20</height>
           </rect>
          </property>
+         <property name="frame">
+          <bool>true</bool>
+         </property>
         </widget>
         <widget class="QComboBox" name="cbx_tipo_rotulos_ingresar">
          <property name="geometry">
@@ -8047,6 +8057,9 @@ border-radius:15px;
            <width>111</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <item>
           <property name="text">
@@ -8087,6 +8100,9 @@ border-radius:15px;
            <width>111</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <item>
           <property name="text">
@@ -8359,6 +8375,9 @@ border-radius:15px;
            <height>22</height>
           </rect>
          </property>
+         <property name="frame">
+          <bool>false</bool>
+         </property>
          <item>
           <property name="text">
            <string>-</string>
@@ -8398,6 +8417,9 @@ border-radius:15px;
            <width>111</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <item>
           <property name="text">
@@ -8477,9 +8499,12 @@ border-radius:15px;
           <rect>
            <x>260</x>
            <y>78</y>
-           <width>111</width>
+           <width>161</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <item>
           <property name="text">
@@ -8521,6 +8546,9 @@ border-radius:15px;
            <height>22</height>
           </rect>
          </property>
+         <property name="frame">
+          <bool>false</bool>
+         </property>
          <property name="displayFormat">
           <string>yyyy-MM-dd</string>
          </property>
@@ -8537,6 +8565,9 @@ border-radius:15px;
            <height>22</height>
           </rect>
          </property>
+         <property name="frame">
+          <bool>false</bool>
+         </property>
          <property name="displayFormat">
           <string>yyyy-MM-dd</string>
          </property>
@@ -8549,7 +8580,7 @@ border-radius:15px;
           <rect>
            <x>260</x>
            <y>120</y>
-           <width>111</width>
+           <width>91</width>
            <height>21</height>
           </rect>
          </property>
@@ -8578,7 +8609,7 @@ border-radius:15px;
           <rect>
            <x>20</x>
            <y>39</y>
-           <width>351</width>
+           <width>401</width>
            <height>21</height>
           </rect>
          </property>
@@ -8591,11 +8622,30 @@ border-radius:15px;
          <property name="styleSheet">
           <string notr="true">color:black;</string>
          </property>
+         <property name="frame">
+          <bool>false</bool>
+         </property>
          <item>
           <property name="text">
            <string>-</string>
           </property>
          </item>
+        </widget>
+        <widget class="QPushButton" name="btn_limpiar_busqueda_rotulos">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>120</y>
+           <width>61</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Limpiar</string>
+         </property>
         </widget>
        </widget>
        <widget class="QFrame" name="frame_82">
@@ -8696,6 +8746,12 @@ border-radius:15px;
          <property name="styleSheet">
           <string notr="true">color:black;</string>
          </property>
+         <property name="duplicatesEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
+         </property>
          <item>
           <property name="text">
            <string>-</string>
@@ -8756,6 +8812,9 @@ border-radius:15px;
            <width>191</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <item>
           <property name="text">
@@ -8820,6 +8879,9 @@ border-radius:15px;
            <height>22</height>
           </rect>
          </property>
+         <property name="frame">
+          <bool>false</bool>
+         </property>
          <item>
           <property name="text">
            <string>-</string>
@@ -8877,6 +8939,9 @@ border-radius:15px;
            <width>191</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <item>
           <property name="text">
@@ -9641,7 +9706,7 @@ background-color: rgb(255, 152, 162);
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QRadioButton" name="t">
+       <widget class="QRadioButton" name="rb_todoslosenvios_envios">
         <property name="geometry">
          <rect>
           <x>250</x>
@@ -10468,7 +10533,8 @@ color:black;
 }
 QLineEdit{
 border-radius:15px;
-}</string>
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -10484,6 +10550,9 @@ border-radius:15px;
            <width>281</width>
            <height>22</height>
           </rect>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <item>
           <property name="text">
@@ -10539,7 +10608,7 @@ border-radius:15px;
            <x>320</x>
            <y>40</y>
            <width>113</width>
-           <height>20</height>
+           <height>22</height>
           </rect>
          </property>
         </widget>
@@ -11025,6 +11094,9 @@ border-radius:15px;
            <height>21</height>
           </rect>
          </property>
+         <property name="frame">
+          <bool>false</bool>
+         </property>
          <item>
           <property name="text">
            <string/>
@@ -11064,6 +11136,9 @@ border-radius:15px;
            <width>51</width>
            <height>21</height>
           </rect>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
          </property>
          <item>
           <property name="text">
@@ -11536,7 +11611,7 @@ border-radius:15px;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 211, 212);
+         <string notr="true">background-color: rgb(255, 170, 127);
 border-radius:15px;
 </string>
         </property>
@@ -11798,7 +11873,7 @@ border-radius:15px;
   <tabstop>btn_facturar_envio</tabstop>
   <tabstop>tb_envioscreados</tabstop>
   <tabstop>rb_xasociado_envios</tabstop>
-  <tabstop>t</tabstop>
+  <tabstop>rb_todoslosenvios_envios</tabstop>
   <tabstop>btn_refresh_envios</tabstop>
   <tabstop>btn_eliminar_envio</tabstop>
   <tabstop>fecha_hasta_envios</tabstop>
