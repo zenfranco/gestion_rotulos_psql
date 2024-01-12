@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: JAKAS KOKIC IVANCICH S.A.
-PEDIDO: 241
+RAZON SOCIAL: COOP. AGRIC. DE GRAL. ROJO LTDA
+PEDIDO: 242
 -----------------------------
-RNCyFS: 1158
-Fecha: 2023-12-28
-Rango: 16002001 - 16003000
+RNCyFS: 451
+Fecha: 2024-01-05
+Rango: 16003001 - 16005000
 Serie: A
-Cantidad: 1000
+Cantidad: 2000
 -----------------------------

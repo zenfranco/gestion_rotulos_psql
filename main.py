@@ -24,7 +24,7 @@ class VentanaPrincipal(QMainWindow):
 		loadUi('main.ui', self)
 		
 		self.frame_detallepedido.hide()
-		self.frm_manual.hide()
+		
 		#CAMBIAR DE PAGINAS
 		self.btn_nuevopedido.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_nuevopedido)) #cambia de pagina
 		self.btn_nuevosubpedido.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_nuevosubpedido)) #cambia de pagina
@@ -42,7 +42,7 @@ class VentanaPrincipal(QMainWindow):
 		#PAGINA PEDIDOS
 		self.btn_ingresarpedido.clicked.connect(self.NuevoPedido)
 		self.btn_ingresarpedido.clicked.connect(self.limpiar)
-		self.cbx_manual.stateChanged.connect(lambda:self.frm_manual.show())
+		
 		self.btn_printdetalle.clicked.connect(self.imprimirticket)
 		
 		self.rb_seriea.clicked.connect(self.iniciarpedido)
@@ -158,6 +158,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_ingresar_stock.clicked.connect(self.cargaStock)
 		self.btn_modificar_rotulos.clicked.connect(self.editarcantidadrotulo)
 		self.btn_limpiar_busqueda_rotulos.clicked.connect(self.limpiar_formulario_busqueda_impresiones)
+		self.btn_modificar_tipo.clicked.connect(self.modificar_tipo)
 		
 		#PAGINA GESTIONES
 		self.btn_agregar_nueva.clicked.connect(self.nuevagestion)
@@ -254,7 +255,7 @@ class VentanaPrincipal(QMainWindow):
 			indice =4
 			self.txt_dav.setText("")
 			self.txt_variedad_estampillas.setText("")
-			self.txt_categoria_estampillas.setText("")
+			
 			self.txt_envase_estampillas.setText("")
 			self.signal_tipodetramite.setText("Solicitud Estampillas Oficiales")
 
@@ -269,7 +270,7 @@ class VentanaPrincipal(QMainWindow):
 			indice =5
 			self.txt_dav.setText("No se informa")
 			self.txt_variedad_estampillas.setText("No se informa")
-			self.txt_categoria_estampillas.setText("No se informa")
+			
 			self.txt_envase_estampillas.setText("No se informa")
 			self.signal_tipodetramite.setText("Solicitud Estampillas Anexo I")
 							
@@ -818,33 +819,11 @@ class VentanaPrincipal(QMainWindow):
 				if disp >= cantidad:
 					
 					registro=str(tablapedidos[1])
-					
-					if self.cbx_manual.isChecked(): #OPCION PARA QUE EL USUARIO INGRESE SU RANGO DE INICIO
-						
-						rangomanual=self.txt_manual.text()
-						
-						if rangomanual in range(tablapedidos[6],tablapedidos[7]):
-							
-							spini=rangomanual
-							spfin=spini+cantidad-1
-							
-								
-							
-						else:
-							print("rango incorrecto")
-							
-						
-						#VALIDAR QUE NO SUPERE EL RANGO FINAL
-						
-						
-						
 						
 					
-					
-					else:#CAMINO AUTOMATICO: EL SISTEMA ASIGNA SECUENCIALMENTE EL RANGO
 						
-						spini=int(tablapedidos[6]) #valor inicioremanente de pedido
-						spfin=spini+cantidad-1
+					spini=int(tablapedidos[6]) #valor inicioremanente de pedido
+					spfin=spini+cantidad-1
 					
 					numpedido=int(self.txt_numpedido.text())
 					variedad=str(self.txt_subvariedad.text())
@@ -955,6 +934,7 @@ class VentanaPrincipal(QMainWindow):
 			
 			self.txt_altaasociado_reg.setText("")
 			self.txt_altaasociado_nombre.setText("")
+			c.cartel("INFORMACION","ASOCIADO REGISTRADO",1)
 		
 		
 		
@@ -1169,6 +1149,7 @@ class VentanaPrincipal(QMainWindow):
 			
 			
 	def nuevoEnvio(self):
+
 		fecha_envio=date.today()
 		registro=str(q.getrncyfs(str(self.signal_asociado_envios.text()))[0])
 		cantidad=int(self.txt_cantidad_envios.text())
@@ -1186,18 +1167,21 @@ class VentanaPrincipal(QMainWindow):
 		else:
 			rotulos='NO'
 		
+		if tipo and bultos:
+			q.insertarEnvio(fecha_envio,registro,cantidad,tipo,rotulos,fecha_emision,bultos,estado,especie,detalle,obs)
+			self.txt_cantidad_envios.setText("")
+			self.txt_especie_envios.setText("")
+			self.txt_bultos_envios.setText("")
+			self.cb_detalle_envios.setCurrentIndex(0)
+			self.txt_obs_envios.setText("")
+			self.signal_emision.setText("")
+			self.cb_servicio_envios.setCurrentIndex(0)
 		
-		q.insertarEnvio(fecha_envio,registro,cantidad,tipo,rotulos,fecha_emision,bultos,estado,especie,detalle,obs)
-		self.txt_cantidad_envios.setText("")
-		self.txt_especie_envios.setText("")
-		self.txt_bultos_envios.setText("")
-		self.cb_detalle_envios.setCurrentIndex(0)
-		self.txt_obs_envios.setText("")
-		self.signal_emision.setText("")
-		self.cb_servicio_envios.setCurrentIndex(0)
-	
-		c.cartel("AVISO","ENVIO CREADO",1)
-		self.traerenvios()
+			c.cartel("AVISO","ENVIO CREADO",1)
+			self.traerenvios()
+		else:
+			c.cartel("ERROR","FALTAN CAMPOS",3)
+
 
 	def agregar_guia(self):
 		guia= str(self.txt_guia_envio.text())
@@ -1595,12 +1579,21 @@ class VentanaPrincipal(QMainWindow):
 			
 		
 	def setearlockers(self):
-		cantidad=self.txt_definir_locker.text()
+
+		r=c.cartel_opcion("ATENCION","DESEA INICIALIZAR LOS LOCKERS",2)
+			
+		if r==16384:
+			cantidad=self.txt_definir_locker.text()
 		
 			
-		for i in range(1,int(cantidad)):
-			estado ="Disponible"
-			q.definircantidadlockers(i,estado)
+			for i in range(1,int(cantidad)):
+				estado ="Disponible"
+				q.definircantidadlockers(i,estado)
+							
+				
+
+		
+	
 			
 	def lockerdisponibles(self):
 		
@@ -1966,6 +1959,17 @@ class VentanaPrincipal(QMainWindow):
 				c.cartel("IMPRESION","CANTIDAD MODIFICADA",1)
 		else:
 			c.cartel("ATENCION","NO HAY NADA QUE MODIFICAR",3)
+
+	def modificar_tipo(self):
+		
+		
+		indice=int(self.txt_indice_rotulos.text())
+		tipo=str(self.cb_corregir_tipo.currentText())
+				
+		q.modificarTipo(indice,tipo)
+		self.listarimpresiones()
+		c.cartel("TIPO","TIPO DE ROTULOS MODIFICADO",1)
+		
 			
 			
 		

@@ -485,6 +485,12 @@ class bdquery():
 			cur.execute("UPDATE rotulos SET cantidad = (%s) WHERE indice = (%s)",([cant,indice]))
 			self.conexion.commit()
 			cur.close()
+
+		def modificarTipo(self,indice,tipo):
+			cur=self.conexion.cursor()
+			cur.execute("UPDATE rotulos SET tipo = (%s) WHERE indice = (%s)",([tipo,indice]))
+			self.conexion.commit()
+			cur.close()
 			
 			
 		def nuevorango(self,inicio,fin,cantidad,serie):
