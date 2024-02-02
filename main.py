@@ -287,7 +287,11 @@ class VentanaPrincipal(QMainWindow):
 
 		self.ver_estampillas()
 
-
+	def exportar_informe_estampillas(self):
+		pass
+		
+		
+	
 			
 		
 	def traeregistro(self):
@@ -519,7 +523,7 @@ class VentanaPrincipal(QMainWindow):
 				
 				indice=4
 				dav= int(self.txt_dav.text())
-				categoria =str(self.txt_categoria_estampillas.text())
+				categoria =str(self.txt_categoria_estampillas.currentText())
 				variedad =str(self.txt_variedad_estampillas.text())
 				envase=int(self.txt_envase_estampillas.text())
 				q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,date.today())
@@ -535,6 +539,7 @@ class VentanaPrincipal(QMainWindow):
 				
 
 			q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
+			self.txt_cantidad_estampillas.setText("")
 
 			self.refresh_estampillas()
 			self.ver_estampillas()

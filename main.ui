@@ -11711,6 +11711,19 @@ border-radius:15px;
           <string>DAV</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btn_exportar_listado_estampillas">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>130</y>
+           <width>101</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Exportar listado</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_99">
         <property name="geometry">

@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: COOP. AGRIC. DE GRAL. ROJO LTDA
-PEDIDO: 242
+RAZON SOCIAL: CAUDA SANTIAGO AGUSTIN
+PEDIDO: 243
 -----------------------------
-RNCyFS: 451
-Fecha: 2024-01-05
-Rango: 16003001 - 16005000
+RNCyFS: 9019
+Fecha: 2024-01-15
+Rango: 16005001 - 16006000
 Serie: A
-Cantidad: 2000
+Cantidad: 1000
 -----------------------------
