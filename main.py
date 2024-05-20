@@ -159,6 +159,7 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_modificar_rotulos.clicked.connect(self.editarcantidadrotulo)
 		self.btn_limpiar_busqueda_rotulos.clicked.connect(self.limpiar_formulario_busqueda_impresiones)
 		self.btn_modificar_tipo.clicked.connect(self.modificar_tipo)
+		self.btn_exportar_impresiones.clicked.connect(self.exportar_listado_rotulos)
 		
 		#PAGINA GESTIONES
 		self.btn_agregar_nueva.clicked.connect(self.nuevagestion)
@@ -257,7 +258,7 @@ class VentanaPrincipal(QMainWindow):
 			self.txt_variedad_estampillas.setText("")
 			
 			self.txt_envase_estampillas.setText("")
-			self.signal_tipodetramite.setText("Solicitud Estampillas Oficiales")
+			
 
 
 
@@ -272,7 +273,7 @@ class VentanaPrincipal(QMainWindow):
 			self.txt_variedad_estampillas.setText("No se informa")
 			
 			self.txt_envase_estampillas.setText("No se informa")
-			self.signal_tipodetramite.setText("Solicitud Estampillas Anexo I")
+			
 							
 			self.txt_dav.setEnabled(False)
 			self.txt_variedad_estampillas.setEnabled(False)			
@@ -504,49 +505,62 @@ class VentanaPrincipal(QMainWindow):
 		global ESTAMPILLA_INICIAL
 		global ESTAMPILLA_FINAL
 
-		if self.signal_rncyfs_estampillas.text():
+		try:
 
-			rncyfs=str(self.signal_rncyfs_estampillas.text())
-			
-			especie=str(self.txt_estampillas_especie.currentText())
-			
-			campana = int(self.txt_campana_estampillas.currentText())
-			cantidad =int(self.txt_cantidad_estampillas.text())
-			
-			
-			#inicial y final corresponden a la gestion:
-			#falta validar cantidad con un if: si ESTAMPILLA_FINAL-ESTAMPILLA_INICIAL > CANTIDAD
-			inicial =ESTAMPILLA_INICIAL
-			final =(ESTAMPILLA_INICIAL+cantidad)-1
-			if self.rb_estampillas.isChecked():
+			if self.signal_rncyfs_estampillas.text():
 
+				rncyfs=str(self.signal_rncyfs_estampillas.text())
 				
-				indice=4
-				dav= int(self.txt_dav.text())
-				categoria =str(self.txt_categoria_estampillas.currentText())
-				variedad =str(self.txt_variedad_estampillas.text())
-				envase=int(self.txt_envase_estampillas.text())
-				q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,date.today())
-			
+				especie=str(self.txt_estampillas_especie.currentText())
+				
+				campana = int(self.txt_campana_estampillas.currentText())
+				cantidad =int(self.txt_cantidad_estampillas.text())
+				
+				
+				#inicial y final corresponden a la gestion:
+				#falta validar cantidad con un if: si ESTAMPILLA_FINAL-ESTAMPILLA_INICIAL > CANTIDAD
+				inicial =ESTAMPILLA_INICIAL
+				final =(ESTAMPILLA_INICIAL+cantidad)-1
+				if self.txt_cantidad_estampillas.text():
+					if self.rb_estampillas.isChecked():
+
+						
+						indice=4
+						dav= int(self.txt_dav.text())
+						categoria =str(self.txt_categoria_estampillas.currentText())
+						variedad =str(self.txt_variedad_estampillas.text())
+						envase=int(self.txt_envase_estampillas.text())
+						#Validar DAV: la bandera valida si se encontró ese numero de dav (repetido)
+						Ban=q.validaDav(dav)
+						if Ban is False:
+							q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,date.today())
+						else:
+							c.cartel("ERROR","DAV REPETIDO",3)
+					
+					else:
+
+						indice=5
+						q.carga_estampillas_anexo(rncyfs,especie,campana,cantidad,inicial,final,date.today())
+				else:
+					c.cartel("ERROR","INGRESE CANTIDAD",3)
+
+
+				#DATOS PARA ACTUALIZAR RANGO GENERAL DE ESTAMPILLAS
+				estampilla_siguiente=final+1
+				ultima_estampilla=int(ESTAMPILLA_FINAL)
+					
+
+				q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
+				self.txt_cantidad_estampillas.setText("")
+
+				self.refresh_estampillas()
+				self.ver_estampillas()
+
 			else:
 
-				indice=5
-				q.carga_estampillas_anexo(rncyfs,especie,campana,cantidad,inicial,final,date.today())
-
-			#DATOS PARA ACTUALIZAR RANGO GENERAL DE ESTAMPILLAS
-			estampilla_siguiente=final+1
-			ultima_estampilla=int(ESTAMPILLA_FINAL)
-				
-
-			q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
-			self.txt_cantidad_estampillas.setText("")
-
-			self.refresh_estampillas()
-			self.ver_estampillas()
-
-		else:
-
-			c.cartel("ERROR","SELECCIONAR ASOCIADO",3)
+				c.cartel("ERROR","SELECCIONAR ASOCIADO",3)
+		except Exception as e:
+			c.cartel("ERROR",str(e),3)
 
 
 	def traeRango(self):
@@ -1922,6 +1936,68 @@ class VentanaPrincipal(QMainWindow):
 			fila=fila+1
 			
 			self.signal_total_rotulos.setText(str(acum))
+
+	def exportar_listado_rotulos(self):
+		
+		
+		if self.rb_rotulos_pendientes.isChecked():
+			estado="PENDIENTE"
+		elif self.rb_rotulos_facturados.isChecked():
+			estado="FACTURADO"
+		elif self.rb_rotulos_todos.isChecked():
+			estado="%"
+		elif self.rb_rotulos_completos.isChecked():
+			estado="COMPLETO"
+		elif self.rb_rotulos_pendientesdav.isChecked():
+			estado="PENDIENTE DAV"
+			
+			
+		if self.cb_tipo.currentText() == "-":
+			tipo="%"
+		else:
+				
+			tipo=str(self.cb_tipo.currentText())
+				
+		if self.cb_especie.currentText()=="-":
+			especie="%"
+		else:
+			especie=str(self.cb_especie.currentText())
+			
+		if self.cb_razonsocial.currentText()=="-":
+			razon="%"
+		else:
+			razon=str(self.cb_razonsocial.currentText())
+		
+		
+		if self.cb_alldate.isChecked():
+			
+			listarecuperada=q.traerotulos(estado,tipo,especie,razon)
+		else:
+			inicio=str(self.fecha_desde_rotulos.text())
+			fin=str(self.fecha_hasta_rotulos.text())
+			listarecuperada=q.traerotulosFecha(estado,tipo,especie,inicio,fin)
+
+		book = Workbook()
+		sheet = book.active
+		
+		sheet['A1']="ID"
+		sheet['B1']="FECHA"
+		sheet['C1']="ESTADO"
+		sheet['D1']="CANTIDAD"
+		sheet['E1']="RAZON SOCIAL"
+		sheet['F1']="ESPECIE"
+		sheet['G1']="CATEGORIA"
+		sheet['H1']="TIPO"
+		
+		
+		for i in listarecuperada:
+			sheet.append(i)
+		
+				
+		book.save('rotulos_solicitados.xlsx')
+
+		c.cartel("INFORMACION","PLANILLA CREADA",1)
+
 		
 			
 	def cambiarestadorotulo(self):
@@ -2196,7 +2272,20 @@ class VentanaPrincipal(QMainWindow):
 
 			
 		else:
-			pass
+			
+			fila = self.tb_estampillas.currentRow()
+			inicio =int(self.tb_estampillas.item(fila, 2).text())
+			r=c.cartel_opcion("ATENCION","DESEA ELIMINAR LA LINEA SELECCIONADA",2)
+				
+			if r==16384:
+				q.eliminarLineaAnexo(inicio)
+				c.cartel("ATENCION","LINEA ELIMINADA",1)
+
+				q.corregirInicio(inicio,5)
+
+
+
+			self.refresh_estampillas()
 
 	
 	

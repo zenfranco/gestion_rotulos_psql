@@ -50,7 +50,16 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 
-		
+		def validaDav(self,dav):
+			bandera = False
+			cur=self.conexion.cursor()
+			cur.execute('''select * from estampillas where dav =%s''',[dav])
+			if cur.fetchone():
+				bandera = True
+			else:
+				bandera = False
+			
+			return bandera
 
 
 		def recuperabd(): #recuperar numero de pedido y rango general
@@ -564,6 +573,13 @@ class bdquery():
 			cur.execute(''' delete from estampillas where inicio =%s''',([inicio]))
 			self.conexion.commit()
 			cur.close()
+
+		def eliminarLineaAnexo(self,inicio):
+			cur=self.conexion.cursor()
+			cur.execute(''' delete from anexos where inicio =%s''',([inicio]))
+			self.conexion.commit()
+			cur.close()
+
 
 		def eliminarLineaSubpedido(self,inicio,num_pedido):
 			cur=self.conexion.cursor()
