@@ -675,10 +675,10 @@ class VentanaPrincipal(QMainWindow):
 				cantidad=cantidad+int(i[4])
 		else:
 
-			listarecuperada=q.recuperaAnexos()
+			listarecuperada=q.recuperaAnexos(asociado)
 			totalfilas=len(listarecuperada)
 			self.tb_estampillas.setRowCount(totalfilas)
-				
+			
 				
 			fila =0
 			cantidad=0

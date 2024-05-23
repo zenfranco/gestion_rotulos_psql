@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1081</width>
-    <height>757</height>
+    <width>1075</width>
+    <height>837</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
-background:black;
+background-color: #08090b;
 }
 
 QFrame
@@ -36,24 +36,45 @@ background:#DBC9D4;
 
 
 
-QLabel{
-font-family: Calibri;
-color:black;
+/* LINE EDIT */
+QLineEdit {
+	color:#49b0aa;
+	background-color: rgb(27, 29, 35);
+	border-radius: 4px;
+	border: 1px solid rgb(27, 29, 35);
+	padding-left: 5px;
 }
-QLineEdit{
-border: 1px solid #232323;
-border-radius:15px;
+QLineEdit:hover {
+	border: 2px solid rgb(64, 71, 88);
 }
 QLineEdit:focus {
-    border: 2px solid #ec4f4f;
+	border: 2px solid rgb(91, 101, 124);
 }
 QComboBox:focus {
     border: 2px solid #ec4f4f;
 }
 QComboBox{
-border: 1px solid #232323}
+color:#49b0aa;
+	background-color: rgb(27, 29, 35);
+	border-radius: 5px;
+	border: 1px solid rgb(27, 29, 35);
+	padding: 4px;
+	padding-left: 5px;
+}
+QComboBox:hover{
+	border: 2px solid rgb(64, 71, 88);
+}
+QDateEdit{
+color:#49b0aa;
+	background-color: rgb(27, 29, 35);
+	border-radius: 5px;
+	border: 1px solid rgb(27, 29, 35);
+	padding: 4px;
+	padding-left: 5px;
+}
 
 QSpinBox{
+color:#49b0aa;
 border: 1px solid #232323}
 
 </string>
@@ -63,18 +84,174 @@ border: 1px solid #232323}
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>9</y>
-      <width>856</width>
-      <height>739</height>
+      <y>59</y>
+      <width>860</width>
+      <height>771</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QFrame{
+color:#d4d5d7;
+background-color: #15181d;
+}
 
-	border-radius:15px;
+QTableWidget {
+	color:#d4d5d7;
+	background-color: rgb(39, 44, 54);
+	padding: 10px;
+	border-radius: 5px;
+	gridline-color: rgb(44, 49, 60);
+	border-bottom: 1px solid rgb(44, 49, 60);
+}
+QTableWidget::item{
+	border-color: rgb(44, 49, 60);
+	padding-left: 5px;
+	padding-right: 5px;
+	gridline-color: rgb(44, 49, 60);
+}
+QTableWidget::item:selected{
+	background-color: rgb(85, 170, 255);
+}
+QHeaderView::section{
+color:#e7d8d9;
+	Background-color: rgb(39, 44, 54);
+border-style: none;
 	
-	
-	background-color: rgb(226, 226, 226);
+   
+}
+QHeaderView::section:horizontal
+{
+    border: 1px solid rgb(32, 34, 42);
+	background-color: rgb(27, 29, 35);
+	padding: 3px;
+	border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+QHeaderView::section:vertical
+{
+    border: 1px solid rgb(44, 49, 60);
+}
+/* SCROLL BARS */
+QScrollBar:horizontal {
+    border: none;
+    background: rgb(52, 59, 72);
+    height: 14px;
+    margin: 0px 21px 0 21px;
+	border-radius: 0px;
+}
+QScrollBar::handle:horizontal {
+    background: rgb(85, 170, 255);
+    min-width: 25px;
+	border-radius: 7px
+}
+QScrollBar::add-line:horizontal {
+    border: none;
+    background: rgb(55, 63, 77);
+    width: 20px;
+	border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background: rgb(55, 63, 77);
+    width: 20px;
+	border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal
+{
+     background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
+{
+     background: none;
+}
+ QScrollBar:vertical {
+	border: none;
+    background: rgb(52, 59, 72);
+    width: 14px;
+    margin: 21px 0 21px 0;
+	border-radius: 0px;
+ }
+ QScrollBar::handle:vertical {	
+	background: rgb(85, 170, 255);
+    min-height: 25px;
+	border-radius: 7px
+ }
+ QScrollBar::add-line:vertical {
+     border: none;
+    background: rgb(55, 63, 77);
+     height: 20px;
+	border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+ QScrollBar::sub-line:vertical {
+	border: none;
+    background: rgb(55, 63, 77);
+     height: 20px;
+	border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     background: none;
+ }
+
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+/* RADIO BUTTON */
+QRadioButton::indicator {
+color:#d4d5d7;
+    border: 3px solid rgb(52, 59, 72);
+	width: 15px;
+	height: 15px;
+	border-radius: 10px;
+    background: rgb(44, 49, 60);
+}
+QRadioButton::indicator:hover {
+    border: 3px solid rgb(58, 66, 81);
+}
+QRadioButton::indicator:checked {
+    background: 3px solid rgb(94, 106, 130);
+	border: 3px solid rgb(52, 59, 72);	
+}
+
+/* COMBOBOX */
+QComboBox{
+	background-color: rgb(27, 29, 35);
+	border-radius: 5px;
+	border: 2px solid rgb(27, 29, 35);
+	padding: 5px;
+	padding-left: 10px;
+}
+QComboBox:hover{
+	border: 2px solid rgb(64, 71, 88);
+}
+QComboBox::drop-down {
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 25px; 
+	border-left-width: 3px;
+	border-left-color: rgba(39, 44, 54, 150);
+	border-left-style: solid;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;	
+	background-position: center;
+	background-repeat: no-reperat;
+ }
+QComboBox QAbstractItemView {
+	color: rgb(85, 170, 255);	
+	background-color: rgb(27, 29, 35);
+	padding: 10px;
+	selection-background-color: rgb(39, 44, 54);
 }
 </string>
     </property>
@@ -91,9 +268,9 @@ border: 1px solid #232323}
      <property name="geometry">
       <rect>
        <x>9</x>
-       <y>9</y>
+       <y>10</y>
        <width>939</width>
-       <height>721</height>
+       <height>751</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -106,10 +283,10 @@ border: 1px solid #232323}
       <widget class="QFrame" name="frame_7">
        <property name="geometry">
         <rect>
-         <x>-10</x>
+         <x>-20</x>
          <y>0</y>
          <width>871</width>
-         <height>731</height>
+         <height>751</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -121,19 +298,6 @@ border: 1px solid #232323}
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <widget class="QLabel" name="label_42">
-        <property name="geometry">
-         <rect>
-          <x>770</x>
-          <y>700</y>
-          <width>91</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>SCasem V261223</string>
-        </property>
-       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="p_gestion">
@@ -141,9 +305,9 @@ border: 1px solid #232323}
        <property name="geometry">
         <rect>
          <x>-1</x>
-         <y>-1</y>
+         <y>0</y>
          <width>861</width>
-         <height>731</height>
+         <height>751</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -152,53 +316,6 @@ border: 1px solid #232323}
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <widget class="QFrame" name="frame_28">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>851</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background:black;
-border-radius:15px;
-</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="label_41">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>-10</y>
-           <width>371</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Calibri</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color:white;
-border-radiux:15px;
-</string>
-         </property>
-         <property name="text">
-          <string>GESTIONES</string>
-         </property>
-        </widget>
-       </widget>
        <widget class="QTableWidget" name="tb_gestiones">
         <property name="geometry">
          <rect>
@@ -209,13 +326,13 @@ border-radiux:15px;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background:rgb(255, 255, 255);</string>
+         <string notr="true"/>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
@@ -271,16 +388,23 @@ border-radiux:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
 }
 </string>
         </property>
@@ -468,19 +592,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
 }
-}</string>
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -679,17 +809,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -850,19 +988,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
 }
-}</string>
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -998,15 +1142,7 @@ background-color: rgb(255, 152, 162);
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton{
-
-background-color: rgb(255, 206, 218);
-border:1px;
-}
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Agregar</string>
@@ -1068,14 +1204,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
-border-radius:15px;
-background:#DBC9D4;
-font-family: Calibri;
-font-size:14px;
-}</string>
+
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -1316,7 +1463,7 @@ border-radius:15px;
          <x>0</x>
          <y>0</y>
          <width>861</width>
-         <height>731</height>
+         <height>751</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -1328,16 +1475,16 @@ border-radius:15px;
        <widget class="QFrame" name="frame_6">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>110</y>
-          <width>831</width>
-          <height>611</height>
+          <x>1</x>
+          <y>82</y>
+          <width>841</width>
+          <height>551</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: rgb(39, 44, 54);
 }
 QPushButton{
 
@@ -1454,35 +1601,27 @@ background-color: rgb(255, 152, 162);
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QFrame{
-background:#F5E0DE;
-
+          <string notr="true">QFrame
+{
+background-color: #393d45;
 }
 
-QPushButton{
-border-radius:15px;
-background:#DBC9D4;
-font-family: Calibri;
-font-size:14px;
-
-
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-
-QPushButton:hover{
-border-radius:15px;
-background:#DFB6B2;
-font-family: Calibri;
-font-size:14px;
-
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
 }
-
-QLabel{
-font-family: Calibri;
-color:black;
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
 }
-QLineEdit{
-border-radius:15px;
-}</string>
+</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -1735,9 +1874,7 @@ background-color: rgb(212, 141, 105);
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">border-radius:15px;
-font: 8pt &quot;Calibri&quot;;
-background:white;</string>
+          <string notr="true"/>
          </property>
          <property name="editTriggers">
           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
@@ -1819,19 +1956,27 @@ border-radius:15px;
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QFrame{
-background-color: rgb(190, 190, 190);
-border-radius:15px;
+          <string notr="true">QFrame
+{
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -1978,7 +2123,7 @@ border-radius:15px;
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true"/>
           </property>
           <property name="inputMask">
            <string/>
@@ -1994,7 +2139,7 @@ border-radius:15px;
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">border-radius:15px;</string>
+           <string notr="true"/>
           </property>
           <property name="minimum">
            <number>2021</number>
@@ -2016,8 +2161,7 @@ border-radius:15px;
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background:white;
-border-radius:15px;</string>
+           <string notr="true"/>
           </property>
           <item>
            <property name="text">
@@ -2060,7 +2204,7 @@ border-radius:15px;</string>
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true"/>
           </property>
          </widget>
          <widget class="QLineEdit" name="txt_kg">
@@ -2073,7 +2217,7 @@ border-radius:15px;</string>
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true"/>
           </property>
          </widget>
          <widget class="QLabel" name="label_13">
@@ -2124,8 +2268,7 @@ border-radius:15px;</string>
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background:white;
-border-radius:15px;</string>
+           <string notr="true"/>
           </property>
           <item>
            <property name="text">
@@ -2169,19 +2312,27 @@ border-radius:15px;</string>
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QFrame{
-background-color: rgb(190, 190, 190);
-border-radius:15px;
+          <string notr="true">QFrame
+{
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -2259,7 +2410,7 @@ border-radius:15px;
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true"/>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
@@ -2268,7 +2419,7 @@ border-radius:15px;
            <set>QAbstractItemView::NoEditTriggers</set>
           </property>
           <property name="alternatingRowColors">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="selectionBehavior">
            <enum>QAbstractItemView::SelectRows</enum>
@@ -2341,23 +2492,34 @@ border-radius:15px;
        <widget class="QFrame" name="frame_24">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>831</width>
+          <x>2</x>
+          <y>2</y>
+          <width>841</width>
           <height>71</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
-border-radius:15px;
-background:#DBC9D4;
-font-family: Calibri;
-font-size:14px;
-}</string>
+
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -2381,58 +2543,12 @@ font-size:14px;
          </item>
         </widget>
        </widget>
-       <widget class="QFrame" name="frame_31">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>851</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background:black;
-border-radius:15px;
-</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="label_44">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>-10</y>
-           <width>371</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Calibri</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color:white;
-</string>
-         </property>
-         <property name="text">
-          <string>SUBPEDIDOS</string>
-         </property>
-        </widget>
-       </widget>
        <widget class="QFrame" name="frame_73">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>831</width>
+          <x>2</x>
+          <y>2</y>
+          <width>841</width>
           <height>16</height>
          </rect>
         </property>
@@ -2473,7 +2589,7 @@ border-radius:15px;
          <x>0</x>
          <y>-1</y>
          <width>861</width>
-         <height>731</height>
+         <height>751</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -2492,14 +2608,13 @@ border-radius:15px;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 8pt &quot;Calibri&quot;;
-background:white;</string>
+         <string notr="true"/>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
@@ -3022,10 +3137,27 @@ background-color: rgb(255, 152, 162);
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">QFrame{
-background-color: rgb(190, 190, 190);
-border-radius:15px;
-}</string>
+         <string notr="true">QFrame
+{
+background-color: #393d45;
+}
+
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -3297,7 +3429,8 @@ border-radius:15px;
        <property name="styleSheet">
         <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+color: rgb(220, 220, 220);
+background-color: rgb(39, 44, 54);
 }
 QPushButton{
 
@@ -3325,13 +3458,13 @@ background-color: rgb(255, 152, 162);
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background:white;</string>
+         <string notr="true"/>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="sortingEnabled">
          <bool>true</bool>
@@ -3899,18 +4032,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
 
-QPushButton{
-
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -4011,7 +4151,7 @@ background-color: rgb(255, 152, 162);
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>
          <property name="alternatingRowColors">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectItems</enum>
@@ -4118,8 +4258,27 @@ border-radius:15px;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-radius:15px;
-background:#CDC9C9;</string>
+         <string notr="true">QFrame
+{
+background-color: #393d45;
+}
+
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -4663,7 +4822,7 @@ border-radius:15px;
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
@@ -4748,7 +4907,7 @@ border-radius:15px;
          <x>-10</x>
          <y>-1</y>
          <width>871</width>
-         <height>731</height>
+         <height>761</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -4780,14 +4939,13 @@ border-radius:15px;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color:white;
-</string>
+         <string notr="true"/>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::AnyKeyPressed</set>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
@@ -4838,14 +4996,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
-border-radius:15px;
-background:#DBC9D4;
-font-family: Calibri;
-font-size:14px;
-}</string>
+
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -4889,14 +5058,7 @@ font-size:14px;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">QPushButton{
-background-color: rgb(255, 170, 127);
-
-}
-QPushButton:hover{
-background-color: rgb(212, 141, 105);
-
-}</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string/>
@@ -4918,14 +5080,25 @@ background-color: rgb(212, 141, 105);
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
-border-radius:15px;
-background:#DBC9D4;
-font-family: Calibri;
-font-size:14px;
-}</string>
+
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -5039,17 +5212,25 @@ font-size:14px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -5301,17 +5482,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -5431,17 +5620,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -5624,17 +5821,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -5731,17 +5936,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -5886,17 +6099,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -6091,17 +6312,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -6227,17 +6456,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -6430,13 +6667,13 @@ border-radius:15px;
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background:white;</string>
+         <string notr="true"/>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
@@ -6490,17 +6727,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -6745,16 +6990,23 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
 }
 </string>
         </property>
@@ -6927,30 +7179,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(255, 211, 212);
-}
-QPushButton{
-border-radius:15px;
-background:#DBC9D4;
-font-family: Calibri;
-font-size:14px;
+background-color: #393d45;
 }
 
-QPushButton:hover{
-border-radius:15px;
-background:#DFB6B2;
-font-family: Calibri;
-font-size:14px;
-
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-
-QLabel{
-font-family: Calibri;
-color:black;
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
 }
-QLineEdit{
-border-radius:15px;
-}</string>
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -7075,7 +7322,7 @@ border-radius:15px;
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background:white;</string>
+         <string notr="true"/>
         </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
@@ -7090,7 +7337,7 @@ border-radius:15px;
          <bool>false</bool>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
@@ -7246,17 +7493,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -7329,14 +7584,7 @@ background-color: rgb(255, 152, 162);
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton{
-background-color: rgb(255, 170, 127);
-
-}
-QPushButton:hover{
-background-color: rgb(212, 141, 105);
-
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -7573,14 +7821,7 @@ border-radius:15px;
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton{
-background-color: rgb(255, 170, 127);
-
-}
-QPushButton:hover{
-background-color: rgb(212, 141, 105);
-
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -7612,17 +7853,25 @@ background-color: rgb(212, 141, 105);
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -7874,17 +8123,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -8380,17 +8637,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -8770,14 +9035,28 @@ border-radius:15px;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-border-radius:0px;</string>
+         <string notr="true">QTableWidget {	
+	background-color: rgb(39, 44, 54);
+	padding: 10px;
+	border-radius: 5px;
+	gridline-color: rgb(44, 49, 60);
+	border-bottom: 1px solid rgb(44, 49, 60);
+}
+QTableWidget::item{
+	border-color: rgb(44, 49, 60);
+	padding-left: 5px;
+	padding-right: 5px;
+	gridline-color: rgb(44, 49, 60);
+}
+QTableWidget::item:selected{
+	background-color: rgb(85, 170, 255);
+}</string>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectItems</enum>
@@ -8851,7 +9130,22 @@ background-color: rgb(255, 152, 162);
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
+         <string notr="true">QTableWidget {	
+	background-color: rgb(39, 44, 54);
+	padding: 10px;
+	border-radius: 5px;
+	gridline-color: rgb(44, 49, 60);
+	border-bottom: 1px solid rgb(44, 49, 60);
+}
+QTableWidget::item{
+	border-color: rgb(44, 49, 60);
+	padding-left: 5px;
+	padding-right: 5px;
+	gridline-color: rgb(44, 49, 60);
+}
+QTableWidget::item:selected{
+	background-color: rgb(85, 170, 255);
+}</string>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
@@ -8896,17 +9190,25 @@ background-color: rgb(255, 152, 162);
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -9345,7 +9647,7 @@ background-color: rgb(255, 152, 162);
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
+         <string notr="true"/>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
@@ -9668,17 +9970,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -9977,17 +10287,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -10087,17 +10405,25 @@ border-radius:15px;
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(255, 238, 239);
+background-color: #393d45;
 }
-QPushButton{
 
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -10224,7 +10550,7 @@ background-color: rgb(255, 152, 162);
          <x>-1</x>
          <y>-1</y>
          <width>861</width>
-         <height>731</height>
+         <height>761</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -10236,38 +10562,32 @@ background-color: rgb(255, 152, 162);
        <widget class="QFrame" name="frame_87">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>831</width>
-          <height>260</height>
+          <x>0</x>
+          <y>10</y>
+          <width>841</width>
+          <height>261</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
-}
-QPushButton{
-border-radius:15px;
-background:#DBC9D4;
-font-family: Calibri;
-font-size:14px;
+background-color: #393d45;
 }
 
-QPushButton:hover{
-border-radius:15px;
-background:#DFB6B2;
-font-family: Calibri;
-font-size:14px;
-
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-
-QLabel{
-font-family: Calibri;
-color:black;
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
 }
-QLineEdit{
-border-radius:15px;
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
 }
 </string>
         </property>
@@ -10283,7 +10603,7 @@ border-radius:15px;
            <x>20</x>
            <y>40</y>
            <width>281</width>
-           <height>22</height>
+           <height>23</height>
           </rect>
          </property>
          <property name="frame">
@@ -10314,7 +10634,7 @@ border-radius:15px;
            <x>320</x>
            <y>40</y>
            <width>113</width>
-           <height>22</height>
+           <height>23</height>
           </rect>
          </property>
         </widget>
@@ -10331,46 +10651,6 @@ border-radius:15px;
           <string>Razon Social</string>
          </property>
         </widget>
-        <widget class="QFrame" name="frame_88">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>831</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QFrame{
-background:grey;
-border-top-left-radius:15px;
-border-top-right-radius:15px;
-}
-</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <widget class="QLabel" name="label_160">
-          <property name="geometry">
-           <rect>
-            <x>347</x>
-            <y>-1</y>
-            <width>111</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color:rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>Seleccionar asociado</string>
-          </property>
-         </widget>
-        </widget>
         <widget class="QFrame" name="frame_93">
          <property name="geometry">
           <rect>
@@ -10383,27 +10663,25 @@ border-top-right-radius:15px;
          <property name="styleSheet">
           <string notr="true">QFrame
 {
-background-color: rgb(130, 130, 130);
+background-color: #4b4e54;
 }
 
-
-QLabel{
-font-family: Calibri;
-color:black;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QLineEdit{
-border-radius:15px;
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
 }
-
-QPushButton{
-
-background-color: rgb(255, 206, 218);
-border:1px;
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
+</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -10443,7 +10721,7 @@ background-color: rgb(255, 152, 162);
             <x>17</x>
             <y>60</y>
             <width>91</width>
-            <height>22</height>
+            <height>23</height>
            </rect>
           </property>
           <property name="currentSection">
@@ -10462,7 +10740,7 @@ background-color: rgb(255, 152, 162);
             <x>112</x>
             <y>60</y>
             <width>91</width>
-            <height>22</height>
+            <height>23</height>
            </rect>
           </property>
           <property name="currentSection">
@@ -10618,10 +10896,10 @@ border-radius:15px;
        <widget class="QTableWidget" name="tb_estampillas">
         <property name="geometry">
          <rect>
-          <x>10</x>
+          <x>0</x>
           <y>340</y>
-          <width>831</width>
-          <height>361</height>
+          <width>841</width>
+          <height>391</height>
          </rect>
         </property>
         <property name="sizePolicy">
@@ -10639,9 +10917,7 @@ border-radius:15px;
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background:white;
-border-radius:0px;
-background-color: rgb(255, 255, 255);</string>
+         <string notr="true"/>
         </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
@@ -10650,7 +10926,7 @@ background-color: rgb(255, 255, 255);</string>
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::SingleSelection</enum>
@@ -10803,31 +11079,31 @@ background-color: rgb(255, 255, 255);</string>
           <x>10</x>
           <y>110</y>
           <width>501</width>
-          <height>170</height>
+          <height>141</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(207, 207, 207);
-}
-QPushButton{
-
-background-color: rgb(255, 206, 218);
-border:1px;
-}
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
+background-color: #393d45;
 }
 
-QLabel{
-font-family: Calibri;
-color:black;
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
 }
-QLineEdit{
-border-radius:15px;
-}</string>
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -10841,7 +11117,7 @@ border-radius:15px;
            <x>19</x>
            <y>55</y>
            <width>113</width>
-           <height>21</height>
+           <height>23</height>
           </rect>
          </property>
         </widget>
@@ -10851,7 +11127,7 @@ border-radius:15px;
            <x>267</x>
            <y>55</y>
            <width>113</width>
-           <height>21</height>
+           <height>23</height>
           </rect>
          </property>
         </widget>
@@ -10939,17 +11215,17 @@ border-radius:15px;
            <x>143</x>
            <y>55</y>
            <width>113</width>
-           <height>21</height>
+           <height>23</height>
           </rect>
          </property>
         </widget>
         <widget class="QPushButton" name="btn_ingresar_estampillas">
          <property name="geometry">
           <rect>
-           <x>399</x>
+           <x>389</x>
            <y>100</y>
-           <width>81</width>
-           <height>21</height>
+           <width>91</width>
+           <height>23</height>
           </rect>
          </property>
          <property name="text">
@@ -10975,7 +11251,7 @@ border-radius:15px;
            <x>389</x>
            <y>55</y>
            <width>91</width>
-           <height>21</height>
+           <height>23</height>
           </rect>
          </property>
         </widget>
@@ -10985,7 +11261,7 @@ border-radius:15px;
            <x>19</x>
            <y>100</y>
            <width>111</width>
-           <height>21</height>
+           <height>23</height>
           </rect>
          </property>
          <property name="frame">
@@ -11038,7 +11314,7 @@ border-radius:15px;
            <x>143</x>
            <y>100</y>
            <width>111</width>
-           <height>21</height>
+           <height>23</height>
           </rect>
          </property>
          <property name="frame">
@@ -11113,7 +11389,7 @@ border-radius:15px;
            <x>267</x>
            <y>100</y>
            <width>111</width>
-           <height>21</height>
+           <height>23</height>
           </rect>
          </property>
          <property name="frame">
@@ -11149,40 +11425,20 @@ border-radius:15px;
        <widget class="QFrame" name="frame_89">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>289</y>
-          <width>831</width>
+          <x>0</x>
+          <y>280</y>
+          <width>841</width>
           <height>50</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QFrame
 {
-background-color: rgb(255, 211, 212);
-border-radius:0px;
-}
-QPushButton{
-border-radius:15px;
-background:#DBC9D4;
-font-family: Calibri;
-font-size:14px;
-}
-
-QPushButton:hover{
-border-radius:15px;
-background:#DFB6B2;
-font-family: Calibri;
-font-size:14px;
+background-color: #352733;
 
 }
 
-QLabel{
-font-family: Calibri;
-color:black;
-}
-QLineEdit{
-border-radius:15px;
-}</string>
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -11214,14 +11470,12 @@ border-radius:15px;
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>831</width>
+           <width>841</width>
            <height>16</height>
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">background:grey;
-border-radius:15px;
-</string>
+          <string notr="true">background-color: #272c36;</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -11310,14 +11564,14 @@ border-radius:15px;
         <widget class="QRadioButton" name="rb_anexo">
          <property name="geometry">
           <rect>
-           <x>714</x>
+           <x>760</x>
            <y>22</y>
            <width>60</width>
-           <height>20</height>
+           <height>21</height>
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">color:#d4d5d7;</string>
          </property>
          <property name="text">
           <string>Anexo I</string>
@@ -11326,14 +11580,14 @@ border-radius:15px;
         <widget class="QRadioButton" name="rb_estampillas">
          <property name="geometry">
           <rect>
-           <x>592</x>
+           <x>632</x>
            <y>22</y>
            <width>120</width>
-           <height>20</height>
+           <height>21</height>
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">color:#d4d5d7;</string>
          </property>
          <property name="text">
           <string>Estampillas Semilla</string>
@@ -11343,62 +11597,36 @@ border-radius:15px;
          </property>
         </widget>
        </widget>
-       <widget class="QFrame" name="frame_95">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>10</y>
-          <width>851</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.147727 rgba(0, 0, 0, 255), stop:1 rgba(212, 212, 212, 255));</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="label_98">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>-10</y>
-           <width>841</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Calibri</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color:white;
-</string>
-         </property>
-         <property name="text">
-          <string>ESTAMPILLAS Y ANEXOS</string>
-         </property>
-        </widget>
-       </widget>
        <widget class="QFrame" name="frame_99">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>704</y>
-          <width>831</width>
+          <x>0</x>
+          <y>730</y>
+          <width>841</width>
           <height>16</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 170, 127);
-border-radius:15px;
+         <string notr="true">QFrame
+{
+background-color: #393d45;
+}
+
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
 </string>
         </property>
         <property name="frameShape">
@@ -11447,6 +11675,41 @@ border-radius:15px;
          </property>
         </widget>
        </widget>
+       <widget class="QFrame" name="frame_88">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>841</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #272c36;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="label_160">
+         <property name="geometry">
+          <rect>
+           <x>347</x>
+           <y>-1</y>
+           <width>111</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>Seleccionar asociado</string>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="p_asociados">
@@ -11472,10 +11735,10 @@ border-radius:15px;
    <widget class="QFrame" name="botonera">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>9</y>
+      <x>6</x>
+      <y>59</y>
       <width>200</width>
-      <height>691</height>
+      <height>771</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -11492,24 +11755,26 @@ border-radius:15px;
     </property>
     <property name="styleSheet">
      <string notr="true">QFrame{
-border-radius:15px;
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(208, 208, 208, 255));
+background-color: #15181d;
 
 }
 
-QPushButton{
-border:0;
-color: rgb(255, 255, 255);
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.664773 rgba(0, 0, 0, 255), stop:0.994318 rgba(212, 212, 212, 255));
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: rgb(52, 59, 72);
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
 }
 
-
-QPushButton:hover{
-border:0;
-color: black;
-;
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.00568182 rgba(0, 0, 0, 255), stop:0.147727 rgba(63, 63, 63, 255), stop:0.346591 rgba(191, 191, 191, 255), stop:0.681818 rgba(255, 255, 255, 255), stop:0.954545 rgba(255, 255, 255, 255));
-}
 
 </string>
     </property>
@@ -11519,52 +11784,18 @@ color: black;
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="btn_configuracion">
-     <property name="geometry">
-      <rect>
-       <x>1</x>
-       <y>622</y>
-       <width>201</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>201</width>
-       <height>40</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>Configuracion</string>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
     <widget class="QPushButton" name="btn_nuevagestion_2">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>562</y>
-       <width>201</width>
+       <x>11</x>
+       <y>695</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11599,15 +11830,15 @@ color: black;
     <widget class="QPushButton" name="btn_rendicion">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>502</y>
-       <width>201</width>
+       <x>11</x>
+       <y>621</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11633,15 +11864,15 @@ color: black;
     <widget class="QPushButton" name="btn_deposito">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>442</y>
-       <width>201</width>
+       <x>11</x>
+       <y>547</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11667,15 +11898,15 @@ color: black;
     <widget class="QPushButton" name="btn_rotulos">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>382</y>
-       <width>201</width>
+       <x>11</x>
+       <y>473</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11701,15 +11932,15 @@ color: black;
     <widget class="QPushButton" name="btn_nuevagestion">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>322</y>
-       <width>201</width>
+       <x>11</x>
+       <y>399</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11744,15 +11975,15 @@ color: black;
     <widget class="QPushButton" name="btn_listar">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>262</y>
-       <width>201</width>
+       <x>11</x>
+       <y>325</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11778,15 +12009,15 @@ color: black;
     <widget class="QPushButton" name="btn_envios">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>202</y>
-       <width>201</width>
+       <x>11</x>
+       <y>251</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11812,15 +12043,15 @@ color: black;
     <widget class="QPushButton" name="btn_estampillas">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>142</y>
-       <width>201</width>
+       <x>11</x>
+       <y>177</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11846,15 +12077,15 @@ color: black;
     <widget class="QPushButton" name="btn_nuevopedido">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>82</y>
-       <width>201</width>
+       <x>11</x>
+       <y>103</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11880,15 +12111,15 @@ color: black;
     <widget class="QPushButton" name="btn_nuevosubpedido">
      <property name="geometry">
       <rect>
-       <x>1</x>
-       <y>22</y>
-       <width>201</width>
+       <x>11</x>
+       <y>29</y>
+       <width>180</width>
        <height>40</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>201</width>
+       <width>180</width>
        <height>40</height>
       </size>
      </property>
@@ -11912,53 +12143,125 @@ color: black;
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="btn_salir">
+   <widget class="QFrame" name="BarraFrontal">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>708</y>
-      <width>200</width>
-      <height>40</height>
+      <x>6</x>
+      <y>8</y>
+      <width>1062</width>
+      <height>45</height>
      </rect>
     </property>
-    <property name="minimumSize">
-     <size>
-      <width>40</width>
-      <height>10</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>200</width>
-      <height>40</height>
-     </size>
-    </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton{
-border-radius:15px;
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.00568182 rgba(0, 0, 0, 255), stop:0.403409 rgba(107, 0, 0, 255), stop:0.664773 rgba(167, 0, 0, 255), stop:0.994318 rgba(212, 80, 80, 255));
+     <string notr="true">QFrame{
+background-color: #15181d;
+
+}
+
+QPushButton {
+	
+	
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color: #31a1eb;
+}
+QPushButton:hover {
+	background-color: #77c4f1;
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
 }
 
 
-
-QPushButton:hover{
-border-radius:15px;
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.00568182 rgba(0, 0, 0, 255), stop:0.403409 rgba(165, 0, 0, 255), stop:0.664773 rgba(191, 0, 0, 255), stop:0.994318 rgba(255, 97, 97, 255));
-}</string>
+</string>
     </property>
-    <property name="text">
-     <string/>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>icons/exit.png</normaloff>icons/exit.png</iconset>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
     </property>
-    <property name="iconSize">
-     <size>
-      <width>25</width>
-      <height>25</height>
-     </size>
-    </property>
+    <widget class="QPushButton" name="btn_salir">
+     <property name="geometry">
+      <rect>
+       <x>1005</x>
+       <y>3</y>
+       <width>50</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>40</width>
+       <height>10</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>200</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>icons/exit.png</normaloff>icons/exit.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_configuracion">
+     <property name="geometry">
+      <rect>
+       <x>950</x>
+       <y>3</y>
+       <width>50</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>icons/settings.png</normaloff>icons/settings.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

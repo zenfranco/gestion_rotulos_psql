@@ -134,10 +134,10 @@ class bdquery():
 			cur.close()
 			return listapedidos
 		
-		def recuperaAnexos(self):
+		def recuperaAnexos(self,asociado):
 			cur=self.conexion.cursor()
 			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,'-',especie,'-','-','-',camp,fecha from anexos anx
-			inner join asociados a on a.num_reg = anx.rncyfs order by inicio desc''')
+			inner join asociados a on a.num_reg = anx.rncyfs where razon_social LIKE %s order by inicio desc''',[asociado])
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
