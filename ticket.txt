@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: CAUDA SANTIAGO AGUSTIN
-PEDIDO: 243
+RAZON SOCIAL: GYT PLUS
+PEDIDO: 246
 -----------------------------
-RNCyFS: 9019
-Fecha: 2024-01-15
-Rango: 16005001 - 16006000
-Serie: A
+RNCyFS: 10003
+Fecha: 2024-05-30
+Rango: 86703001 - 86704000
+Serie: B
 Cantidad: 1000
 -----------------------------

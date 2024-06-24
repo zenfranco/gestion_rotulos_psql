@@ -5,17 +5,21 @@ from openpyxl import Workbook
 from openpyxl.styles import Font
 from querys import *
 from PyQt5 import *
-from PyQt5 import QtWidgets
+
 from PyQt5.QtWidgets import QMainWindow, QApplication,QLineEdit
 from PyQt5.uic import loadUi 
 from PyQt5.QtCore import Qt
 from datetime import date
+from PyQt5 import QtGui
+
+
 global rango, numpedido, pedidos, disponible,subpedidos,INICIAL,FINAL
 import os
 from mensaje import *
 
 pedidos=[]
 subpedidos=[]
+
 
 
 class VentanaPrincipal(QMainWindow):
@@ -26,16 +30,36 @@ class VentanaPrincipal(QMainWindow):
 		self.frame_detallepedido.hide()
 		
 		#CAMBIAR DE PAGINAS
-		self.btn_nuevopedido.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_nuevopedido)) #cambia de pagina
+		self.btn_nuevopedido.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_nuevopedido))#cambia de pagina
+		self.btn_nuevopedido.clicked.connect(lambda: self.signal_barra.setText("PEDIDOS"))
+
 		self.btn_nuevosubpedido.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_nuevosubpedido)) #cambia de pagina
+		self.btn_nuevosubpedido.clicked.connect(lambda: self.signal_barra.setText("SUB PEDIDOS"))
+
 		self.btn_listar.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_listar)) #cambia de pagina
+		self.btn_listar.clicked.connect(lambda: self.signal_barra.setText("LISTAR"))
+		
 		self.btn_rendicion.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_rendicion)) #cambia de pagina
+		self.btn_rendicion.clicked.connect(lambda: self.signal_barra.setText("RENDICION"))
+
 		self.btn_configuracion.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_config)) #cambia de pagina
+		self.btn_configuracion.clicked.connect(lambda: self.signal_barra.setText("CONFIGURACION"))
+
 		self.btn_deposito.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_deposito)) #cambia de pagina
+		self.btn_deposito.clicked.connect(lambda: self.signal_barra.setText("LOCKERS"))
+
 		self.btn_rotulos.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_rotulos)) #cambia de pagina
+		self.btn_rotulos.clicked.connect(lambda: self.signal_barra.setText("ROTULOS"))
+
 		self.btn_nuevagestion.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_gestion)) #cambia de pagina
+		self.btn_nuevagestion.clicked.connect(lambda: self.signal_barra.setText("GESTIONES"))
+
 		self.btn_envios.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_envios))
+		self.btn_envios.clicked.connect(lambda: self.signal_barra.setText("ENVIOS"))
+
 		self.btn_estampillas.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_estampillas))
+		self.btn_estampillas.clicked.connect(lambda: self.signal_barra.setText("ESTAMPILLAS"))
+
 		self.btn_nuevopedido.clicked.connect(self.iniciarpedido)
 		
 		#FUNCION DE LOS BOTONES
@@ -202,6 +226,8 @@ class VentanaPrincipal(QMainWindow):
 		self.rb_anexo.clicked.connect(self.refresh_estampillas)
 		self.btn_eliminarLinea.clicked.connect(self.eliminar_linea)
 		self.btn_buscar_estampillas.clicked.connect(self.refresh_estampillas)
+
+		
 	
 		
 	def llenarcombo(self):
@@ -338,6 +364,8 @@ class VentanaPrincipal(QMainWindow):
 			
 
 	def traeregistroestampillas(self):
+
+
 		nombre = str(self.combo_asociados_estampillas.currentText())
 		
 		
@@ -1900,13 +1928,13 @@ class VentanaPrincipal(QMainWindow):
 			if i[2] =="FACTURADO":
 						
 					self.tb_rotulos.setItem(fila, 2, QtWidgets.QTableWidgetItem("FACTURADO"))
-					self.tb_rotulos.item(fila,2).setBackground(QtGui.QColor(205,221,193))
+					self.tb_rotulos.item(fila,2).setForeground(QtGui.QColor(205,221,193))
 			elif i[2] =="PENDIENTE":
 					self.tb_rotulos.setItem(fila, 2, QtWidgets.QTableWidgetItem("PENDIENTE"))
-					self.tb_rotulos.item(fila,2).setBackground(QtGui.QColor(254,247,105))
+					self.tb_rotulos.item(fila, 2).setForeground(QtGui.QColor(254, 247, 105))
 			elif i[2] =="COMPLETO":
 					self.tb_rotulos.setItem(fila, 2, QtWidgets.QTableWidgetItem("COMPLETO"))
-					self.tb_rotulos.item(fila,2).setBackground(QtGui.QColor(148,178,214))
+					self.tb_rotulos.item(fila,2).setForeground(QtGui.QColor(148,178,214))
 					
 			self.tb_rotulos.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3]))) #CANTIDAD
 			self.tb_rotulos.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4]))) #RAZON SOCIAL
@@ -2536,6 +2564,7 @@ if __name__ == '__main__':
 	
 	
 	app = QApplication(sys.argv)
+	
 	MyWindow = VentanaPrincipal()
 	MyWindow.llenarcombo()
 	MyWindow.lockerdisponibles()
