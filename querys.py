@@ -50,7 +50,16 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 
-		
+		def validaDav(self,dav):
+			bandera = False
+			cur=self.conexion.cursor()
+			cur.execute('''select * from estampillas where dav =%s''',[dav])
+			if cur.fetchone():
+				bandera = True
+			else:
+				bandera = False
+			
+			return bandera
 
 
 		def recuperabd(): #recuperar numero de pedido y rango general
@@ -100,26 +109,35 @@ class bdquery():
 			return listapedidos
 		def recuperaSubpedidos(self,num_pedido):
 			cur=self.conexion.cursor()
-			cur.execute(''' select cantidad,inicio,fin,variedad,especie,categoria,camp,fecha_subpedido from subpedidos where num_pedido = %s order by inicio ''',[num_pedido])
+			cur.execute(''' select cantidad,inicio,fin,variedad,especie,categoria,camp,fecha_subpedido from subpedidos where num_pedido = %s order by inicio desc ''',[num_pedido])
 			listaSpedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
 			return listaSpedidos
 
 		
-		def recuperaEstampillas(self):
+		def recuperaEstampillas(self,asociado):
 			cur=self.conexion.cursor()
 			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,variedad,especie,categoria,envase,dav,camp,fecha from estampillas e
-			inner join asociados a on a.num_reg = e.rncyfs order by inicio desc''')
+			inner join asociados a on a.num_reg = e.rncyfs where razon_social LIKE %s order by inicio desc''',[asociado])
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
 			return listapedidos
 		
-		def recuperaAnexos(self):
+		def recuperaEstampillasFecha(self,asociado,desde,hasta):
+			cur=self.conexion.cursor()
+			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,variedad,especie,categoria,envase,dav,camp,fecha from estampillas e
+			inner join asociados a on a.num_reg = e.rncyfs where razon_social LIKE %s and fecha between %s and %s order by inicio desc''',[asociado,desde,hasta])
+			listapedidos=cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listapedidos
+		
+		def recuperaAnexos(self,asociado):
 			cur=self.conexion.cursor()
 			cur.execute('''select razon_social,rncyfs,inicio,fin,cantidad,'-',especie,'-','-','-',camp,fecha from anexos anx
-			inner join asociados a on a.num_reg = anx.rncyfs order by inicio desc''')
+			inner join asociados a on a.num_reg = anx.rncyfs where razon_social LIKE %s order by inicio desc''',[asociado])
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
@@ -137,7 +155,7 @@ class bdquery():
 		
 		def getpedidos(self):
 			cur=self.conexion.cursor()
-			cur.execute('''SELECT a.razon_social,cantidad,inicio ||'-' || fin,serie,num_pedido,fecha_pedido FROM pedidos p INNER JOIN asociados a on a.num_reg = p.rncyfs ORDER BY num_pedido DESC LIMIT 5''')
+			cur.execute('''SELECT a.razon_social,cantidad,inicio ||'-' || fin,serie,num_pedido,fecha_pedido FROM pedidos p INNER JOIN asociados a on a.num_reg = p.rncyfs ORDER BY num_pedido DESC LIMIT 20''')
 			listapedidos=cur.fetchall()
 			self.conexion.commit()
 			cur.close()
@@ -256,6 +274,34 @@ class bdquery():
 			return listado
 			
 			
+		def listarrendicion40(self,desde,hasta,registro,especie,cultivar,categoria,camp,envase):
+			cur=self.conexion.cursor()
+			cur.execute(''' select s.inicio||'-'||s.fin,s.cantidad,s.num_reg,a.razon_social,kg,especie,variedad,categoria,camp,fecha_subpedido,s.num_pedido
+			from subpedidos s
+			inner join asociados a
+			on a.num_reg = s.num_reg
+			where fecha_subpedido >= %s and fecha_subpedido <= %s and s.num_reg LIKE %s 
+			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp = %s and kg = %s
+   			order by s.inicio''',([desde,hasta,registro,especie,cultivar,categoria,camp,envase]))
+			listado = cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listado
+		
+		def listarrendicionBB(self,desde,hasta,registro,especie,cultivar,categoria,camp):
+			cur=self.conexion.cursor()
+			cur.execute(''' select s.inicio||'-'||s.fin,s.cantidad,s.num_reg,a.razon_social,kg,especie,variedad,categoria,camp,fecha_subpedido,s.num_pedido
+			from subpedidos s
+			inner join asociados a
+			on a.num_reg = s.num_reg
+			where fecha_subpedido >= %s and fecha_subpedido <= %s and s.num_reg LIKE %s 
+			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp = %s and kg != 40
+   			order by s.inicio''',([desde,hasta,registro,especie,cultivar,categoria,camp]))
+			listado = cur.fetchall()
+			self.conexion.commit()
+			cur.close()
+			return listado
+		
 		def listarrendicion(self,desde,hasta,registro,especie,cultivar,categoria,camp):
 			cur=self.conexion.cursor()
 			cur.execute(''' select s.inicio||'-'||s.fin,s.cantidad,s.num_reg,a.razon_social,kg,especie,variedad,categoria,camp,fecha_subpedido,s.num_pedido
@@ -263,7 +309,7 @@ class bdquery():
 			inner join asociados a
 			on a.num_reg = s.num_reg
 			where fecha_subpedido >= %s and fecha_subpedido <= %s and s.num_reg LIKE %s 
-			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp =%s
+			and especie LIKE %s and variedad LIKE %s and categoria LIKE %s and camp = %s 
    			order by s.inicio''',([desde,hasta,registro,especie,cultivar,categoria,camp]))
 			listado = cur.fetchall()
 			self.conexion.commit()
@@ -337,7 +383,7 @@ class bdquery():
 			from lockers l inner join pedidos p ON p.num_pedido=l.num_pedido
 			inner join asociados a ON a.num_reg =p.rncyfs
 			where razon_social LIKE %s
-   			order by num_locker''',([asociado]))
+   			order by num_locker''',([asociado.upper()]))
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -448,6 +494,12 @@ class bdquery():
 			cur.execute("UPDATE rotulos SET cantidad = (%s) WHERE indice = (%s)",([cant,indice]))
 			self.conexion.commit()
 			cur.close()
+
+		def modificarTipo(self,indice,tipo):
+			cur=self.conexion.cursor()
+			cur.execute("UPDATE rotulos SET tipo = (%s) WHERE indice = (%s)",([tipo,indice]))
+			self.conexion.commit()
+			cur.close()
 			
 			
 		def nuevorango(self,inicio,fin,cantidad,serie):
@@ -501,6 +553,14 @@ class bdquery():
 			cur.execute(''' delete from gestiones where indice =%s''',([indice]))
 			self.conexion.commit()
 			cur.close()
+
+		def eliminarEnvio(self,indice):
+			cur=self.conexion.cursor()
+			cur.execute(''' delete from envios where id_envio =%s''',([indice]))
+			self.conexion.commit()
+			cur.close()
+		
+		
 			
 		def borrarimpresion(self,indice):
 			cur=self.conexion.cursor()
@@ -513,6 +573,13 @@ class bdquery():
 			cur.execute(''' delete from estampillas where inicio =%s''',([inicio]))
 			self.conexion.commit()
 			cur.close()
+
+		def eliminarLineaAnexo(self,inicio):
+			cur=self.conexion.cursor()
+			cur.execute(''' delete from anexos where inicio =%s''',([inicio]))
+			self.conexion.commit()
+			cur.close()
+
 
 		def eliminarLineaSubpedido(self,inicio,num_pedido):
 			cur=self.conexion.cursor()
@@ -541,7 +608,7 @@ class bdquery():
 			
 		def subpedidosporfecha(self,reg):
 			cur=self.conexion.cursor()
-			cur.execute('''select sum(cantidad),especie,fecha_subpedido from subpedidos where num_reg = %s group by fecha_subpedido,especie ORDER BY fecha_subpedido DESC''',reg)
+			cur.execute('''select sum(cantidad),especie,fecha_subpedido from subpedidos where num_reg LIKE %s group by fecha_subpedido,especie ORDER BY fecha_subpedido DESC''',reg)
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -549,7 +616,7 @@ class bdquery():
 		
 		def estampillasPorFecha(self,reg):
 			cur=self.conexion.cursor()
-			cur.execute('''select sum(cantidad),especie,fecha from estampillas where rncyfs = %s group by fecha,especie ORDER BY fecha DESC''',reg)
+			cur.execute('''select sum(cantidad),especie,fecha from estampillas where rncyfs LIKE %s group by fecha,especie ORDER BY fecha DESC''',reg)
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -557,7 +624,7 @@ class bdquery():
 		
 		def anexosPorFecha(self,reg):
 			cur=self.conexion.cursor()
-			cur.execute('''select sum(cantidad),especie,fecha from anexos where rncyfs = %s group by fecha,especie ORDER BY fecha DESC''',reg)
+			cur.execute('''select sum(cantidad),especie,fecha from anexos where rncyfs LIKE %s group by fecha,especie ORDER BY fecha DESC''',reg)
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
@@ -591,36 +658,64 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 			
-		def getEnvios(self,registro):
+		def getEnvios(self,registro,estado,tipo):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios where num_reg = %s order by fecha_envio DESC''',registro)
+			cur.execute('''select razon_social,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia,factura
+			from envios e inner join asociados a on a.num_reg = e.num_reg
+			where e.num_reg = %s and estado LIKE %s and tipo LIKE %s order by fecha_envio DESC''',[registro,estado,tipo])
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
 			return listado
 
-		def getEnviosPorFecha(self,registro,desde,hasta):
+		def getEnviosPorFecha(self,registro,desde,hasta,estado,tipo):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios where num_reg = %s and fecha_envio >= %s and fecha_envio <= %s order by fecha_envio DESC''',[registro,desde,hasta])
+			cur.execute('''select razon_social,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia,factura
+			from envios e inner join asociados a on a.num_reg = e.num_reg
+			where e.num_reg = %s and fecha_envio >= %s and fecha_envio <= %s and estado LIKE %s and tipo LIKE %s order by fecha_envio DESC''',[registro,desde,hasta,estado,tipo])
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
 			return listado
 
-		def getEnvios_ALL(self):
+		def getEnvios_ALL(self,estado,tipo):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios order by fecha_envio DESC''')
+			cur.execute('''select razon_social,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia,factura
+			from envios e inner join asociados a on a.num_reg = e.num_reg
+			where estado LIKE %s and tipo LIKE %s order by fecha_envio DESC''',[estado,tipo])
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
 			return listado
-		def getEnvios_ALLporFecha(self,desde,hasta):
+		def getEnvios_ALLporFecha(self,desde,hasta,estado,tipo):
 			cur=self.conexion.cursor()
-			cur.execute('''select num_reg,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia from envios where fecha_envio <= %s and fecha_envio >= %s order by fecha_envio DESC''',[hasta,desde])
+			cur.execute('''select razon_social,fecha_envio,estado,cantidad,bultos,r,subpedido_fecha,id_envio,tipo,detalle,obs,guia,factura
+			from envios e inner join asociados a on a.num_reg = e.num_reg
+			where fecha_envio <= %s and fecha_envio >= %s and estado LIKE %s and tipo LIKE %s order by fecha_envio DESC''',[hasta,desde,estado,tipo])
 			self.conexion.commit()
 			listado=cur.fetchall()
 			cur.close()
 			return listado
+		
+
+		def agregarGuia(self,guia,indice):
+			cur=self.conexion.cursor()
+			cur.execute("UPDATE envios SET guia = (%s) WHERE id_envio = (%s)",([guia,indice]))
+			self.conexion.commit()
+			cur.close()
+
+		def agregarFct(self,factura,indice):
+			cur=self.conexion.cursor()
+			cur.execute("UPDATE envios SET factura = (%s) WHERE id_envio = (%s)",([factura,indice]))
+			self.conexion.commit()
+			cur.close()
+
+		def definirEnvioFacturado(self,indice):
+			cur=self.conexion.cursor()
+			cur.execute("UPDATE envios SET estado = 'FACTURADO' WHERE id_envio = (%s)",([indice]))
+			self.conexion.commit()
+			cur.close()
+
 			
 		def traeIndiceGestion(self):
 			cur=self.conexion.cursor()

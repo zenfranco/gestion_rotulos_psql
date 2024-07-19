@@ -5,11 +5,14 @@ from openpyxl import Workbook
 from openpyxl.styles import Font
 from querys import *
 from PyQt5 import *
-from PyQt5 import QtWidgets
+
 from PyQt5.QtWidgets import QMainWindow, QApplication,QLineEdit
 from PyQt5.uic import loadUi 
 from PyQt5.QtCore import Qt
 from datetime import date
+from PyQt5 import QtGui
+
+
 global rango, numpedido, pedidos, disponible,subpedidos,INICIAL,FINAL
 import os
 from mensaje import *
@@ -18,31 +21,52 @@ pedidos=[]
 subpedidos=[]
 
 
+
 class VentanaPrincipal(QMainWindow):
 	def __init__(self):
 		super(VentanaPrincipal, self).__init__()
 		loadUi('main.ui', self)
 		
 		self.frame_detallepedido.hide()
-		self.frm_manual.hide()
+		
 		#CAMBIAR DE PAGINAS
-		self.btn_nuevopedido.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_nuevopedido)) #cambia de pagina
+		self.btn_nuevopedido.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_nuevopedido))#cambia de pagina
+		self.btn_nuevopedido.clicked.connect(lambda: self.signal_barra.setText("PEDIDOS"))
+
 		self.btn_nuevosubpedido.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_nuevosubpedido)) #cambia de pagina
+		self.btn_nuevosubpedido.clicked.connect(lambda: self.signal_barra.setText("SUB PEDIDOS"))
+
 		self.btn_listar.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_listar)) #cambia de pagina
+		self.btn_listar.clicked.connect(lambda: self.signal_barra.setText("LISTAR"))
+		
 		self.btn_rendicion.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_rendicion)) #cambia de pagina
+		self.btn_rendicion.clicked.connect(lambda: self.signal_barra.setText("RENDICION"))
+
 		self.btn_configuracion.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_config)) #cambia de pagina
+		self.btn_configuracion.clicked.connect(lambda: self.signal_barra.setText("CONFIGURACION"))
+
 		self.btn_deposito.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_deposito)) #cambia de pagina
+		self.btn_deposito.clicked.connect(lambda: self.signal_barra.setText("LOCKERS"))
+
 		self.btn_rotulos.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_rotulos)) #cambia de pagina
+		self.btn_rotulos.clicked.connect(lambda: self.signal_barra.setText("ROTULOS"))
+
 		self.btn_nuevagestion.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_gestion)) #cambia de pagina
+		self.btn_nuevagestion.clicked.connect(lambda: self.signal_barra.setText("GESTIONES"))
+
 		self.btn_envios.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_envios))
+		self.btn_envios.clicked.connect(lambda: self.signal_barra.setText("ENVIOS"))
+
 		self.btn_estampillas.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_estampillas))
+		self.btn_estampillas.clicked.connect(lambda: self.signal_barra.setText("ESTAMPILLAS"))
+
 		self.btn_nuevopedido.clicked.connect(self.iniciarpedido)
 		
 		#FUNCION DE LOS BOTONES
 		#PAGINA PEDIDOS
 		self.btn_ingresarpedido.clicked.connect(self.NuevoPedido)
 		self.btn_ingresarpedido.clicked.connect(self.limpiar)
-		self.cbx_manual.stateChanged.connect(lambda:self.frm_manual.show())
+		
 		self.btn_printdetalle.clicked.connect(self.imprimirticket)
 		
 		self.rb_seriea.clicked.connect(self.iniciarpedido)
@@ -100,6 +124,8 @@ class VentanaPrincipal(QMainWindow):
 		self.fecha_hasta_listar.setDate(date.today())
 		self.fecha_desde_envios.setDate(date.today())
 		self.fecha_hasta_envios.setDate(date.today())
+		self.fecha_desde_estampillas.setDate(date.today())
+		self.fecha_hasta_estampillas.setDate(date.today())
 		self.signal_gestion_indice.hide()
 		self.cbx_porfecha.stateChanged.connect(lambda:self.fecha_desde_listar.setEnabled(True))
 		self.cbx_porfecha.stateChanged.connect(lambda:self.fecha_hasta_listar.setEnabled(True))
@@ -132,6 +158,9 @@ class VentanaPrincipal(QMainWindow):
 		headertb_estampillas = self.tb_estampillas.horizontalHeader()
 		headertb_estampillas.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
+		headertb_envios = self.tb_envioscreados.horizontalHeader()
+		headertb_envios.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+
 		
 		
 		
@@ -152,6 +181,9 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_eliminar_impresion.clicked.connect(self.eliminarimpresion)
 		self.btn_ingresar_stock.clicked.connect(self.cargaStock)
 		self.btn_modificar_rotulos.clicked.connect(self.editarcantidadrotulo)
+		self.btn_limpiar_busqueda_rotulos.clicked.connect(self.limpiar_formulario_busqueda_impresiones)
+		self.btn_modificar_tipo.clicked.connect(self.modificar_tipo)
+		self.btn_exportar_impresiones.clicked.connect(self.exportar_listado_rotulos)
 		
 		#PAGINA GESTIONES
 		self.btn_agregar_nueva.clicked.connect(self.nuevagestion)
@@ -174,6 +206,17 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_crearenvio.clicked.connect(self.nuevoEnvio)
 		self.btn_refresh_envios.clicked.connect(self.traerenvios)
 		self.tb_envioscreados.itemDoubleClicked.connect(self.envio_selected)
+		self.rb_envios_iqr.clicked.connect(self.asociado_selected)
+		
+		self.rb_envios_estampillas.clicked.connect(self.asociado_selected)
+		self.rb_envios_anexo.clicked.connect(self.asociado_selected)
+		self.btn_agregar_guia.clicked.connect(self.agregar_guia)
+		self.btn_calcular_costo_envio.clicked.connect(self.calcular_costo_sugerido)
+		self.btn_facturar_envio.clicked.connect(self.definir_envio_facturado)
+		self.btn_agregar_fct.clicked.connect(self.agregar_factura)
+		self.btn_eliminar_envio.clicked.connect(self.eliminar_envio)
+		self.rb_xasociado_envios.clicked.connect(self.traerenvios)
+		self.rb_todoslosenvios_envios.clicked.connect(self.traerenvios)
 		
 		
 		#PAGINA ESTAMPILLAS
@@ -182,6 +225,9 @@ class VentanaPrincipal(QMainWindow):
 		self.rb_estampillas.clicked.connect(self.refresh_estampillas)
 		self.rb_anexo.clicked.connect(self.refresh_estampillas)
 		self.btn_eliminarLinea.clicked.connect(self.eliminar_linea)
+		self.btn_buscar_estampillas.clicked.connect(self.refresh_estampillas)
+
+		
 	
 		
 	def llenarcombo(self):
@@ -236,9 +282,9 @@ class VentanaPrincipal(QMainWindow):
 			indice =4
 			self.txt_dav.setText("")
 			self.txt_variedad_estampillas.setText("")
-			self.txt_categoria_estampillas.setText("")
+			
 			self.txt_envase_estampillas.setText("")
-			self.signal_tipodetramite.setText("Solicitud Estampillas Oficiales")
+			
 
 
 
@@ -251,9 +297,9 @@ class VentanaPrincipal(QMainWindow):
 			indice =5
 			self.txt_dav.setText("No se informa")
 			self.txt_variedad_estampillas.setText("No se informa")
-			self.txt_categoria_estampillas.setText("No se informa")
+			
 			self.txt_envase_estampillas.setText("No se informa")
-			self.signal_tipodetramite.setText("Solicitud Estampillas Anexo I")
+			
 							
 			self.txt_dav.setEnabled(False)
 			self.txt_variedad_estampillas.setEnabled(False)			
@@ -268,7 +314,11 @@ class VentanaPrincipal(QMainWindow):
 
 		self.ver_estampillas()
 
-
+	def exportar_informe_estampillas(self):
+		pass
+		
+		
+	
 			
 		
 	def traeregistro(self):
@@ -299,15 +349,23 @@ class VentanaPrincipal(QMainWindow):
 		self.txt_listar.setText("".join(recuperado))
 	
 	def traeregistrorotulos(self):
-		nombre = str(self.cb_razonsocial_rotulos.currentText())
-		
-		
-		recuperado=q.getrncyfs(nombre)
-		
+
+		try:
+			nombre = str(self.cb_razonsocial_rotulos.currentText())
 			
-		self.txt_rncyfs_rotulos.setText("".join(recuperado))
+			
+			recuperado=q.getrncyfs(nombre)
+			
+				
+			self.txt_rncyfs_rotulos.setText("".join(recuperado))
+		except Exception as e:
+			self.txt_rncyfs_rotulos.setText("")
+			
+			
 
 	def traeregistroestampillas(self):
+
+
 		nombre = str(self.combo_asociados_estampillas.currentText())
 		
 		
@@ -475,48 +533,62 @@ class VentanaPrincipal(QMainWindow):
 		global ESTAMPILLA_INICIAL
 		global ESTAMPILLA_FINAL
 
-		if self.signal_rncyfs_estampillas.text():
+		try:
 
-			rncyfs=str(self.signal_rncyfs_estampillas.text())
-			
-			especie=str(self.txt_estampillas_especie.currentText())
-			
-			campana = int(self.txt_campana_estampillas.currentText())
-			cantidad =int(self.txt_cantidad_estampillas.text())
-			
-			
-			#inicial y final corresponden a la gestion:
-			#falta validar cantidad con un if: si ESTAMPILLA_FINAL-ESTAMPILLA_INICIAL > CANTIDAD
-			inicial =ESTAMPILLA_INICIAL
-			final =(ESTAMPILLA_INICIAL+cantidad)-1
-			if self.rb_estampillas.isChecked():
+			if self.signal_rncyfs_estampillas.text():
 
+				rncyfs=str(self.signal_rncyfs_estampillas.text())
 				
-				indice=4
-				dav= int(self.txt_dav.text())
-				categoria =str(self.txt_categoria_estampillas.text())
-				variedad =str(self.txt_variedad_estampillas.text())
-				envase=int(self.txt_envase_estampillas.text())
-				q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,date.today())
-			
+				especie=str(self.txt_estampillas_especie.currentText())
+				
+				campana = int(self.txt_campana_estampillas.currentText())
+				cantidad =int(self.txt_cantidad_estampillas.text())
+				
+				
+				#inicial y final corresponden a la gestion:
+				#falta validar cantidad con un if: si ESTAMPILLA_FINAL-ESTAMPILLA_INICIAL > CANTIDAD
+				inicial =ESTAMPILLA_INICIAL
+				final =(ESTAMPILLA_INICIAL+cantidad)-1
+				if self.txt_cantidad_estampillas.text():
+					if self.rb_estampillas.isChecked():
+
+						
+						indice=4
+						dav= int(self.txt_dav.text())
+						categoria =str(self.txt_categoria_estampillas.currentText())
+						variedad =str(self.txt_variedad_estampillas.text())
+						envase=int(self.txt_envase_estampillas.text())
+						#Validar DAV: la bandera valida si se encontró ese numero de dav (repetido)
+						Ban=q.validaDav(dav)
+						if Ban is False:
+							q.carga_estampillas(rncyfs,dav,especie,categoria,campana,cantidad,variedad,inicial,final,envase,date.today())
+						else:
+							c.cartel("ERROR","DAV REPETIDO",3)
+					
+					else:
+
+						indice=5
+						q.carga_estampillas_anexo(rncyfs,especie,campana,cantidad,inicial,final,date.today())
+				else:
+					c.cartel("ERROR","INGRESE CANTIDAD",3)
+
+
+				#DATOS PARA ACTUALIZAR RANGO GENERAL DE ESTAMPILLAS
+				estampilla_siguiente=final+1
+				ultima_estampilla=int(ESTAMPILLA_FINAL)
+					
+
+				q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
+				self.txt_cantidad_estampillas.setText("")
+
+				self.refresh_estampillas()
+				self.ver_estampillas()
+
 			else:
 
-				indice=5
-				q.carga_estampillas_anexo(rncyfs,especie,campana,cantidad,inicial,final,date.today())
-
-			#DATOS PARA ACTUALIZAR RANGO GENERAL DE ESTAMPILLAS
-			estampilla_siguiente=final+1
-			ultima_estampilla=int(ESTAMPILLA_FINAL)
-				
-
-			q.actualizarangoenbd(estampilla_siguiente,ultima_estampilla,indice)
-
-			self.refresh_estampillas()
-			self.ver_estampillas()
-
-		else:
-
-			c.cartel("ERROR","SELECCIONAR ASOCIADO",3)
+				c.cartel("ERROR","SELECCIONAR ASOCIADO",3)
+		except Exception as e:
+			c.cartel("ERROR",str(e),3)
 
 
 	def traeRango(self):
@@ -586,18 +658,32 @@ class VentanaPrincipal(QMainWindow):
 		
 	def ver_estampillas(self):
 
+		if self.cbx_filtra_asociado.isChecked():
+			asociado=str(self.combo_asociados_estampillas.currentText())
+		else:
+			asociado='%'
 		
+				
 
 
 		if self.rb_estampillas.isChecked():
 
-			listarecuperada=q.recuperaEstampillas()
+			if self.cbx_filtra_porfecha_estampillas.isChecked():
+				desde=self.fecha_desde_estampillas.text()
+				hasta=self.fecha_hasta_estampillas.text()
+				listarecuperada=q.recuperaEstampillasFecha(asociado,desde,hasta)
+			else:
+				listarecuperada=q.recuperaEstampillas(asociado)
+				
+
+
+			
 			totalfilas=len(listarecuperada)
 			self.tb_estampillas.setRowCount(totalfilas)
 				
 				
 			fila =0
-			
+			cantidad=0
 			for i in listarecuperada:
 				self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
 				self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
@@ -614,15 +700,16 @@ class VentanaPrincipal(QMainWindow):
 				
 					
 				fila=fila+1
+				cantidad=cantidad+int(i[4])
 		else:
 
-			listarecuperada=q.recuperaAnexos()
+			listarecuperada=q.recuperaAnexos(asociado)
 			totalfilas=len(listarecuperada)
 			self.tb_estampillas.setRowCount(totalfilas)
-				
+			
 				
 			fila =0
-			
+			cantidad=0
 			for i in listarecuperada:
 				self.tb_estampillas.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
 				self.tb_estampillas.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
@@ -639,7 +726,8 @@ class VentanaPrincipal(QMainWindow):
 				
 					
 				fila=fila+1
-
+				cantidad=cantidad+int(i[4])
+		self.signal_total_estampillas.setText(str(cantidad))
 
 
 	
@@ -778,33 +866,11 @@ class VentanaPrincipal(QMainWindow):
 				if disp >= cantidad:
 					
 					registro=str(tablapedidos[1])
-					
-					if self.cbx_manual.isChecked(): #OPCION PARA QUE EL USUARIO INGRESE SU RANGO DE INICIO
-						
-						rangomanual=self.txt_manual.text()
-						
-						if rangomanual in range(tablapedidos[6],tablapedidos[7]):
-							
-							spini=rangomanual
-							spfin=spini+cantidad-1
-							
-								
-							
-						else:
-							print("rango incorrecto")
-							
-						
-						#VALIDAR QUE NO SUPERE EL RANGO FINAL
-						
-						
-						
 						
 					
-					
-					else:#CAMINO AUTOMATICO: EL SISTEMA ASIGNA SECUENCIALMENTE EL RANGO
 						
-						spini=int(tablapedidos[6]) #valor inicioremanente de pedido
-						spfin=spini+cantidad-1
+					spini=int(tablapedidos[6]) #valor inicioremanente de pedido
+					spfin=spini+cantidad-1
 					
 					numpedido=int(self.txt_numpedido.text())
 					variedad=str(self.txt_subvariedad.text())
@@ -826,17 +892,7 @@ class VentanaPrincipal(QMainWindow):
 					if KG=="":
 						dav=0
 						
-					ticket= open("subpedido.txt","a")
-				
-					
-					ticket.write(str(cantidad)+" ")		
-					ticket.write(str(variedad)+" ")
-					ticket.write(str(spini)+" - "+str(spini+cantidad-1)+"\n")
-					
-				
-					
-					ticket.close()
-					
+							
 					
 				
 					'''#EXPORTA A ARCHIVO EXCELL
@@ -925,6 +981,7 @@ class VentanaPrincipal(QMainWindow):
 			
 			self.txt_altaasociado_reg.setText("")
 			self.txt_altaasociado_nombre.setText("")
+			c.cartel("INFORMACION","ASOCIADO REGISTRADO",1)
 		
 		
 		
@@ -1118,10 +1175,28 @@ class VentanaPrincipal(QMainWindow):
 			c.cartel("ATENCION","REGISTRO ELIMINADO",1)
 			self.listarimpresiones()
 						
+	def eliminar_envio(self):
 		
+		indice=int(self.signal_id_envio.text())
+		r=c.cartel_opcion("ATENCION","DESEA ELIMINAR EL ENVIO SELECCIONADO",2)
+		
+		
+		
+		if r==16384:
+			q.eliminarEnvio(indice)
+			
+			c.cartel("ATENCION","ENVIO ELIMINADO",1)
+			self.traerenvios()
+			self.signal_envio_fecha.setText("")
+			self.signal_envio_estado.setText("")
+			self.signal_envio_guia.setText("")
+			self.signal_id_envio.setText("")
+			self.signal_envio_asociado.setText("")
+			self.signal_envio_fct.setText("")
 			
 			
 	def nuevoEnvio(self):
+
 		fecha_envio=date.today()
 		registro=str(q.getrncyfs(str(self.signal_asociado_envios.text()))[0])
 		cantidad=int(self.txt_cantidad_envios.text())
@@ -1139,34 +1214,90 @@ class VentanaPrincipal(QMainWindow):
 		else:
 			rotulos='NO'
 		
+		if tipo and bultos:
+			q.insertarEnvio(fecha_envio,registro,cantidad,tipo,rotulos,fecha_emision,bultos,estado,especie,detalle,obs)
+			self.txt_cantidad_envios.setText("")
+			self.txt_especie_envios.setText("")
+			self.txt_bultos_envios.setText("")
+			self.cb_detalle_envios.setCurrentIndex(0)
+			self.txt_obs_envios.setText("")
+			self.signal_emision.setText("")
+			self.cb_servicio_envios.setCurrentIndex(0)
 		
-		q.insertarEnvio(fecha_envio,registro,cantidad,tipo,rotulos,fecha_emision,bultos,estado,especie,detalle,obs)
+			c.cartel("AVISO","ENVIO CREADO",1)
+			self.traerenvios()
+		else:
+			c.cartel("ERROR","FALTAN CAMPOS",3)
+
+
+	def agregar_guia(self):
+		guia= str(self.txt_guia_envio.text())
+		indice=int(self.signal_id_envio.text())
 		
-	
-		c.cartel("AVISO","ENVIO CREADO",1)
+		q.agregarGuia(guia,indice)
+		self.signal_envio_guia.setText(guia)
+		self.txt_guia_envio.setText("")
+
+	def agregar_factura(self):
+		factura= str(self.txt_fct_envios.text())
+		indice=int(self.signal_id_envio.text())
+		
+		q.agregarFct(factura,indice)
+		self.signal_envio_fct.setText(factura)
+		self.txt_fct_envios.setText("")
+
 		
 		
+	def calcular_costo_sugerido(self):
+		costo=float(self.txt_costo_envio.text()	)
+		precio_sugerido=round(costo*1.3)
+		
+		digito=int(len(str(precio_sugerido)))
+		multiplica=0
+		
+		if digito == 4:
+			multiplica = (digito-1) *100
+
+		elif digito == 3:
+			multiplica = (digito-1) *100
+		elif digito == 2:
+			multiplica = (digito-1) *10
+		elif digito ==1:
+			multiplica= (digito-1) *1
+
+		
+			
+
+
+
+		self.txt_precio_sugerido.setText(str(precio_sugerido))
 		
 		
-		
-		
+	def definir_envio_facturado(self):
+		indice=int(self.signal_id_envio.text())
+		q.definirEnvioFacturado(indice)
+		c.cartel("ESTADO ENVIO","ENVIO FACTURADO",1)
+		self.traerenvios()
 		
 			
 	def listar(self):
 		
 		
 		if self.cbx_porrotulo.isChecked():
-			rotulo=int(self.txt_porrotulo.text())
-			tablarecuperada = q.busquedaxrotulo(rotulo)
-			
-			i=0
-			for i in tablarecuperada:
-				self.signal_pedido_bxr.setText(str(i[0]))
-				numpedido=int(i[0])
-				break
-			razon_social=q.traerazonsocial(numpedido)
-			
-			self.signal_asociado_bxr.setText("".join(razon_social))
+				try:
+					rotulo=int(self.txt_porrotulo.text())
+					tablarecuperada = q.busquedaxrotulo(rotulo)
+					
+					i=0
+					for i in tablarecuperada:
+						self.signal_pedido_bxr.setText(str(i[0]))
+						numpedido=int(i[0])
+						break
+					razon_social=q.traerazonsocial(numpedido)
+					
+					self.signal_asociado_bxr.setText("".join(razon_social))
+				except Exception as e:
+					c.cartel("PEDIDO NO ENCONTRADO","No se encontro el pedido correspondiente a ese rotulo",3)
 			
 			
 		else:
@@ -1292,6 +1423,7 @@ class VentanaPrincipal(QMainWindow):
 			cultivar=str(self.cbx_cultivar_rendicion.currentText())
 			categoria=str(self.cbx_categoria_rendicion.currentText())
 			camp= str(self.cbx_camp_rendicion.currentText())
+			envase=str(self.cbx_envase_rendicion.currentText())
 		
 		
 		
@@ -1307,13 +1439,24 @@ class VentanaPrincipal(QMainWindow):
 		
 			if categoria =="":
 				categoria='%'
+
+			if envase=='40 KG.':
+				envase=40
+				listarecuperada =q.listarrendicion40(desde,hasta,registro,especie,cultivar,categoria,camp,envase)
+			elif envase =="Big Bag":
+				
+				listarecuperada =q.listarrendicionBB(desde,hasta,registro,especie,cultivar,categoria,camp)
+			else:
+				listarecuperada =q.listarrendicion(desde,hasta,registro,especie,cultivar,categoria,camp)
+				
+
 			
 			
 			
 			
 				
 			
-			listarecuperada =q.listarrendicion(desde,hasta,registro,especie,cultivar,categoria,camp)
+			
 			totalfilas=len(listarecuperada)
 			self.tb_rendicion.setRowCount(totalfilas)
 		
@@ -1483,12 +1626,21 @@ class VentanaPrincipal(QMainWindow):
 			
 		
 	def setearlockers(self):
-		cantidad=self.txt_definir_locker.text()
+
+		r=c.cartel_opcion("ATENCION","DESEA INICIALIZAR LOS LOCKERS",2)
+			
+		if r==16384:
+			cantidad=self.txt_definir_locker.text()
 		
 			
-		for i in range(1,int(cantidad)):
-			estado ="Disponible"
-			q.definircantidadlockers(i,estado)
+			for i in range(1,int(cantidad)):
+				estado ="Disponible"
+				q.definircantidadlockers(i,estado)
+							
+				
+
+		
+	
 			
 	def lockerdisponibles(self):
 		
@@ -1711,7 +1863,16 @@ class VentanaPrincipal(QMainWindow):
 			c.cartel("ERROR","INGRESE CANTIDAD",3)
 			
 		
-		
+	def limpiar_formulario_busqueda_impresiones(self):
+		self.fecha_desde_rotulos.setDate(date.today())
+		self.fecha_hasta_rotulos.setDate(date.today())
+		self.cb_razonsocial.setCurrentIndex(0)
+		self.cb_tipo.setCurrentIndex(0)
+		self.cb_especie.setCurrentIndex(0)
+		self.cb_categoria.setCurrentIndex(0)
+		self.rb_rotulos_pendientes.setChecked(True)
+
+
 		
 	def listarimpresiones(self):
 		
@@ -1767,13 +1928,13 @@ class VentanaPrincipal(QMainWindow):
 			if i[2] =="FACTURADO":
 						
 					self.tb_rotulos.setItem(fila, 2, QtWidgets.QTableWidgetItem("FACTURADO"))
-					self.tb_rotulos.item(fila,2).setBackground(QtGui.QColor(205,221,193))
+					self.tb_rotulos.item(fila,2).setForeground(QtGui.QColor(205,221,193))
 			elif i[2] =="PENDIENTE":
 					self.tb_rotulos.setItem(fila, 2, QtWidgets.QTableWidgetItem("PENDIENTE"))
-					self.tb_rotulos.item(fila,2).setBackground(QtGui.QColor(254,247,105))
+					self.tb_rotulos.item(fila, 2).setForeground(QtGui.QColor(254, 247, 105))
 			elif i[2] =="COMPLETO":
 					self.tb_rotulos.setItem(fila, 2, QtWidgets.QTableWidgetItem("COMPLETO"))
-					self.tb_rotulos.item(fila,2).setBackground(QtGui.QColor(148,178,214))
+					self.tb_rotulos.item(fila,2).setForeground(QtGui.QColor(148,178,214))
 					
 			self.tb_rotulos.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3]))) #CANTIDAD
 			self.tb_rotulos.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4]))) #RAZON SOCIAL
@@ -1803,6 +1964,68 @@ class VentanaPrincipal(QMainWindow):
 			fila=fila+1
 			
 			self.signal_total_rotulos.setText(str(acum))
+
+	def exportar_listado_rotulos(self):
+		
+		
+		if self.rb_rotulos_pendientes.isChecked():
+			estado="PENDIENTE"
+		elif self.rb_rotulos_facturados.isChecked():
+			estado="FACTURADO"
+		elif self.rb_rotulos_todos.isChecked():
+			estado="%"
+		elif self.rb_rotulos_completos.isChecked():
+			estado="COMPLETO"
+		elif self.rb_rotulos_pendientesdav.isChecked():
+			estado="PENDIENTE DAV"
+			
+			
+		if self.cb_tipo.currentText() == "-":
+			tipo="%"
+		else:
+				
+			tipo=str(self.cb_tipo.currentText())
+				
+		if self.cb_especie.currentText()=="-":
+			especie="%"
+		else:
+			especie=str(self.cb_especie.currentText())
+			
+		if self.cb_razonsocial.currentText()=="-":
+			razon="%"
+		else:
+			razon=str(self.cb_razonsocial.currentText())
+		
+		
+		if self.cb_alldate.isChecked():
+			
+			listarecuperada=q.traerotulos(estado,tipo,especie,razon)
+		else:
+			inicio=str(self.fecha_desde_rotulos.text())
+			fin=str(self.fecha_hasta_rotulos.text())
+			listarecuperada=q.traerotulosFecha(estado,tipo,especie,inicio,fin)
+
+		book = Workbook()
+		sheet = book.active
+		
+		sheet['A1']="ID"
+		sheet['B1']="FECHA"
+		sheet['C1']="ESTADO"
+		sheet['D1']="CANTIDAD"
+		sheet['E1']="RAZON SOCIAL"
+		sheet['F1']="ESPECIE"
+		sheet['G1']="CATEGORIA"
+		sheet['H1']="TIPO"
+		
+		
+		for i in listarecuperada:
+			sheet.append(i)
+		
+				
+		book.save('rotulos_solicitados.xlsx')
+
+		c.cartel("INFORMACION","PLANILLA CREADA",1)
+
 		
 			
 	def cambiarestadorotulo(self):
@@ -1845,6 +2068,17 @@ class VentanaPrincipal(QMainWindow):
 				c.cartel("IMPRESION","CANTIDAD MODIFICADA",1)
 		else:
 			c.cartel("ATENCION","NO HAY NADA QUE MODIFICAR",3)
+
+	def modificar_tipo(self):
+		
+		
+		indice=int(self.txt_indice_rotulos.text())
+		tipo=str(self.cb_corregir_tipo.currentText())
+				
+		q.modificarTipo(indice,tipo)
+		self.listarimpresiones()
+		c.cartel("TIPO","TIPO DE ROTULOS MODIFICADO",1)
+		
 			
 			
 		
@@ -2015,11 +2249,15 @@ class VentanaPrincipal(QMainWindow):
 			fecha_envio=str(self.tb_envioscreados.item(fila, 1).text())
 			estado=str(self.tb_envioscreados.item(fila, 2).text())
 			guia=str(self.tb_envioscreados.item(fila, 11).text())
+			asociado=str(self.tb_envioscreados.item(fila, 0).text())
+			fct=str(self.tb_envioscreados.item(fila, 12).text())
    
 			self.signal_envio_fecha.setText(str(fecha_envio))
 			self.signal_envio_estado.setText(str(estado))
 			self.signal_envio_guia.setText(str(guia))
 			self.signal_id_envio.setText(str(id))
+			self.signal_envio_asociado.setText(str(asociado))
+			self.signal_envio_fct.setText(str(fct))
 			
 			
 			
@@ -2062,7 +2300,20 @@ class VentanaPrincipal(QMainWindow):
 
 			
 		else:
-			pass
+			
+			fila = self.tb_estampillas.currentRow()
+			inicio =int(self.tb_estampillas.item(fila, 2).text())
+			r=c.cartel_opcion("ATENCION","DESEA ELIMINAR LA LINEA SELECCIONADA",2)
+				
+			if r==16384:
+				q.eliminarLineaAnexo(inicio)
+				c.cartel("ATENCION","LINEA ELIMINADA",1)
+
+				q.corregirInicio(inicio,5)
+
+
+
+			self.refresh_estampillas()
 
 	
 	
@@ -2113,15 +2364,21 @@ class VentanaPrincipal(QMainWindow):
 		
 	def traerpedidos_agrupados(self,asociado):
 
-		registro=q.traerregistro(str(asociado))
+		if asociado:
+
+			registro=q.traerregistro(str(asociado))
+		else:
+			registro='%'
 
 		if self.rb_envios_iqr.isChecked():			
 			
 			tablarecuperada=q.subpedidosporfecha(registro)			
 
 		elif self.rb_envios_estampillas.isChecked():
+			
 
 			tablarecuperada=q.estampillasPorFecha(registro)
+			
 		elif self.rb_envios_anexo.isChecked():
 			tablarecuperada=q.anexosPorFecha(registro)
 
@@ -2144,6 +2401,25 @@ class VentanaPrincipal(QMainWindow):
 				
 			desde=str(self.fecha_desde_envios.text())
 			hasta=str(self.fecha_hasta_envios.text())
+			if self.rb_facturados_envios.isChecked():
+				estado='FACTURADO'
+			elif self.rb_sin_facturar_envios.isChecked():
+				estado='PREPARADO'
+			elif self.rb_todos_envios.isChecked():
+				estado='%'
+			
+			
+			
+			if self.cb_servicio_busqueda.currentText()=='':
+				tipo='%'
+			else:
+				tipo=str(self.cb_servicio_busqueda.currentText())
+				
+
+			
+			
+
+			
 			if self.rb_xasociado_envios.isChecked():
        
 				fila = self.tb_asociados_envios.currentRow()	
@@ -2153,19 +2429,19 @@ class VentanaPrincipal(QMainWindow):
     
 				if self.cbx_enviosxfecha.isChecked():
         
-					     
-					tablarecuperada=q.getEnviosPorFecha(registro,desde,hasta)
+					
+					tablarecuperada=q.getEnviosPorFecha(registro,desde,hasta,estado,tipo)
 				
 				else:
-					tablarecuperada=q.getEnvios(registro)
+					tablarecuperada=q.getEnvios(registro,estado,tipo)
 			else:
        
 				if self.cbx_enviosxfecha.isChecked():
         
-					tablarecuperada=q.getEnvios_ALLporFecha(desde,hasta)
+					tablarecuperada=q.getEnvios_ALLporFecha(desde,hasta,estado,tipo)
 				
 				else:
-					tablarecuperada=q.getEnvios_ALL()
+					tablarecuperada=q.getEnvios_ALL(estado,tipo)
 				
 				
 			totalfilas=len(tablarecuperada)
@@ -2184,12 +2460,13 @@ class VentanaPrincipal(QMainWindow):
 				self.tb_envioscreados.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
 				self.tb_envioscreados.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
 				self.tb_envioscreados.setItem(fila,11,QtWidgets.QTableWidgetItem(str(i[11])))
+				self.tb_envioscreados.setItem(fila,12,QtWidgets.QTableWidgetItem(str(i[12])))
 				
 				
 				fila = fila+1
     
 		except Exception as e:
-			pass
+			print(e)
       		
 			
       	
@@ -2287,6 +2564,7 @@ if __name__ == '__main__':
 	
 	
 	app = QApplication(sys.argv)
+	
 	MyWindow = VentanaPrincipal()
 	MyWindow.llenarcombo()
 	MyWindow.lockerdisponibles()

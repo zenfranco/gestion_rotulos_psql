@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: CASEM
-PEDIDO: 241
+RAZON SOCIAL: GYT PLUS
+PEDIDO: 246
 -----------------------------
-RNCyFS: 1111
-Fecha: 2023-12-18
-Rango: 16002001 - 16004000
-Serie: A
-Cantidad: 2000
+RNCyFS: 10003
+Fecha: 2024-05-30
+Rango: 86703001 - 86704000
+Serie: B
+Cantidad: 1000
 -----------------------------
