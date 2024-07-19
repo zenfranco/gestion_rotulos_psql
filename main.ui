@@ -73,10 +73,25 @@ color:#49b0aa;
 	padding-left: 5px;
 }
 
+QComboBox{
+color:#49b0aa;
+	background-color: rgb(27, 29, 35);
+	border-radius: 5px;
+	border: 1px solid rgb(27, 29, 35);
+	padding: 4px;
+	padding-left: 5px;
+}
+QComboBox:hover{
+	border: 2px solid rgb(64, 71, 88);
+}
 QSpinBox{
 color:#49b0aa;
-border: 1px solid #232323}
-
+	background-color: rgb(27, 29, 35);
+	border-radius: 5px;
+	border: 1px solid rgb(27, 29, 35);
+	padding: 4px;
+	padding-left: 5px;
+}
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -1528,7 +1543,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="inputMask">
           <string/>
@@ -1652,7 +1667,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
         </widget>
         <widget class="QTableWidget" name="tb_verpedidos">
@@ -1722,22 +1737,22 @@ QHeaderView::section:vertical
          </attribute>
          <column>
           <property name="text">
-           <string>N° DE PEDIDO</string>
+           <string>Nº de Pedido</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>RANGO DISPONIBLE</string>
+           <string>Rango Disponible</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>STOCK</string>
+           <string>Stock</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>SERIE</string>
+           <string>Serie</string>
           </property>
          </column>
         </widget>
@@ -1764,7 +1779,7 @@ border-radius:15px;
          <widget class="QLabel" name="label_120">
           <property name="geometry">
            <rect>
-            <x>210</x>
+            <x>150</x>
             <y>-1</y>
             <width>101</width>
             <height>16</height>
@@ -1856,7 +1871,7 @@ border-radius:15px;
         <widget class="QLabel" name="label_150">
          <property name="geometry">
           <rect>
-           <x>310</x>
+           <x>390</x>
            <y>-2</y>
            <width>170</width>
            <height>16</height>
@@ -2071,10 +2086,10 @@ border-radius:15px;
           <number>2021</number>
          </property>
          <property name="maximum">
-          <number>2025</number>
+          <number>2026</number>
          </property>
          <property name="value">
-          <number>2023</number>
+          <number>2024</number>
          </property>
         </widget>
         <widget class="QComboBox" name="cbx_especie_sp">
@@ -2509,7 +2524,7 @@ QPushButton:pressed {
           </font>
          </property>
          <property name="text">
-          <string>Rango Disponible</string>
+          <string>Rango Disponible:</string>
          </property>
         </widget>
         <widget class="QLabel" name="signal_stock_sp">
@@ -2525,10 +2540,15 @@ QPushButton:pressed {
           <font>
            <family>Calibri</family>
            <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color:#49b0aa;</string>
+         </property>
          <property name="text">
-          <string>[stock]</string>
+          <string>-</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_16">
@@ -2549,7 +2569,7 @@ QPushButton:pressed {
           </font>
          </property>
          <property name="text">
-          <string>Stock Disponible</string>
+          <string>Stock Disponible:</string>
          </property>
         </widget>
         <widget class="QLabel" name="signal_disponibleinicio_sp">
@@ -2565,10 +2585,15 @@ QPushButton:pressed {
           <font>
            <family>Calibri</family>
            <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color:#49b0aa;</string>
+         </property>
          <property name="text">
-          <string>[iniciol]</string>
+          <string>-</string>
          </property>
         </widget>
         <widget class="QLabel" name="signal_disponiblefin_sp">
@@ -2584,17 +2609,22 @@ QPushButton:pressed {
           <font>
            <family>Calibri</family>
            <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color:#49b0aa;</string>
+         </property>
          <property name="text">
-          <string>[Fin]</string>
+          <string>-</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_72">
          <property name="geometry">
           <rect>
-           <x>220</x>
-           <y>11</y>
+           <x>219</x>
+           <y>10</y>
            <width>16</width>
            <height>20</height>
           </rect>
@@ -2608,7 +2638,7 @@ QPushButton:pressed {
           </font>
          </property>
          <property name="text">
-          <string>-</string>
+          <string>al</string>
          </property>
         </widget>
         <widget class="QPushButton" name="btn_refresh">
@@ -2621,14 +2651,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton{
-background-color: rgb(255, 170, 127);
-
-}
-QPushButton:hover{
-background-color: rgb(212, 141, 105);
-
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -2648,14 +2671,7 @@ background-color: rgb(212, 141, 105);
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton{
-background-color: rgb(255, 170, 127);
-
-}
-QPushButton:hover{
-background-color: rgb(212, 141, 105);
-
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -2777,50 +2793,13 @@ background-color: rgb(212, 141, 105);
          </property>
         </column>
        </widget>
-       <widget class="QLineEdit" name="txt_listar">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>60</y>
-          <width>71</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btn_listarlistar">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>120</y>
-          <width>311</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton{
-
-background-color: rgb(255, 206, 218);
-border:1px;
-}
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
-
-}</string>
-        </property>
-        <property name="text">
-         <string>Listar</string>
-        </property>
-        <property name="shortcut">
-         <string>Enter</string>
-        </property>
-       </widget>
        <widget class="QRadioButton" name="rb_porrncyfs">
         <property name="geometry">
          <rect>
           <x>710</x>
-          <y>20</y>
-          <width>82</width>
-          <height>17</height>
+          <y>30</y>
+          <width>91</width>
+          <height>21</height>
          </rect>
         </property>
         <property name="text">
@@ -2831,9 +2810,9 @@ background-color: rgb(255, 152, 162);
         <property name="geometry">
          <rect>
           <x>710</x>
-          <y>0</y>
+          <y>-1</y>
           <width>111</width>
-          <height>20</height>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -2844,7 +2823,7 @@ background-color: rgb(255, 152, 162);
         <property name="geometry">
          <rect>
           <x>550</x>
-          <y>97</y>
+          <y>100</y>
           <width>131</width>
           <height>22</height>
          </rect>
@@ -2869,7 +2848,7 @@ background-color: rgb(255, 152, 162);
         <property name="geometry">
          <rect>
           <x>552</x>
-          <y>80</y>
+          <y>83</y>
           <width>47</width>
           <height>13</height>
          </rect>
@@ -2882,7 +2861,7 @@ background-color: rgb(255, 152, 162);
         <property name="geometry">
          <rect>
           <x>551</x>
-          <y>57</y>
+          <y>60</y>
           <width>131</width>
           <height>22</height>
          </rect>
@@ -2907,7 +2886,7 @@ background-color: rgb(255, 152, 162);
         <property name="geometry">
          <rect>
           <x>556</x>
-          <y>42</y>
+          <y>45</y>
           <width>47</width>
           <height>13</height>
          </rect>
@@ -2920,7 +2899,7 @@ background-color: rgb(255, 152, 162);
         <property name="geometry">
          <rect>
           <x>556</x>
-          <y>1</y>
+          <y>4</y>
           <width>47</width>
           <height>13</height>
          </rect>
@@ -2933,7 +2912,7 @@ background-color: rgb(255, 152, 162);
         <property name="geometry">
          <rect>
           <x>551</x>
-          <y>19</y>
+          <y>22</y>
           <width>131</width>
           <height>22</height>
          </rect>
@@ -2964,31 +2943,13 @@ background-color: rgb(255, 152, 162);
          </property>
         </item>
        </widget>
-       <widget class="QComboBox" name="combo_asociados_listar">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>18</y>
-          <width>311</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <item>
-         <property name="text">
-          <string>-</string>
-         </property>
-        </item>
-       </widget>
        <widget class="QFrame" name="frame_10">
         <property name="geometry">
          <rect>
           <x>700</x>
-          <y>40</y>
+          <y>60</y>
           <width>91</width>
-          <height>81</height>
+          <height>91</height>
          </rect>
         </property>
         <property name="frameShape">
@@ -3001,9 +2962,9 @@ background-color: rgb(255, 152, 162);
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>43</y>
-           <width>70</width>
-           <height>17</height>
+           <y>49</y>
+           <width>91</width>
+           <height>21</height>
           </rect>
          </property>
          <property name="text">
@@ -3016,7 +2977,7 @@ background-color: rgb(255, 152, 162);
            <x>10</x>
            <y>27</y>
            <width>70</width>
-           <height>17</height>
+           <height>21</height>
           </rect>
          </property>
          <property name="text">
@@ -3027,9 +2988,9 @@ background-color: rgb(255, 152, 162);
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>60</y>
+           <y>71</y>
            <width>70</width>
-           <height>17</height>
+           <height>20</height>
           </rect>
          </property>
          <property name="text">
@@ -3040,9 +3001,9 @@ background-color: rgb(255, 152, 162);
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>8</y>
+           <y>4</y>
            <width>70</width>
-           <height>17</height>
+           <height>21</height>
           </rect>
          </property>
          <property name="text">
@@ -3128,95 +3089,27 @@ border-radius:15px;</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">QPushButton{
+         <string notr="true">QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color:  #352733;
 
-background-color: rgb(255, 206, 218);
-border:1px;
 }
-QPushButton:hover{
-background-color: rgb(255, 152, 162);
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
 
-}</string>
+</string>
         </property>
         <property name="text">
          <string>Exportar Busqueda</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_19">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>45</y>
-          <width>71</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Fecha Desde:</string>
-        </property>
-       </widget>
-       <widget class="QDateEdit" name="fecha_hasta_listar">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>199</x>
-          <y>60</y>
-          <width>110</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="displayFormat">
-         <string>yyyy-MM-dd</string>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_38">
-        <property name="geometry">
-         <rect>
-          <x>199</x>
-          <y>45</y>
-          <width>71</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Fecha Hasta:</string>
-        </property>
-       </widget>
-       <widget class="QDateEdit" name="fecha_desde_listar">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>60</y>
-          <width>110</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="displayFormat">
-         <string>yyyy-MM-dd</string>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="cbx_porfecha">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>90</y>
-          <width>70</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Por Fecha</string>
         </property>
        </widget>
        <widget class="QFrame" name="frame_30">
@@ -3358,61 +3251,11 @@ QPushButton:pressed {
          </property>
         </widget>
        </widget>
-       <widget class="QCheckBox" name="cbx_agrupar_porfecha">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>90</y>
-          <width>70</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Agrupar</string>
-        </property>
-       </widget>
-       <widget class="QFrame" name="frame_43">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>2</y>
-          <width>311</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background:grey;
-border-radius:15px;
-</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="label_126">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>-1</y>
-           <width>101</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color:rgb(255, 255, 255);</string>
-         </property>
-         <property name="text">
-          <string>Seleccionar Asociado</string>
-         </property>
-        </widget>
-       </widget>
        <widget class="QFrame" name="frame_75">
         <property name="geometry">
          <rect>
           <x>320</x>
-          <y>0</y>
+          <y>2</y>
           <width>211</width>
           <height>16</height>
          </rect>
@@ -3444,32 +3287,6 @@ border-radius:15px;
           <string>Busqueda por rótulo</string>
          </property>
         </widget>
-       </widget>
-       <widget class="QCheckBox" name="cbx_porrotulo">
-        <property name="geometry">
-         <rect>
-          <x>148</x>
-          <y>90</y>
-          <width>70</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Por Rótulo</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_104">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>45</y>
-          <width>71</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>NºRNC</string>
-        </property>
        </widget>
        <widget class="QFrame" name="frame_98">
         <property name="geometry">
@@ -3508,6 +3325,247 @@ border-radius:15px;
          </property>
         </widget>
        </widget>
+       <widget class="QFrame" name="frame_108">
+        <property name="geometry">
+         <rect>
+          <x>-10</x>
+          <y>-10</y>
+          <width>321</width>
+          <height>161</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QFrame
+{
+background-color: #393d45;
+}
+
+QPushButton {
+	
+	color: rgb(248, 255, 210);
+	border: 2px solid rgb(52, 59, 72);
+	border-radius: 5px;	
+	background-color:  #352733;
+
+}
+QPushButton:hover {
+	background-color: rgb(57, 65, 80);
+	border: 2px solid rgb(61, 70, 86);
+}
+QPushButton:pressed {	
+	background-color: rgb(35, 40, 49);
+	border: 2px solid rgb(43, 50, 61);
+}
+
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QComboBox" name="combo_asociados_listar">
+         <property name="geometry">
+          <rect>
+           <x>16</x>
+           <y>34</y>
+           <width>291</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>-</string>
+          </property>
+         </item>
+        </widget>
+        <widget class="QFrame" name="frame_43">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>12</y>
+           <width>311</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:grey;
+border-radius:15px;
+</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="label_126">
+          <property name="geometry">
+           <rect>
+            <x>100</x>
+            <y>-1</y>
+            <width>101</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Seleccionar Asociado</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QDateEdit" name="fecha_hasta_listar">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>78</y>
+           <width>101</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="displayFormat">
+          <string>yyyy-MM-dd</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_38">
+         <property name="geometry">
+          <rect>
+           <x>210</x>
+           <y>58</y>
+           <width>71</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Fecha Hasta:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="txt_listar">
+         <property name="geometry">
+          <rect>
+           <x>13</x>
+           <y>78</y>
+           <width>71</width>
+           <height>22</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_104">
+         <property name="geometry">
+          <rect>
+           <x>16</x>
+           <y>58</y>
+           <width>71</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>NºRNC</string>
+         </property>
+        </widget>
+        <widget class="QDateEdit" name="fecha_desde_listar">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>91</x>
+           <y>78</y>
+           <width>110</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="displayFormat">
+          <string>yyyy-MM-dd</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_19">
+         <property name="geometry">
+          <rect>
+           <x>91</x>
+           <y>58</y>
+           <width>71</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Fecha Desde:</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="cbx_porrotulo">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>111</y>
+           <width>70</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Por Rótulo</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="cbx_porfecha">
+         <property name="geometry">
+          <rect>
+           <x>22</x>
+           <y>111</y>
+           <width>70</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Por Fecha</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="cbx_agrupar_porfecha">
+         <property name="geometry">
+          <rect>
+           <x>92</x>
+           <y>111</y>
+           <width>70</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Agrupar</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btn_listarlistar">
+         <property name="geometry">
+          <rect>
+           <x>14</x>
+           <y>133</y>
+           <width>301</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Listar</string>
+         </property>
+         <property name="shortcut">
+          <string>Enter</string>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="p_rendicion">
@@ -3517,7 +3575,7 @@ border-radius:15px;
          <x>0</x>
          <y>0</y>
          <width>861</width>
-         <height>121</height>
+         <height>131</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -9566,7 +9624,7 @@ border-radius:15px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(0, 0, 255);</string>
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string/>
@@ -9589,7 +9647,7 @@ border-radius:15px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(0, 0, 255);</string>
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string/>
@@ -9612,7 +9670,7 @@ border-radius:15px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(0, 0, 255);</string>
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string/>
@@ -9635,7 +9693,7 @@ border-radius:15px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(0, 0, 255);</string>
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string/>
@@ -9671,7 +9729,7 @@ border-radius:15px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(0, 0, 255);</string>
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string/>
@@ -9811,7 +9869,7 @@ border-radius:15px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(0, 0, 255);</string>
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string/>
