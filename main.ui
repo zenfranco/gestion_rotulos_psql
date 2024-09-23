@@ -1723,6 +1723,9 @@ QHeaderView::section:vertical
     border: 1px solid rgb(44, 49, 60);
 }</string>
          </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustToContents</enum>
+         </property>
          <property name="editTriggers">
           <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
          </property>
@@ -1732,6 +1735,9 @@ QHeaderView::section:vertical
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
          </property>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
          <attribute name="verticalHeaderVisible">
           <bool>false</bool>
          </attribute>
@@ -2122,6 +2128,11 @@ border-radius:15px;
          <item>
           <property name="text">
            <string>MAIZ</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>SORGO</string>
           </property>
          </item>
          <item>
@@ -2929,6 +2940,11 @@ QPushButton:pressed {
         </item>
         <item>
          <property name="text">
+          <string>Sorgo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string>Soja</string>
          </property>
         </item>
@@ -3694,6 +3710,11 @@ QPushButton:pressed {
         <item>
          <property name="text">
           <string>TRIGO PAN</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>SORGO</string>
          </property>
         </item>
         <item>

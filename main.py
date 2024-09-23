@@ -134,8 +134,9 @@ class VentanaPrincipal(QMainWindow):
 		headertb_gestiones = self.tb_gestiones.horizontalHeader()
 		headertb_gestiones.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 		
-		headertb_verpedidos = self.tb_verpedidos.horizontalHeader()
-		headertb_verpedidos.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+		
+		self.tb_verpedidos.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+
 		
 		headertb_lockers = self.tb_lockers.horizontalHeader()
 		headertb_lockers.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
@@ -1406,7 +1407,7 @@ class VentanaPrincipal(QMainWindow):
 			sheet.append(i)
 			
 					
-		path ="C:\detalle_{}.xlsx".format(date.today())
+		path = "detalle_{}.xlsx".format(date.today())
 							
 			
 		book.save(path)

@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: GYT PLUS
-PEDIDO: 246
+RAZON SOCIAL: COOP. AGROP. DE BOMBAL
+PEDIDO: 283
 -----------------------------
-RNCyFS: 10003
-Fecha: 2024-05-30
-Rango: 86703001 - 86704000
-Serie: B
-Cantidad: 1000
+RNCyFS: 574
+Fecha: 2024-09-12
+Rango: 16152001 - 16154000
+Serie: A
+Cantidad: 2000
 -----------------------------
