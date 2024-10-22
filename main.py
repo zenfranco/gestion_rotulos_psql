@@ -72,6 +72,7 @@ class VentanaPrincipal(QMainWindow):
 		self.rb_seriea.clicked.connect(self.iniciarpedido)
 		self.rb_serieb.clicked.connect(self.iniciarpedido)
 		self.rb_estampillas.clicked.connect(self.refresh_estampillas)
+		self.rb_general.toggled.connect(self.toggle_frame)
 		
 		
 			
@@ -111,9 +112,12 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_terminar_rango.clicked.connect(self.bajaderango)
 		self.btn_componer_rango.clicked.connect(self.componer_rango)
 		self.btn_traer_rangos.clicked.connect(self.traeRango)
+		self.btn_traer_rangos_pedido.clicked.connect(self.recupera_rango_pedido)
+		self.btn_corregir_pedido.clicked.connect(self.componer_pedido)
 		
 		#PROPIEDADES
 		self.txt_indice_rotulos.hide()
+		self.frm_rangosExternos.hide()
 		self.rb_porrncyfs.setChecked(True)
 		self.rb_todos.setChecked(True)
 		self.fechadesde_rendicion.setDate(date.today())
@@ -246,7 +250,16 @@ class VentanaPrincipal(QMainWindow):
 			self.combo_asociados_estampillas.addItem("".join(asociados[k]))
 			k=k+1
 		
-		
+
+	def toggle_frame(self):
+			# Mostrar u ocultar el frame basado en el estado del radio button
+			if self.rb_general.isChecked():
+				self.frm_rangosExternos.show()
+			else:
+				self.frm_rangosExternos.hide()
+
+
+
 		
 	def iniciarpedido(self):
 		global INICIAL
@@ -468,7 +481,9 @@ class VentanaPrincipal(QMainWindow):
 					
 					
 				if flag is True:
-					q.cargapedido(Numpedido,registro,cantidad,0,0,0,0,estado,fechapedido,serie)
+					iniciogeneral = int(self.txt_inicioGral.text())
+					finalgeneral = int(self.txt_finGral.text())
+					q.cargapedido(Numpedido,registro,cantidad,iniciogeneral,finalgeneral,iniciogeneral,finalgeneral,estado,fechapedido,serie)
 					
 					
 					
@@ -640,7 +655,28 @@ class VentanaPrincipal(QMainWindow):
 		else:
 			c.cartel("ERROR","INGRESE RANGO INICIAL Y FINAL",3)
 
-		
+	def recupera_rango_pedido(self):
+		num_pedido = int(self.txt_num_pedido_corregir.text())
+		rango=q.recuperaPedido(num_pedido)
+		self.txt_inicio_componer_pedido.setText(str(rango[0]))
+		self.txt_final_componer_pedido.setText(str(rango[1]))
+		self.txt_inicialRe_componer_pedido.setText(str(rango[2]))
+		self.txt_finalRE_componer_pedido.setText(str(rango[3]))
+
+
+
+
+	def componer_pedido(self):
+		inicio =int(self.txt_inicio_componer_pedido.text())
+		fin= int(self.txt_final_componer_pedido.text())
+		inicioR = int(self.txt_inicialRe_componer_pedido.text())
+		finR = int(self.txt_finalRE_componer_pedido.text())
+		num_pedido = int(self.txt_num_pedido_corregir.text())
+
+		r=c.cartel_opcion("ATENCION","DESEA CORREGIR LA NUMERACION",2)
+		if r==16384:
+			q.componer_rango_pedido(inicio,fin,inicioR,finR,num_pedido)
+			c.cartel("ATENCION","RANGO MODIFICADO",1)
 
 	
 			

@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: COOP. AGROP. DE BOMBAL
-PEDIDO: 283
+RAZON SOCIAL: SANTIAGO DUGAN TROCELLO S.R.L
+PEDIDO: 311
 -----------------------------
-RNCyFS: 574
-Fecha: 2024-09-12
-Rango: 16152001 - 16154000
+RNCyFS: 5497
+Fecha: 2024-10-18
+Rango: 16208001 - 16210000
 Serie: A
 Cantidad: 2000
 -----------------------------

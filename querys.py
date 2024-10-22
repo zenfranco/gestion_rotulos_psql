@@ -750,7 +750,20 @@ class bdquery():
 			cur.close()
 			return inicial
 			
+		def recuperaPedido(self,num_pedido):
+			cur=self.conexion.cursor()
+			cur.execute('''select inicio, fin, disponibleinicio,disponiblefin from pedidos where num_pedido =%s''',([num_pedido]))
+			rango=cur.fetchone()
+			cur.close()
+			return rango
 		
+		def componer_rango_pedido(self,inicio,fin,inicioR,finR,num_pedido):
+			cur=self.conexion.cursor()
+			cur.execute('''UPDATE pedidos SET inicio= %s, fin =%s,disponibleinicio,disponiblefin WHERE num_pedido =%s''',([inicio,fin,inicioR,finR,num_pedido]))
+			
+			self.conexion.commit()
+			cur.close()
+			
 			
 			
 	
