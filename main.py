@@ -166,6 +166,16 @@ class VentanaPrincipal(QMainWindow):
 		headertb_envios = self.tb_envioscreados.horizontalHeader()
 		headertb_envios.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
+		headertb_rotulos = self.tb_rotulos.horizontalHeader()
+		headertb_rotulos.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+		self.tb_rotulos.resizeColumnsToContents()
+		headertb_rotulos.setSectionResizeMode(4, QtWidgets.QHeaderView.Stretch)
+
+		headertb_stock_rotulos = self.tb_stock_rotulos.horizontalHeader()
+		headertb_stock_rotulos.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)		
+		self.tb_stock_rotulos.resizeColumnsToContents()
+		headertb_rotulos.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+
 		
 		
 		

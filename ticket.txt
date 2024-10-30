@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: SANTIAGO DUGAN TROCELLO S.R.L
-PEDIDO: 311
+RAZON SOCIAL: CEREALES BOGLIOLO
+PEDIDO: 317
 -----------------------------
-RNCyFS: 5497
-Fecha: 2024-10-18
-Rango: 16208001 - 16210000
+RNCyFS: 2508
+Fecha: 2024-10-25
+Rango: 16220001 - 16221000
 Serie: A
-Cantidad: 2000
+Cantidad: 1000
 -----------------------------
