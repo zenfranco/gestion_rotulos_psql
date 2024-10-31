@@ -160,6 +160,13 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 			return listapedidos
+		
+		def getasociados(self):
+			cur=self.conexion.cursor()
+			cur.execute('''SELECT razon_social, num_reg FROM ASOCIADOS''')
+			listaasociados=cur.fetchall()
+			cur.close()
+			return listaasociados
 			
 		def actualizaremanente(self,numpedido,inicioremanente):
 			cur=self.conexion.cursor()

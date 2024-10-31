@@ -4285,7 +4285,7 @@ QPushButton:pressed {
         <widget class="QLabel" name="signal_final">
          <property name="geometry">
           <rect>
-           <x>580</x>
+           <x>526</x>
            <y>10</y>
            <width>121</width>
            <height>16</height>
@@ -4294,10 +4294,13 @@ QPushButton:pressed {
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>14</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string/>
@@ -4306,7 +4309,7 @@ QPushButton:pressed {
         <widget class="QLabel" name="label_5">
          <property name="geometry">
           <rect>
-           <x>310</x>
+           <x>307</x>
            <y>10</y>
            <width>140</width>
            <height>16</height>
@@ -4315,7 +4318,9 @@ QPushButton:pressed {
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -4334,10 +4339,13 @@ QPushButton:pressed {
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>14</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string/>
@@ -4346,19 +4354,22 @@ QPushButton:pressed {
         <widget class="QLabel" name="signal_inicial">
          <property name="geometry">
           <rect>
-           <x>460</x>
+           <x>440</x>
            <y>10</y>
-           <width>121</width>
+           <width>81</width>
            <height>16</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>14</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string/>
@@ -4367,7 +4378,7 @@ QPushButton:pressed {
         <widget class="QLabel" name="signal_inicial_2">
          <property name="geometry">
           <rect>
-           <x>560</x>
+           <x>510</x>
            <y>10</y>
            <width>16</width>
            <height>16</height>
@@ -4389,11 +4400,13 @@ QPushButton:pressed {
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>STOCK DISPONIBLE</string>
+          <string>STOCK DISPONIBLE:</string>
          </property>
         </widget>
        </widget>
@@ -12362,6 +12375,9 @@ QPushButton:pressed {
            <height>281</height>
           </rect>
          </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
          <column>
           <property name="text">
            <string>Razon Social</string>
@@ -13209,7 +13225,7 @@ QPushButton:pressed {
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_nuevagestion_2">
+    <widget class="QPushButton" name="btn_asociados">
      <property name="geometry">
       <rect>
        <x>11</x>
@@ -13526,7 +13542,7 @@ QPushButton:focus {
   <tabstop>btn_rotulos</tabstop>
   <tabstop>btn_deposito</tabstop>
   <tabstop>btn_rendicion</tabstop>
-  <tabstop>btn_nuevagestion_2</tabstop>
+  <tabstop>btn_asociados</tabstop>
   <tabstop>txt_verpedido</tabstop>
   <tabstop>txt_numpedido</tabstop>
   <tabstop>txt_subvariedad</tabstop>

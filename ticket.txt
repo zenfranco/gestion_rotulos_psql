@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: CEREALES BOGLIOLO
-PEDIDO: 317
+RAZON SOCIAL: GALEAZZI S.A.
+PEDIDO: 320
 -----------------------------
-RNCyFS: 2508
-Fecha: 2024-10-25
-Rango: 16220001 - 16221000
+RNCyFS: 8292
+Fecha: 2024-10-31
+Rango: 16225001 - 16226000
 Serie: A
 Cantidad: 1000
 -----------------------------

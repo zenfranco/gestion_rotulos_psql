@@ -60,6 +60,9 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_estampillas.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_estampillas))
 		self.btn_estampillas.clicked.connect(lambda: self.signal_barra.setText("ESTAMPILLAS"))
 
+		self.btn_asociados.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_asociados))
+		self.btn_asociados.clicked.connect(lambda: self.signal_barra.setText("ASOCIADOS"))
+
 		self.btn_nuevopedido.clicked.connect(self.iniciarpedido)
 		
 		#FUNCION DE LOS BOTONES
@@ -174,7 +177,12 @@ class VentanaPrincipal(QMainWindow):
 		headertb_stock_rotulos = self.tb_stock_rotulos.horizontalHeader()
 		headertb_stock_rotulos.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)		
 		self.tb_stock_rotulos.resizeColumnsToContents()
-		headertb_rotulos.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+		headertb_stock_rotulos.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+
+		headertb_asociados = self.tb_asociados.horizontalHeader()
+		headertb_asociados.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)		
+		self.tb_asociados.resizeColumnsToContents()
+		headertb_asociados.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
 
 		
 		
@@ -438,7 +446,29 @@ class VentanaPrincipal(QMainWindow):
 			
 			fila=fila+1
 		
+
+	def traerasociados(self):
 		
+		tablaasociados=q.getasociados()
+		totalfilas=len(tablaasociados)
+		self.tb_asociados.setRowCount(totalfilas)
+		
+		fila=0
+		
+		
+		for i in tablaasociados:
+			
+						
+			self.tb_asociados.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+			self.tb_asociados.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+			
+			
+			
+			fila=fila+1
+
+
+
+
 		
 	def NuevoPedido(self):
 		global INICIAL
@@ -2620,6 +2650,8 @@ if __name__ == '__main__':
 	MyWindow.listarlockers()
 	MyWindow.refresh_estampillas()
 	MyWindow.ver_estampillas()
+	MyWindow.traerasociados()
+
 	MyWindow.show()
 	app.exec_()
 	
