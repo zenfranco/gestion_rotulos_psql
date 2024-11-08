@@ -107,7 +107,7 @@ class VentanaPrincipal(QMainWindow):
 		
 		#PAGINA CONFIGURACION
 		self.btn_definir_locker.clicked.connect(self.setearlockers)
-		self.btn_cargarasociado.clicked.connect(self.altasocio)
+		self.btn_ingresar_asociado.clicked.connect(self.altasocio)
 		self.btn_agregarrango.clicked.connect(self.agregarrango)
 		self.btn_ver_rangos.clicked.connect(self.verrangos)
 		self.btn_definir_rango.clicked.connect(self.setearrango)
@@ -250,7 +250,8 @@ class VentanaPrincipal(QMainWindow):
 		self.btn_eliminarLinea.clicked.connect(self.eliminar_linea)
 		self.btn_buscar_estampillas.clicked.connect(self.refresh_estampillas)
 
-		
+		#MODULO ASOCIADOS
+		self.tb_asociados.itemDoubleClicked.connect(self.abmAsociadoSelected)
 	
 		
 	def llenarcombo(self):
@@ -461,13 +462,24 @@ class VentanaPrincipal(QMainWindow):
 						
 			self.tb_asociados.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
 			self.tb_asociados.setItem(fila,1,QtWidgets.QTableWidgetItem(str(i[1])))
+			self.tb_asociados.setItem(fila,2,QtWidgets.QTableWidgetItem(str(i[2])))
+			self.tb_asociados.setItem(fila,3,QtWidgets.QTableWidgetItem(str(i[3])))
+			self.tb_asociados.setItem(fila,4,QtWidgets.QTableWidgetItem(str(i[4])))
+			self.tb_asociados.setItem(fila,5,QtWidgets.QTableWidgetItem(str(i[5])))
+			self.tb_asociados.setItem(fila,6,QtWidgets.QTableWidgetItem(str(i[6])))
+			self.tb_asociados.setItem(fila,7,QtWidgets.QTableWidgetItem(str(i[7])))
+			self.tb_asociados.setItem(fila,8,QtWidgets.QTableWidgetItem(str(i[8])))
+			self.tb_asociados.setItem(fila,9,QtWidgets.QTableWidgetItem(str(i[9])))
+			self.tb_asociados.setItem(fila,10,QtWidgets.QTableWidgetItem(str(i[10])))
+			self.tb_asociados.setItem(fila,11,QtWidgets.QTableWidgetItem(str(i[11])))
+
 			
 			
 			
 			fila=fila+1
 
 
-
+	
 
 		
 	def NuevoPedido(self):
@@ -1044,8 +1056,18 @@ class VentanaPrincipal(QMainWindow):
 			
 	def altasocio(self):
 		
-		registro =str(self.txt_altaasociado_reg.text())
-		nombre =str(self.txt_altaasociado_nombre.text())
+		
+		razonsocial=str(self.txt_razonsocial_asociados.text())
+		registro=str(self.txt_rncfs_asociados.text())
+		direccion=str(self.txt_direccion_asociados.text())
+		localidad=str(self.txt_localidad_asociados.text())
+		provincia=str(self.txt_provincia_asociados.text())
+		cp=int(self.txt_cp_asociados.text())
+		cuit=int(self.txt_cuit_asociados.text())
+		contacto=str(self.txt_contacto_asociados.text())
+		email=str(self.txt_email_asociados.text())
+		telefono=str(self.txt_telefono_asociados.text())
+
 		resultado=q.validarasociado(registro)
 		valor=int("".join(map(str,resultado)))
 		print (valor)
@@ -1054,14 +1076,64 @@ class VentanaPrincipal(QMainWindow):
 			c.cartel("ATENCION","YA EXISTE ESE ASOCIADO",3)
 		else:
 					
-			q.altaasociado(registro,nombre)
+			q.altaasociado(registro,razonsocial,direccion,localidad,provincia,cp,cuit,contacto,email,telefono)
 			
-			self.txt_altaasociado_reg.setText("")
-			self.txt_altaasociado_nombre.setText("")
+
+
+			
+			
 			c.cartel("INFORMACION","ASOCIADO REGISTRADO",1)
+			self.traerasociados()
 		
+	def bajaSocio(self):
 		
+		pass
+
+	def modificacionSocio(self):
+
+
+
+		pass
+
+	def abmAsociadoSelected(self):
+		#MODULO ASOCIADOS
+		fila = self.tb_asociados.currentRow()
+		RNCYFS=self.tb_asociados.item(fila, 1).text() #SELECCIONO EL CONTENIDO DE LA FILA DE LA COLUMNA 0 SELECCIONADA
+		ASOCIADO=q.getasociado(str(RNCYFS))
+			
+		self.txt_razonsocial_asociados.setText(ASOCIADO[0])
+		self.txt_rncfs_asociados.setText(ASOCIADO[1])
+		self.txt_direccion_asociados.setText(ASOCIADO[2])
+		self.txt_localidad_asociados.setText(ASOCIADO[3])
+		self.txt_provincia_asociados.setText(ASOCIADO[4])
+		self.txt_cp_asociados.setText(str(ASOCIADO[5]))
+		self.txt_cuit_asociados.setText(str(ASOCIADO[6]))
+		self.txt_contacto_asociados.setText(ASOCIADO[11])
+		self.txt_email_asociados.setText(ASOCIADO[9])
+		self.txt_telefono_asociados.setText(ASOCIADO[10])
+
+		self.toggleCamposAbmAsociados(bloquear=True)
+
+	def toggleCamposAbmAsociados(self, bloquear=True):
 		
+		if bloquear == True:
+			estado = False 
+		else:
+			estado = True  # Si bloquear es True, se deshabilitan los campos; si es False, se habilitan
+
+		
+		self.txt_razonsocial_asociados.setEnabled(estado)
+		self.txt_rncfs_asociados.setEnabled(estado)
+		self.txt_direccion_asociados.setEnabled(estado)
+		self.txt_localidad_asociados.setEnabled(estado)
+		self.txt_provincia_asociados.setEnabled(estado)
+		self.txt_cp_asociados.setEnabled(estado)
+		self.txt_cuit_asociados.setEnabled(estado)
+		self.txt_contacto_asociados.setEnabled(estado)
+		self.txt_email_asociados.setEnabled(estado)
+		self.txt_telefono_asociados.setEnabled(estado)
+		
+
 	def nuevagestion(self):
 		
 		

@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: GALEAZZI S.A.
-PEDIDO: 320
+RAZON SOCIAL: MAIOCCO CEREALES S.A.
+PEDIDO: 322
 -----------------------------
-RNCyFS: 8292
-Fecha: 2024-10-31
-Rango: 16225001 - 16226000
+RNCyFS: 6917
+Fecha: 2024-11-06
+Rango: 16227001 - 16228000
 Serie: A
 Cantidad: 1000
 -----------------------------

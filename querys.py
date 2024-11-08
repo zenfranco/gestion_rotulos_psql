@@ -1,4 +1,5 @@
 import psycopg2
+from datetime import date
 
 class bdquery():
 
@@ -163,10 +164,17 @@ class bdquery():
 		
 		def getasociados(self):
 			cur=self.conexion.cursor()
-			cur.execute('''SELECT razon_social, num_reg FROM ASOCIADOS''')
+			cur.execute('''SELECT razon_social, num_reg, direccion,localidad,provincia,cp,cuit,fecha_alta,nsocio,email,telefono,contacto FROM ASOCIADOS order by 1''')
 			listaasociados=cur.fetchall()
 			cur.close()
 			return listaasociados
+		
+		def getasociado(self,num_reg):
+			cur=self.conexion.cursor()
+			cur.execute('''SELECT razon_social, num_reg, direccion,localidad,provincia,cp,cuit,fecha_alta,nsocio,email,telefono,contacto FROM ASOCIADOS where num_reg = %s''',[num_reg])
+			asociado=cur.fetchone()
+			cur.close()
+			return asociado
 			
 		def actualizaremanente(self,numpedido,inicioremanente):
 			cur=self.conexion.cursor()
@@ -397,9 +405,11 @@ class bdquery():
 			return listado
 			
 			
-		def altaasociado(self,reg,razonsocial):
+		def altaasociado(self,registro,razonsocial,direccion,localidad,provincia,cp,cuit,contacto,email,telefono,fecha_alta=date.today()):
 			cur= self.conexion.cursor()
-			cur.execute(''' insert into asociados (num_reg,razon_social) values (%s,%s)''',([reg,razonsocial]))
+			cur.execute(''' INSERT INTO asociados (num_reg,razon_social,direccion,localidad,provincia,cp,cuit,contacto,email,telefono,fecha_alta)
+			VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
+			,([registro,razonsocial.upper(),direccion.upper(),localidad.upper(),provincia.upper(),cp,cuit,contacto.upper(),email,telefono,fecha_alta]))
 			self.conexion.commit()
 			cur.close()
 			
