@@ -13343,8 +13343,8 @@ QPushButton:pressed {
      </property>
      <property name="iconSize">
       <size>
-       <width>32</width>
-       <height>32</height>
+       <width>22</width>
+       <height>22</height>
       </size>
      </property>
     </widget>
@@ -13377,8 +13377,8 @@ QPushButton:pressed {
      </property>
      <property name="iconSize">
       <size>
-       <width>40</width>
-       <height>40</height>
+       <width>20</width>
+       <height>20</height>
       </size>
      </property>
     </widget>
@@ -13556,8 +13556,8 @@ QPushButton:pressed {
      </property>
      <property name="iconSize">
       <size>
-       <width>32</width>
-       <height>32</height>
+       <width>22</width>
+       <height>22</height>
       </size>
      </property>
     </widget>
@@ -13658,8 +13658,8 @@ QPushButton:pressed {
      </property>
      <property name="iconSize">
       <size>
-       <width>32</width>
-       <height>32</height>
+       <width>20</width>
+       <height>20</height>
       </size>
      </property>
      <property name="autoDefault">

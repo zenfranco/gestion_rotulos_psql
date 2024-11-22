@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: MAIOCCO CEREALES S.A.
-PEDIDO: 322
+RAZON SOCIAL: EMIDELIA SOLARI HNOS.
+PEDIDO: 324
 -----------------------------
-RNCyFS: 6917
-Fecha: 2024-11-06
-Rango: 16227001 - 16228000
-Serie: A
+RNCyFS: 206
+Fecha: 2024-11-14
+Rango: 86757001 - 86758000
+Serie: B
 Cantidad: 1000
 -----------------------------

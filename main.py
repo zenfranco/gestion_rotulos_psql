@@ -28,6 +28,7 @@ class VentanaPrincipal(QMainWindow):
 		loadUi('main.ui', self)
 		
 		self.frame_detallepedido.hide()
+		self.modo_edicion_abm = False
 		
 		#CAMBIAR DE PAGINAS
 		self.btn_nuevopedido.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.p_nuevopedido))#cambia de pagina
@@ -107,7 +108,7 @@ class VentanaPrincipal(QMainWindow):
 		
 		#PAGINA CONFIGURACION
 		self.btn_definir_locker.clicked.connect(self.setearlockers)
-		self.btn_ingresar_asociado.clicked.connect(self.altasocio)
+		
 		self.btn_agregarrango.clicked.connect(self.agregarrango)
 		self.btn_ver_rangos.clicked.connect(self.verrangos)
 		self.btn_definir_rango.clicked.connect(self.setearrango)
@@ -252,6 +253,8 @@ class VentanaPrincipal(QMainWindow):
 
 		#MODULO ASOCIADOS
 		self.tb_asociados.itemDoubleClicked.connect(self.abmAsociadoSelected)
+		self.btn_modificar_asociado.clicked.connect(lambda: self.toggleCamposAbmAsociados(bloquear=False))
+		self.btn_ingresar_asociado.clicked.connect(self.altasocio)
 	
 		
 	def llenarcombo(self):
@@ -1055,8 +1058,6 @@ class VentanaPrincipal(QMainWindow):
 		'''	
 			
 	def altasocio(self):
-		
-		
 		razonsocial=str(self.txt_razonsocial_asociados.text())
 		registro=str(self.txt_rncfs_asociados.text())
 		direccion=str(self.txt_direccion_asociados.text())
@@ -1067,32 +1068,35 @@ class VentanaPrincipal(QMainWindow):
 		contacto=str(self.txt_contacto_asociados.text())
 		email=str(self.txt_email_asociados.text())
 		telefono=str(self.txt_telefono_asociados.text())
-
-		resultado=q.validarasociado(registro)
-		valor=int("".join(map(str,resultado)))
-		print (valor)
-		if valor ==1:
+		
+		if self.modo_edicion_abm == False:
 			
-			c.cartel("ATENCION","YA EXISTE ESE ASOCIADO",3)
-		else:
-					
-			q.altaasociado(registro,razonsocial,direccion,localidad,provincia,cp,cuit,contacto,email,telefono)
+
+			resultado=q.validarasociado(registro)
+			valor=int("".join(map(str,resultado)))
+			print (valor)
+			if valor ==1:
+				
+				c.cartel("ATENCION","YA EXISTE ESE ASOCIADO",3)
+			else:
+						
+				q.altaasociado(registro,razonsocial,direccion,localidad,provincia,cp,cuit,contacto,email,telefono)
 			
 
 
 			
 			
 			c.cartel("INFORMACION","ASOCIADO REGISTRADO",1)
-			self.traerasociados()
+			
+		else:
+			q.actualizar_asociado(razonsocial,registro,direccion,localidad,provincia,cp,cuit,contacto,email,telefono)
+
+			c.cartel("INFORMACION","ASOCIADO ACTUALIZADO",1)
+		self.traerasociados()	
+
 		
 	def bajaSocio(self):
 		
-		pass
-
-	def modificacionSocio(self):
-
-
-
 		pass
 
 	def abmAsociadoSelected(self):
@@ -1111,15 +1115,42 @@ class VentanaPrincipal(QMainWindow):
 		self.txt_contacto_asociados.setText(ASOCIADO[11])
 		self.txt_email_asociados.setText(ASOCIADO[9])
 		self.txt_telefono_asociados.setText(ASOCIADO[10])
-
+		
+		
 		self.toggleCamposAbmAsociados(bloquear=True)
 
 	def toggleCamposAbmAsociados(self, bloquear=True):
 		
 		if bloquear == True:
-			estado = False 
+			estado = False
+			self.txt_razonsocial_asociados.setStyleSheet("")
+			self.txt_rncfs_asociados.setStyleSheet("")
+			self.txt_direccion_asociados.setStyleSheet("")
+			self.txt_localidad_asociados.setStyleSheet("")
+			self.txt_provincia_asociados.setStyleSheet("")
+			self.txt_cp_asociados.setStyleSheet("")
+			self.txt_cuit_asociados.setStyleSheet("")
+			self.txt_contacto_asociados.setStyleSheet("")
+			self.txt_email_asociados.setStyleSheet("")
+			self.txt_telefono_asociados.setStyleSheet("")
+		
+
+
 		else:
 			estado = True  # Si bloquear es True, se deshabilitan los campos; si es False, se habilitan
+			self.txt_razonsocial_asociados.setStyleSheet("border: 1px solid pink")
+			self.txt_rncfs_asociados.setStyleSheet("border: 1px solid pink")
+			self.txt_direccion_asociados.setStyleSheet("border: 1px solid pink")
+			self.txt_localidad_asociados.setStyleSheet("border: 1px solid pink")
+			self.txt_provincia_asociados.setStyleSheet("border: 1px solid pink")
+			self.txt_cp_asociados.setStyleSheet("border: 1px solid pink")
+			self.txt_cuit_asociados.setStyleSheet("border: 1px solid pink")
+			self.txt_contacto_asociados.setStyleSheet("border: 1px solid pink")
+			self.txt_email_asociados.setStyleSheet("border: 1px solid pink")
+			self.txt_telefono_asociados.setStyleSheet("border: 1px solid pink")
+			self.modo_edicion_abm= True
+			
+			
 
 		
 		self.txt_razonsocial_asociados.setEnabled(estado)

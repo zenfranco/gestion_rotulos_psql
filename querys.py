@@ -781,6 +781,13 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 			
+		def actualizar_asociado(self,razonSocial,rncyfs,direccion,localidad,provincia,cp,cuit,contacto,email,telefono):
+			cur=self.conexion.cursor()
+			cur.execute('''UPDATE asociados SET razon_social= %s, direccion =%s, localidad =%s, provincia =%s, cp =%s,cuit =%s,contacto =%s, email =%s, telefono =%s
+			WHERE num_reg =%s''',([razonSocial,direccion,localidad,provincia,cp,cuit,contacto,email,telefono,rncyfs]))
+			
+			self.conexion.commit()
+			cur.close()
 			
 			
 	
