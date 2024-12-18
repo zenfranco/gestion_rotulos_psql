@@ -12935,23 +12935,6 @@ QPushButton:pressed {
           <string>Ingresar</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btn_eliminar_asociado">
-         <property name="geometry">
-          <rect>
-           <x>335</x>
-           <y>262</y>
-           <width>51</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>icons/trash.png</normaloff>icons/trash.png</iconset>
-         </property>
-        </widget>
         <widget class="QPushButton" name="btn_modificar_asociado">
          <property name="geometry">
           <rect>
@@ -12967,6 +12950,23 @@ QPushButton:pressed {
          <property name="icon">
           <iconset>
            <normaloff>icons/candado.png</normaloff>icons/candado.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btn_limpiar_formulario">
+         <property name="geometry">
+          <rect>
+           <x>340</x>
+           <y>262</y>
+           <width>51</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>icons/borrar.png</normaloff>icons/borrar.png</iconset>
          </property>
         </widget>
        </widget>
@@ -13113,13 +13113,18 @@ QPushButton:pressed {
            <x>300</x>
            <y>30</y>
            <width>81</width>
-           <height>16</height>
+           <height>21</height>
           </rect>
          </property>
          <property name="font">
           <font>
            <pointsize>16</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#49b0aa;</string>
          </property>
          <property name="text">
           <string>...</string>
@@ -13220,6 +13225,36 @@ QPushButton:pressed {
           <string>...</string>
          </property>
         </widget>
+       </widget>
+       <widget class="QPushButton" name="btn_imprimir_etiqueta">
+        <property name="geometry">
+         <rect>
+          <x>420</x>
+          <y>700</y>
+          <width>121</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Imprimir Etiqueta</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_eliminar_asociado">
+        <property name="geometry">
+         <rect>
+          <x>550</x>
+          <y>700</y>
+          <width>101</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/trash.png</normaloff>icons/trash.png</iconset>
+        </property>
        </widget>
       </widget>
      </widget>

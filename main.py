@@ -11,7 +11,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtCore import Qt
 from datetime import date
 from PyQt5 import QtGui
-
+from PyQt5.QtWidgets import QFileDialog
 
 global rango, numpedido, pedidos, disponible,subpedidos,INICIAL,FINAL
 import os
@@ -250,11 +250,13 @@ class VentanaPrincipal(QMainWindow):
 		self.rb_anexo.clicked.connect(self.refresh_estampillas)
 		self.btn_eliminarLinea.clicked.connect(self.eliminar_linea)
 		self.btn_buscar_estampillas.clicked.connect(self.refresh_estampillas)
+		self.btn_exportar_listado_estampillas.clicked.connect(self.exportar_informe_estampillas)
 
 		#MODULO ASOCIADOS
 		self.tb_asociados.itemDoubleClicked.connect(self.abmAsociadoSelected)
 		self.btn_modificar_asociado.clicked.connect(lambda: self.toggleCamposAbmAsociados(bloquear=False))
 		self.btn_ingresar_asociado.clicked.connect(self.altasocio)
+		self.btn_limpiar_formulario.clicked.connect(self.limpiar_formulario_asociados)
 	
 		
 	def llenarcombo(self):
@@ -351,7 +353,43 @@ class VentanaPrincipal(QMainWindow):
 		self.ver_estampillas()
 
 	def exportar_informe_estampillas(self):
-		pass
+		# Crear un archivo de Excel
+		workbook = Workbook()
+		sheet = workbook.active
+		sheet.title = "Estampillas"
+
+		# Obtener número de filas y columnas
+		row_count = self.tb_estampillas.rowCount()
+		col_count = self.tb_estampillas.columnCount()
+
+		# Llenar las cabeceras
+		for col in range(col_count):
+			header_item = self.tb_estampillas.horizontalHeaderItem(col)
+			if header_item is not None:
+				sheet.cell(row=1, column=col + 1).value = header_item.text()
+
+		# Llenar los datos de la tabla
+		for row in range(row_count):
+			for col in range(col_count):
+				item = self.tb_estampillas.item(row, col)
+				if item is not None:
+					sheet.cell(row=row + 2, column=col + 1).value = item.text()
+
+		# Guardar el archivo Excel en una ubicación seleccionada por el usuario
+		opciones = QFileDialog.Options()
+		archivo, _ = QFileDialog.getSaveFileName(
+			self,
+			"Guardar archivo",
+			"",
+			"Archivos de Excel (*.xlsx);;Todos los archivos (*)",
+			options=opciones
+		)
+
+		if archivo:
+			if not archivo.endswith(".xlsx"):
+				archivo += ".xlsx"
+			workbook.save(archivo)
+			c.cartel("INFORME","LISTADO GENERADO",1)
 		
 		
 	
@@ -480,8 +518,8 @@ class VentanaPrincipal(QMainWindow):
 			
 			
 			fila=fila+1
-
-
+		
+	
 	
 
 		
@@ -1087,17 +1125,41 @@ class VentanaPrincipal(QMainWindow):
 			
 			
 			c.cartel("INFORMACION","ASOCIADO REGISTRADO",1)
+			self.refresh_cantidad_asociados()
 			
 		else:
 			q.actualizar_asociado(razonsocial,registro,direccion,localidad,provincia,cp,cuit,contacto,email,telefono)
 
 			c.cartel("INFORMACION","ASOCIADO ACTUALIZADO",1)
-		self.traerasociados()	
+		#self.tb_asociados.clearContents()
+		self.traerasociados()
+
+		self.limpiar_formulario_asociados()
+
+		self.toggleCamposAbmAsociados(bloquear=False)
+
+		
+		
 
 		
 	def bajaSocio(self):
 		
 		pass
+	def limpiar_formulario_asociados(self):
+		self.txt_razonsocial_asociados.setText("")
+		self.txt_rncfs_asociados.setText("")
+		self.txt_direccion_asociados.setText("")
+		self.txt_localidad_asociados.setText("")
+		self.txt_provincia_asociados.setText("")
+		self.txt_cp_asociados.setText("")
+		self.txt_cuit_asociados.setText("")
+		self.txt_contacto_asociados.setText("")
+		self.txt_email_asociados.setText("")
+		self.txt_telefono_asociados.setText("")
+		
+		self.modo_edicion_abm=False
+		print(self.modo_edicion_abm)
+
 
 	def abmAsociadoSelected(self):
 		#MODULO ASOCIADOS
@@ -1118,10 +1180,11 @@ class VentanaPrincipal(QMainWindow):
 		
 		
 		self.toggleCamposAbmAsociados(bloquear=True)
+		print(self.modo_edicion_abm)
 
 	def toggleCamposAbmAsociados(self, bloquear=True):
 		
-		if bloquear == True:
+		if bloquear == True:# Si bloquear es True, se deshabilitan los campos; si es False, se habilitan
 			estado = False
 			self.txt_razonsocial_asociados.setStyleSheet("")
 			self.txt_rncfs_asociados.setStyleSheet("")
@@ -1133,11 +1196,13 @@ class VentanaPrincipal(QMainWindow):
 			self.txt_contacto_asociados.setStyleSheet("")
 			self.txt_email_asociados.setStyleSheet("")
 			self.txt_telefono_asociados.setStyleSheet("")
+			self.modo_edicion_abm= False
+			print(self.modo_edicion_abm)
 		
 
 
 		else:
-			estado = True  # Si bloquear es True, se deshabilitan los campos; si es False, se habilitan
+			estado = True  
 			self.txt_razonsocial_asociados.setStyleSheet("border: 1px solid pink")
 			self.txt_rncfs_asociados.setStyleSheet("border: 1px solid pink")
 			self.txt_direccion_asociados.setStyleSheet("border: 1px solid pink")
@@ -1149,6 +1214,7 @@ class VentanaPrincipal(QMainWindow):
 			self.txt_email_asociados.setStyleSheet("border: 1px solid pink")
 			self.txt_telefono_asociados.setStyleSheet("border: 1px solid pink")
 			self.modo_edicion_abm= True
+			print(self.modo_edicion_abm)
 			
 			
 
@@ -1163,7 +1229,39 @@ class VentanaPrincipal(QMainWindow):
 		self.txt_contacto_asociados.setEnabled(estado)
 		self.txt_email_asociados.setEnabled(estado)
 		self.txt_telefono_asociados.setEnabled(estado)
+
+	def refresh_cantidad_asociados(self):
+		cantidad_asociados=q.calcula_asociados()
+		self.signal_cant_asociados.setText(str(cantidad_asociados))
+	
+	def buscarAsociado(self):
+
+		if self.txt_busqueda_asociados:
+			if self.rb_razonSocial.isChecked():
+				razon_social = str("%"+self.txt_busqueda_asociados.text()+"%").upper()
+				listarecuperada=q.getasociadoBUSQUEDA(razon_social)
+			elif self.rb_localidad_asociados.isChecked():
+				localidad = str("%"+self.txt_busqueda_asociados.text()+"%").upper()
+				listarecuperada=q.getasociadoBUSQUEDAxloc(localidad)
+			elif self.rb_provincia_asociados.isChecked():
+				provincia = str("%"+self.txt_busqueda_asociados.text()+"%").upper()
+				listarecuperada=q.getasociadoBUSQUEDAxprov(provincia)
+
+
+
+			
+			
 		
+		totalfilas=len(listarecuperada)
+		self.tb_asociados.setRowCount(totalfilas)
+			
+		
+		fila =0
+		
+		for i in listarecuperada:
+			self.tb_asociados.setItem(fila,0,QtWidgets.QTableWidgetItem(str(i[0])))
+												
+			fila=fila+1	
 
 	def nuevagestion(self):
 		
@@ -2754,6 +2852,7 @@ if __name__ == '__main__':
 	MyWindow.refresh_estampillas()
 	MyWindow.ver_estampillas()
 	MyWindow.traerasociados()
+	MyWindow.refresh_cantidad_asociados()
 
 	MyWindow.show()
 	app.exec_()

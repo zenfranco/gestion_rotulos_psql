@@ -1,11 +1,11 @@
 DETALLE DE PEDIDO
 -----------------------------
-RAZON SOCIAL: EMIDELIA SOLARI HNOS.
-PEDIDO: 324
+RAZON SOCIAL: AGRONOMIA LAS ROSAS
+PEDIDO: 325
 -----------------------------
-RNCyFS: 206
-Fecha: 2024-11-14
-Rango: 86757001 - 86758000
-Serie: B
+RNCyFS: 6725
+Fecha: 2024-12-10
+Rango: 16230001 - 16231000
+Serie: A
 Cantidad: 1000
 -----------------------------

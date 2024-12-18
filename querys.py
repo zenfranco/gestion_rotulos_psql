@@ -175,6 +175,33 @@ class bdquery():
 			asociado=cur.fetchone()
 			cur.close()
 			return asociado
+		
+		def getasociadoBUSQUEDA(self,campo_busqueda):
+			cur=self.conexion.cursor()
+			cur.execute('''SELECT razon_social, num_reg, direccion,localidad,provincia,cp,cuit,fecha_alta,nsocio,email,telefono,contacto FROM ASOCIADOS where razon_social LIKE %s''',[campo_busqueda])
+			asociados=cur.fetchall()
+			cur.close()
+			return asociados
+		
+		def calcula_asociados(self):
+			cur=self.conexion.cursor()
+			cur.execute('''SELECT count(*) from asociados''')
+			cantidad = cur.fetchone()[0]
+			return cantidad
+			
+		def getasociadoBUSQUEDAxloc(self,campo_busqueda):
+			cur=self.conexion.cursor()
+			cur.execute('''SELECT razon_social, num_reg, direccion,localidad,provincia,cp,cuit,fecha_alta,nsocio,email,telefono,contacto FROM ASOCIADOS where localidad LIKE %s''',[campo_busqueda])
+			asociados=cur.fetchall()
+			cur.close()
+			return asociados
+		
+		def getasociadoBUSQUEDAxprov(self,campo_busqueda):
+			cur=self.conexion.cursor()
+			cur.execute('''SELECT razon_social, num_reg, direccion,localidad,provincia,cp,cuit,fecha_alta,nsocio,email,telefono,contacto FROM ASOCIADOS where provincia LIKE %s''',[campo_busqueda])
+			asociados=cur.fetchall()
+			cur.close()
+			return asociados
 			
 		def actualizaremanente(self,numpedido,inicioremanente):
 			cur=self.conexion.cursor()
@@ -198,6 +225,14 @@ class bdquery():
 			return listado
 			
 		def traerasociadosFILTRO(self,nombre):
+			cur=self.conexion.cursor()
+			cur.execute(''' select razon_social from asociados where razon_social LIKE %s order by razon_social''',([nombre]))
+			listado=cur.fetchall()
+			self.conexion.commit()
+			cur.close
+			return listado
+		
+		def recuperaSocio(self,nombre):
 			cur=self.conexion.cursor()
 			cur.execute(''' select razon_social from asociados where razon_social LIKE %s order by razon_social''',([nombre]))
 			listado=cur.fetchall()
@@ -781,14 +816,17 @@ class bdquery():
 			self.conexion.commit()
 			cur.close()
 			
-		def actualizar_asociado(self,razonSocial,rncyfs,direccion,localidad,provincia,cp,cuit,contacto,email,telefono):
-			cur=self.conexion.cursor()
-			cur.execute('''UPDATE asociados SET razon_social= %s, direccion =%s, localidad =%s, provincia =%s, cp =%s,cuit =%s,contacto =%s, email =%s, telefono =%s
-			WHERE num_reg =%s''',([razonSocial,direccion,localidad,provincia,cp,cuit,contacto,email,telefono,rncyfs]))
+		def actualizar_asociado(self, razonSocial, rncyfs, direccion, localidad, provincia, cp, cuit, contacto, email, telefono):
+			query = '''UPDATE asociados SET razon_social=%s, direccion=%s, localidad=%s, provincia=%s, cp=%s, 
+					cuit=%s, contacto=%s, email=%s, telefono=%s WHERE num_reg=%s'''
+			params = [razonSocial, direccion, localidad, provincia, cp, cuit, contacto, email, telefono, rncyfs]
 			
-			self.conexion.commit()
-			cur.close()
-			
+			# Usar una transacción agrupada
+			with self.conexion as conn:
+				cur = conn.cursor()
+				cur.execute(query, params)
+				cur.close()
+					
 			
 	
 			
